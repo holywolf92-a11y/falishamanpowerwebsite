@@ -37,13 +37,15 @@ export async function POST(req: NextRequest) {
   const email = String(form.get('email') || '').trim()
   const cv = form.get('cv')
   const consent = form.get('consent')
+  const cvRequired = String(form.get('cvRequired') || '') === '1'
+  const hasCv = cv instanceof File && cv.size > 0
 
   if (!fullName) return NextResponse.json({ error: 'Please enter your full name.' }, { status: 400 })
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
-  if (!(cv instanceof File) || cv.size === 0)
+  if (cvRequired && !hasCv)
     return NextResponse.json({ error: 'Please attach your CV.' }, { status: 400 })
-  if (cv.size > MAX_CV_BYTES)
+  if (hasCv && (cv as File).size > MAX_CV_BYTES)
     return NextResponse.json({ error: 'Your CV must be under 25 MB.' }, { status: 400 })
   if (!consent) return NextResponse.json({ error: 'Please accept the privacy consent.' }, { status: 400 })
 
@@ -53,7 +55,7 @@ export async function POST(req: NextRequest) {
     const v = form.get(key)
     if (typeof v === 'string' && v.trim()) out.append(key, v.trim())
   }
-  out.append('cv', cv, cv.name || 'cv')
+  if (hasCv) out.append('cv', cv as File, (cv as File).name || 'cv')
 
   try {
     const res = await fetch(`${PORTAL_API_URL}/api/public-portal/candidate`, {
