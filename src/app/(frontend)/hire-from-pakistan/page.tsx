@@ -191,7 +191,7 @@ export default function HireFromPakistanPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full">
-              <Link href="/contact">Request workforce <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              <Link href="/fill-a-vacancy">Request workforce <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full border-white/25 bg-transparent text-white hover:bg-white/10">
               <Link href="/jobs">For candidates</Link>
@@ -317,7 +317,7 @@ export default function HireFromPakistanPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/contact">Request workforce</Link></Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Request workforce</Link></Button>
             <Button asChild size="lg" variant="secondary" className="rounded-full"><a href="https://wa.me/923303333335" target="_blank" rel="noopener noreferrer">WhatsApp us</a></Button>
           </div>
         </div>

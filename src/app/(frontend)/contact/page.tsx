@@ -31,7 +31,10 @@ export default function ContactPage() {
               <a href={`mailto:${EMPLOYER_EMAIL}`} className="text-primary hover:underline">{EMPLOYER_EMAIL}</a>
             </p>
           </div>
-          <Button asChild className="mt-6"><a href={`mailto:${EMPLOYER_EMAIL}`}>Request talent</a></Button>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild><Link href="/fill-a-vacancy">Request talent</Link></Button>
+            <Button asChild variant="outline"><Link href="/partner-with-us">Partner with us</Link></Button>
+          </div>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-8">

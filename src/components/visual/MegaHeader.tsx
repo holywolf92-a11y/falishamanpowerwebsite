@@ -119,8 +119,8 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
         </Link>
 
         <nav className="hidden items-center gap-5 text-sm lg:flex xl:gap-6">
-          <Link href="/contact" className="whitespace-nowrap font-medium text-white/85 transition-colors hover:text-white">Partner With Us</Link>
-          <Link href="/contact" className="whitespace-nowrap font-medium text-white/85 transition-colors hover:text-white">Fill a Vacancy</Link>
+          <Link href="/partner-with-us" className="whitespace-nowrap font-medium text-white/85 transition-colors hover:text-white">Partner With Us</Link>
+          <Link href="/fill-a-vacancy" className="whitespace-nowrap font-medium text-white/85 transition-colors hover:text-white">Fill a Vacancy</Link>
           <Dropdown
             label="About Us"
             width="w-64"
@@ -159,8 +159,8 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
             <Link href="/hire-from-pakistan" className="rounded-full bg-primary px-4 py-2.5 text-center font-semibold text-primary-foreground">For Organizations</Link>
           </div>
           <MobileGroup title="Company" links={[
-            { label: 'Partner With Us', href: '/contact' },
-            { label: 'Fill a Vacancy', href: '/contact' },
+            { label: 'Partner With Us', href: '/partner-with-us' },
+            { label: 'Fill a Vacancy', href: '/fill-a-vacancy' },
             { label: 'Our Team', href: '/our-team' },
             { label: 'Blog', href: '/blog' },
             { label: 'Upload CV', href: '/upload-cv' },

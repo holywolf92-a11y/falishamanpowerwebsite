@@ -221,7 +221,7 @@ export default async function HomePage() {
                   variant="outline"
                   className="rounded-full border-white/25 bg-transparent text-white hover:bg-white/10"
                 >
-                  <Link href="/contact">Request workforce</Link>
+                  <Link href="/fill-a-vacancy">Request workforce</Link>
                 </Button>
               </div>
             </div>
@@ -567,7 +567,7 @@ export default async function HomePage() {
             </div>
           </Reveal>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary"><Link href="/contact">Hire talent</Link></Button>
+            <Button asChild size="lg" variant="secondary"><Link href="/fill-a-vacancy">Hire talent</Link></Button>
             <Button asChild size="lg" variant="secondary"><Link href="/jobs">Find a job</Link></Button>
           </div>
         </div>
