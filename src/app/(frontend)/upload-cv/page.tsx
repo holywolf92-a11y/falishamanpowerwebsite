@@ -1,6 +1,5 @@
 import type { Metadata } from 'next/types'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { UploadCvForm } from '@/components/UploadCvForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,20 +34,13 @@ export default function UploadCvPage() {
         ))}
       </ol>
 
-      <div className="mt-10 rounded-xl border border-border bg-secondary/50 p-8">
-        <h2 className="text-xl font-semibold">Ready to apply?</h2>
-        <p className="mt-2 text-muted-foreground">
-          Apply to a live role for the fastest response, or email your CV to{' '}
-          <a href={`mailto:${CAREERS_EMAIL}`} className="text-primary hover:underline">{CAREERS_EMAIL}</a>.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Button asChild><Link href="/jobs">Browse open jobs</Link></Button>
-          <Button asChild variant="outline"><a href={`mailto:${CAREERS_EMAIL}`}>Email your CV</a></Button>
-        </div>
+      <div className="mt-10">
+        <UploadCvForm />
       </div>
 
       <p className="mt-6 text-sm text-muted-foreground">
-        Tip: an in-browser CV upload form can be added here later (it needs cloud file storage once you deploy).
+        Prefer email? You can also send your CV to{' '}
+        <a href={`mailto:${CAREERS_EMAIL}`} className="text-primary hover:underline">{CAREERS_EMAIL}</a>.
       </p>
     </div>
   )
