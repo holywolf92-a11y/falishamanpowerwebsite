@@ -8,22 +8,29 @@ interface Props {
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
-
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
+  const { className, loading = 'eager' } = props
 
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-logo-light.svg"
-    />
+    <span
+      className={clsx('inline-flex items-center gap-2.5', className)}
+      aria-label="Falisha Manpower"
+    >
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white p-1 shadow-sm ring-1 ring-black/5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logos/falisha-mark.webp"
+          alt=""
+          aria-hidden
+          loading={loading}
+          width={36}
+          height={36}
+          className="h-full w-full object-contain"
+        />
+      </span>
+      <span className="inline-flex items-baseline gap-1.5 text-xl font-bold leading-none tracking-tight">
+        <span>Falisha</span>
+        <span className="font-medium text-primary">Manpower</span>
+      </span>
+    </span>
   )
 }

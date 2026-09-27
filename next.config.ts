@@ -12,6 +12,12 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
 const nextConfig: NextConfig = {
+  // Standalone server output for containerised (Railway/Docker) deploys — see Dockerfile.
+  output: 'standalone',
+  outputFileTracingRoot: path.resolve(dirname),
+  // Allow the in-app browser pane / local tooling to load dev resources over 127.0.0.1
+  // (Next 16 blocks cross-origin dev-resource requests by default, which 403s client chunks).
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
   // Temporarily required on Windows until Next.js fixes Turbopack Sass resolution.
   // See: https://github.com/vercel/next.js/issues/86431
   sassOptions: {

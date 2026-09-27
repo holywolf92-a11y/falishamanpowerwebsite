@@ -1,0 +1,219 @@
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { ArrowRight, TrendingUp, UserPlus } from 'lucide-react'
+import { Tilt3D } from './Tilt3D'
+
+export type HeroSlide = {
+  eyebrow: string
+  titleLead: string
+  titleAccent: string
+  titleRest?: string
+  subtitle: string
+}
+
+export type HeroShowcaseProps = {
+  slides: HeroSlide[]
+  photo: string
+  primary: { href: string; label: string }
+  secondary: { href: string; label: string }
+}
+
+function FloatCard({
+  children,
+  className,
+  delay = 0,
+  reduce,
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  reduce: boolean | null
+}) {
+  return (
+    <motion.div
+      className={className}
+      initial={reduce ? false : { opacity: 0, y: 12 }}
+      animate={reduce ? {} : { opacity: 1, y: [0, -9, 0] }}
+      transition={
+        reduce
+          ? undefined
+          : { opacity: { duration: 0.5, delay }, y: { duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay } }
+      }
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcaseProps) {
+  const reduce = useReducedMotion()
+  const [i, setI] = useState(0)
+
+  useEffect(() => {
+    if (reduce || slides.length <= 1) return
+    const t = setInterval(() => setI((v) => (v + 1) % slides.length), 5500)
+    return () => clearInterval(t)
+  }, [reduce, slides.length])
+
+  const s = slides[i] || slides[0]
+
+  return (
+    <section className="relative overflow-hidden bg-[var(--navy)] text-white">
+      {/* grid pattern */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          backgroundSize: '44px 44px',
+          maskImage: 'radial-gradient(120% 90% at 50% 0%, black, transparent 75%)',
+        }}
+      />
+      {/* teal glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 -top-24 h-[520px] w-[520px] rounded-full blur-3xl"
+        style={{ background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 45%, transparent), transparent 70%)' }}
+      />
+
+      <div className="container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+        {/* Left */}
+        <div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={i}
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? undefined : { opacity: 0, y: -12 }}
+              transition={{ duration: 0.4 }}
+            >
+              <p className="text-sm font-semibold text-white/70">{s.eyebrow}</p>
+              <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+                {s.titleLead}
+                <span className="text-primary">{s.titleAccent}</span>
+                {s.titleRest}
+              </h1>
+              <p className="mt-5 max-w-xl text-lg text-white/70">{s.subtitle}</p>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={primary.href}
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:brightness-110"
+            >
+              {primary.label}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href={secondary.href}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 font-medium text-white transition hover:bg-white/10"
+            >
+              {secondary.label}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+        </div>
+
+        {/* Right: 3D photo composition + floating cards */}
+        <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
+          <div className="relative pt-16" style={{ transformStyle: 'preserve-3d' }}>
+            {/* teal panel with concentric rings */}
+            <div
+              className="relative h-[340px] overflow-hidden rounded-[2rem] shadow-2xl md:h-[400px]"
+              style={{
+                background:
+                  'linear-gradient(165deg, color-mix(in oklch, var(--primary) 65%, white) 0%, var(--primary) 100%)',
+              }}
+            >
+              <svg
+                viewBox="0 0 400 400"
+                className="absolute left-1/2 top-1/2 h-[115%] w-auto -translate-x-1/2 -translate-y-1/2"
+                aria-hidden
+              >
+                <circle cx="200" cy="200" r="160" fill="none" stroke="white" strokeWidth="26" opacity="0.28" />
+                <circle cx="200" cy="200" r="104" fill="none" stroke="white" strokeWidth="16" opacity="0.24" />
+                <circle cx="200" cy="200" r="58" fill="none" stroke="white" strokeWidth="10" opacity="0.2" />
+              </svg>
+            </div>
+
+            {/* person cutout — pops above the panel */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center"
+              style={{ transform: 'translateZ(50px)' }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo}
+                alt="Recruitment professional with laptop"
+                className="h-[430px] w-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.45)] md:h-[500px]"
+                loading="eager"
+              />
+            </div>
+
+          {/* Card: market chart */}
+          <div className="absolute -left-4 top-0 md:-left-10" style={{ transform: 'translateZ(30px)' }}>
+          <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-primary" />
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Market Static</span>
+            </div>
+            <div className="mt-2 flex items-baseline justify-between">
+              <span className="text-sm font-semibold">Course overview</span>
+              <span className="text-sm font-bold text-primary">+15%</span>
+            </div>
+            <svg viewBox="0 0 200 56" className="mt-2 w-full" fill="none">
+              <polyline
+                points="0,44 25,40 50,46 75,30 100,34 125,16 150,24 175,10 200,18"
+                stroke="var(--primary)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="125" cy="16" r="4" fill="var(--primary)" />
+            </svg>
+            <div className="mt-1 flex justify-between text-[9px] text-slate-400">
+              <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span>
+            </div>
+          </FloatCard>
+          </div>
+
+          {/* Card: new employees */}
+          <div className="absolute -right-3 top-10 md:-right-8" style={{ transform: 'translateZ(30px)' }}>
+          <FloatCard reduce={reduce} delay={0.35} className="w-44 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+            <div className="flex items-center justify-between">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
+                <UserPlus className="h-4 w-4" />
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-600">
+                <TrendingUp className="h-3 w-3" /> 12%
+              </span>
+            </div>
+            <p className="mt-2 text-xs text-slate-500">New Employees</p>
+            <p className="text-2xl font-bold">1,248</p>
+          </FloatCard>
+          </div>
+
+          {/* Card: job qualification */}
+          <div className="absolute bottom-8 -right-2 md:-right-6" style={{ transform: 'translateZ(90px)' }}>
+          <FloatCard reduce={reduce} delay={0.6} className="w-60 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+            <div className="flex items-center justify-between text-sm">
+              <span className="font-semibold">Job Qualification</span>
+              <span className="font-bold text-primary">77%</span>
+            </div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+              <div className="h-full rounded-full bg-primary" style={{ width: '77%' }} />
+            </div>
+          </FloatCard>
+          </div>
+          </div>
+        </Tilt3D>
+      </div>
+    </section>
+  )
+}

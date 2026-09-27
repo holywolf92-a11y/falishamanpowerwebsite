@@ -3,12 +3,20 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { migrations } from './migrations'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Jobs } from './collections/Jobs'
+import { Countries } from './collections/Countries'
+import { Services } from './collections/Services'
+import { Industries } from './collections/Industries'
+import { Team } from './collections/Team'
+import { Testimonials } from './collections/Testimonials'
+import { Applications } from './collections/Applications'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -58,11 +66,27 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: postgresAdapter({
+    // Dev auto-pushes the schema; production (NODE_ENV=production, e.g. Railway) never pushes,
+    // so it runs these migrations automatically on boot to create/sync the schema.
+    prodMigrations: migrations,
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [
+    Pages,
+    Posts,
+    Jobs,
+    Countries,
+    Services,
+    Industries,
+    Team,
+    Testimonials,
+    Applications,
+    Media,
+    Categories,
+    Users,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,
