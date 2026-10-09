@@ -170,7 +170,7 @@ export function TestimonialsCarousel({ items }: TestimonialsCarouselProps) {
                   className={cn(
                     'h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                     isActive
-                      ? 'w-6 bg-[var(--gold)]'
+                      ? 'w-6 bg-primary'
                       : 'w-2.5 bg-border hover:bg-muted-foreground/40',
                   )}
                 />

@@ -32,8 +32,8 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button asChild><Link href="/fill-a-vacancy">Request talent</Link></Button>
-            <Button asChild variant="outline"><Link href="/partner-with-us">Partner with us</Link></Button>
+            <Button asChild className="rounded-full"><Link href="/fill-a-vacancy">Request talent</Link></Button>
+            <Button asChild variant="outline" className="rounded-full"><Link href="/partner-with-us">Partner with us</Link></Button>
           </div>
         </div>
 
@@ -48,8 +48,8 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button asChild><Link href="/jobs">Browse jobs</Link></Button>
-            <Button asChild variant="outline"><Link href="/upload-cv">Send your CV</Link></Button>
+            <Button asChild className="rounded-full"><Link href="/jobs">Browse jobs</Link></Button>
+            <Button asChild variant="outline" className="rounded-full"><Link href="/upload-cv">Send your CV</Link></Button>
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ export const RegionMarkets: React.FC<RegionMarketsProps> = ({ regions, note }) =
             className="bg-card rounded-2xl p-6 ring-1 ring-border shadow-sm hover:shadow-md transition"
           >
             <h3 className="font-bold text-lg text-foreground">{r.region}</h3>
-            <div className="h-1 w-8 bg-[var(--gold)] rounded-full mt-1 mb-4" aria-hidden="true" />
+            <div className="h-1 w-8 bg-primary rounded-full mt-1 mb-4" aria-hidden="true" />
             <ul className="flex flex-wrap gap-2">
               {r.countries.map((country) => (
                 <li

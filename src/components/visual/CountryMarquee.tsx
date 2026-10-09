@@ -23,7 +23,7 @@ function CountryTile({ item }: { item: CountryMarqueeItem }) {
   const inner = (
     <div className="flex h-24 w-52 shrink-0 flex-col items-center justify-center gap-2 rounded-2xl bg-white shadow-sm ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/40">
       <Flag name={item.name} code={item.code} className="h-7 w-11 rounded-[3px] shadow-sm" />
-      <span className="max-w-[11rem] truncate text-sm font-semibold text-slate-800">{item.name}</span>
+      <span className="max-w-[11rem] truncate text-sm font-semibold text-navy">{item.name}</span>
     </div>
   )
   return item.href ? <Link href={item.href}>{inner}</Link> : inner

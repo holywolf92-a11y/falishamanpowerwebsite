@@ -75,12 +75,12 @@ export type FeatureItem = { title: string; desc: string }
 export function FeatureGrid({
   items,
   columns = 2,
-  accent = 'teal',
+  accent = 'primary',
   className,
 }: {
   items: FeatureItem[]
   columns?: 2 | 3
-  accent?: 'teal' | 'gold'
+  accent?: 'primary' | 'gold'
   className?: string
 }) {
   const badge =

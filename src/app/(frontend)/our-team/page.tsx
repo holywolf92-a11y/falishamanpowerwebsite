@@ -39,7 +39,7 @@ export default async function TeamPage() {
       {/* Hero banner */}
       <section className="border-b border-border bg-[var(--navy)] py-16 text-white md:py-20">
         <div className="container">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Our people</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-gold">Our people</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Meet the team</h1>
           <p className="mt-4 max-w-2xl text-white/70">
             The specialists behind Falisha Manpower — across business development, recruitment, visa

@@ -567,8 +567,8 @@ export default async function HomePage() {
             </div>
           </Reveal>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary"><Link href="/fill-a-vacancy">Hire talent</Link></Button>
-            <Button asChild size="lg" variant="secondary"><Link href="/jobs">Find a job</Link></Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Hire talent</Link></Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/jobs">Find a job</Link></Button>
           </div>
         </div>
       </section>

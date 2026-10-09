@@ -162,7 +162,7 @@ export const CredentialsOrbit: React.FC<CredentialsOrbitProps> = ({
       {/* RIGHT: why employers choose us */}
       <div className="rounded-2xl bg-card p-7 shadow-sm ring-1 ring-border">
         <h3 className="text-2xl font-bold">
-          <span className="text-[var(--gold)]">{headingFirstWord}</span>
+          <span className="text-primary">{headingFirstWord}</span>
           {headingRest ? <span className="text-foreground"> {headingRest}</span> : null}
         </h3>
 
@@ -177,7 +177,7 @@ export const CredentialsOrbit: React.FC<CredentialsOrbitProps> = ({
 
         <Button
           asChild
-          className="mt-7 rounded-full bg-[var(--gold)] px-7 font-semibold text-[var(--navy)] hover:bg-[var(--gold)] hover:brightness-105"
+          className="mt-7 rounded-full bg-primary px-7 font-semibold text-primary-foreground hover:bg-primary/90"
         >
           <Link href={contactHref}>Contact Us</Link>
         </Button>

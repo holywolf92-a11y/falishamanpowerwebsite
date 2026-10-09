@@ -161,7 +161,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
           <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-primary" />
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Market Static</span>
+              <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">Market Static</span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
               <span className="text-sm font-semibold">Course overview</span>
@@ -177,7 +177,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               />
               <circle cx="125" cy="16" r="4" fill="var(--primary)" />
             </svg>
-            <div className="mt-1 flex justify-between text-[9px] text-slate-400">
+            <div className="mt-1 flex justify-between text-[9px] text-muted-foreground">
               <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span>
             </div>
           </FloatCard>
@@ -190,11 +190,11 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
                 <UserPlus className="h-4 w-4" />
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-600">
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
                 <TrendingUp className="h-3 w-3" /> 12%
               </span>
             </div>
-            <p className="mt-2 text-xs text-slate-500">New Employees</p>
+            <p className="mt-2 text-xs text-muted-foreground">New Employees</p>
             <p className="text-2xl font-bold">1,248</p>
           </FloatCard>
           </div>
@@ -206,7 +206,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               <span className="font-semibold">Job Qualification</span>
               <span className="font-bold text-primary">77%</span>
             </div>
-            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
               <div className="h-full rounded-full bg-primary" style={{ width: '77%' }} />
             </div>
           </FloatCard>

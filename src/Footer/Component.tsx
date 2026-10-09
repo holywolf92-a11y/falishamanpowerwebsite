@@ -146,7 +146,7 @@ export async function Footer() {
             <Link href="/privacy" className="text-white/60 transition-colors hover:text-white">
               Privacy &amp; Cookies
             </Link>
-            <span className="hidden text-white/45 sm:inline">OEP Licence No. 4035</span>
+            <span className="hidden font-medium text-gold sm:inline">OEP Licence No. 4035</span>
             <ThemeSelector />
           </div>
         </div>

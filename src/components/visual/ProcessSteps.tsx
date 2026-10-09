@@ -84,7 +84,7 @@ export function ProcessSteps({ steps = DEFAULT_STEPS, className }: ProcessStepsP
                 )}
               </div>
               <span
-                className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full border-2 border-background bg-[var(--gold)] text-xs font-bold text-primary-foreground shadow-sm"
+                className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full border-2 border-background bg-primary text-xs font-bold text-primary-foreground shadow-sm"
                 aria-hidden="true"
               >
                 {index + 1}
