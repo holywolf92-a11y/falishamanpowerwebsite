@@ -23,6 +23,3 @@ node_modules/
 
 # TypeScript incremental build cache
 tsconfig.tsbuildinfo
-
-# Migrated WP post data (regenerate with scripts/fetch_wp_posts.py)
-scripts/wp-posts.json

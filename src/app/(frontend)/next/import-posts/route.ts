@@ -55,10 +55,6 @@ function blocksToLexical(blocks: Block[]) {
 }
 
 export async function GET(req: Request) {
-  if (process.env.NODE_ENV === 'production') {
-    return Response.json({ error: 'Import is disabled in production.' }, { status: 403 })
-  }
-
   const url = new URL(req.url)
   const limit = url.searchParams.get('limit') ? Number(url.searchParams.get('limit')) : undefined
   const reset = url.searchParams.get('reset') === '1'
@@ -73,6 +69,15 @@ export async function GET(req: Request) {
   if (limit) posts = posts.slice(0, limit)
 
   const payload = await getPayload({ config })
+
+  // In production this is gated behind an authenticated admin session.
+  if (process.env.NODE_ENV === 'production') {
+    const { user } = await payload.auth({ headers: req.headers })
+    if (!user) {
+      return Response.json({ error: 'Unauthorized — log in at /admin first.' }, { status: 401 })
+    }
+  }
+
   const create = payload.create.bind(payload) as (args: unknown) => Promise<{ id: number | string }>
 
   if (reset) {

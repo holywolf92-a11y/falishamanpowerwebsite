@@ -28,12 +28,17 @@ function rt(paragraphs: string[]) {
   }
 }
 
-export async function GET() {
-  if (process.env.NODE_ENV === 'production') {
-    return Response.json({ error: 'Seeding is disabled in production.' }, { status: 403 })
-  }
-
+export async function GET(req: Request) {
   const payload = await getPayload({ config })
+
+  // In production this is gated behind an authenticated admin session: the
+  // logged-in user triggers it from their browser (no credentials leave Railway).
+  if (process.env.NODE_ENV === 'production') {
+    const { user } = await payload.auth({ headers: req.headers })
+    if (!user) {
+      return Response.json({ error: 'Unauthorized — log in at /admin first.' }, { status: 401 })
+    }
+  }
 
   // Loose alias: this dev seed passes published-style data that trips Payload's strict
   // create() generics (draft/publish overloads). Runtime behaviour is unchanged.
