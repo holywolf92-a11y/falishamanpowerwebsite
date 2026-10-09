@@ -1,7 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
+import wpPostsData from '@/data/wp-posts.json'
 
 // Dev-only importer for the 170 blog posts migrated from falishamanpower.com.
 // Reads scripts/wp-posts.json (produced by scratchpad/fetch_wp_posts.py) and
@@ -59,13 +58,7 @@ export async function GET(req: Request) {
   const limit = url.searchParams.get('limit') ? Number(url.searchParams.get('limit')) : undefined
   const reset = url.searchParams.get('reset') === '1'
 
-  let raw: string
-  try {
-    raw = await readFile(path.join(process.cwd(), 'scripts', 'wp-posts.json'), 'utf-8')
-  } catch {
-    return Response.json({ error: 'scripts/wp-posts.json not found. Run the fetcher first.' }, { status: 404 })
-  }
-  let posts = JSON.parse(raw) as WpPost[]
+  let posts = wpPostsData as unknown as WpPost[]
   if (limit) posts = posts.slice(0, limit)
 
   const payload = await getPayload({ config })
