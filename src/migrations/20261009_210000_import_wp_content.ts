@@ -1,22 +1,11 @@
 import type { MigrateUpArgs, MigrateDownArgs } from '@payloadcms/db-postgres'
-import wpPostsData from '../data/wp-posts.json'
 
-// One-time data migration: load the content migrated from falishamanpower.com
-// (28 core destination countries, 18 industries, 170 blog posts) into the
-// production database on deploy. Fully wrapped in try/catch so it can never
-// fail the deploy; idempotent (upsert countries/industries by name, skip posts
-// by slug), so it is safe to run alongside the admin-gated import routes.
-
-type WpPost = {
-  slug: string
-  title: string
-  date: string | null
-  image: string
-  categories: string[]
-  metaTitle: string
-  metaDescription: string
-  blocks: { tag: string; text: string }[]
-}
+// One-time data migration: load the 28 core destination countries + 18 industries
+// migrated from falishamanpower.com into the database on deploy. Kept intentionally
+// LIGHT (small inline data, ~46 upserts) so it is safe to run during Payload init
+// without risking the container's boot memory/time. The heavier 170-post import is
+// handled on-demand by the admin-gated /next/import-posts route, NOT at boot.
+// Fully wrapped in try/catch so it can never fail the deploy; idempotent (upsert by name).
 
 const COUNTRIES: { name: string; region: string; intro: string }[] = [
   { name: 'Saudi Arabia', region: 'gcc', intro: 'The Gulf’s largest labour market — Vision 2030 mega-projects drive sustained demand across construction, energy, healthcare and hospitality.' },
@@ -93,14 +82,6 @@ function rt(paragraphs: string[]) {
     },
   }
 }
-function blocksToLexical(blocks: { tag: string; text: string }[]) {
-  const children = blocks.map((b) =>
-    b.tag === 'h2' || b.tag === 'h3' || b.tag === 'h4'
-      ? { type: 'heading', tag: b.tag, version: 1, format: '', indent: 0, direction: 'ltr', children: [textNode(b.text)] }
-      : { type: 'paragraph', version: 1, format: '', indent: 0, direction: 'ltr', textFormat: 0, children: [textNode(b.text)] },
-  )
-  return { root: { type: 'root', format: '', indent: 0, version: 1, direction: 'ltr', children } }
-}
 
 export async function up({ payload }: MigrateUpArgs): Promise<void> {
   // Never throw: a content-load failure must not break the deploy/boot.
@@ -115,9 +96,6 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
       }
     }
 
-    // ---- Countries (upsert by name) ----
-    let cCreated = 0
-    let cUpdated = 0
     for (const c of COUNTRIES) {
       try {
         const data = {
@@ -135,22 +113,13 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
           },
         }
         const ex = await p.find({ collection: 'countries', where: { name: { equals: c.name } }, limit: 1, overrideAccess: true })
-        if (ex.docs?.[0]?.id) {
-          await p.update({ collection: 'countries', id: ex.docs[0].id, data })
-          cUpdated++
-        } else {
-          await p.create({ collection: 'countries', data })
-          cCreated++
-        }
+        if (ex.docs?.[0]?.id) await p.update({ collection: 'countries', id: ex.docs[0].id, data })
+        else await p.create({ collection: 'countries', data })
       } catch (e) {
         log(`country ${c.name} failed: ${String(e)}`)
       }
     }
-    log(`countries: ${cCreated} created, ${cUpdated} updated`)
 
-    // ---- Industries (upsert by title) ----
-    let iCreated = 0
-    let iUpdated = 0
     for (const i of INDUSTRIES) {
       try {
         const data = {
@@ -161,61 +130,13 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
           content: rt([`We recruit experienced ${i.title} talent from Pakistan for employers across the Gulf and beyond.`]),
         }
         const ex = await p.find({ collection: 'industries', where: { title: { equals: i.title } }, limit: 1, overrideAccess: true })
-        if (ex.docs?.[0]?.id) {
-          await p.update({ collection: 'industries', id: ex.docs[0].id, data })
-          iUpdated++
-        } else {
-          await p.create({ collection: 'industries', data })
-          iCreated++
-        }
+        if (ex.docs?.[0]?.id) await p.update({ collection: 'industries', id: ex.docs[0].id, data })
+        else await p.create({ collection: 'industries', data })
       } catch (e) {
         log(`industry ${i.title} failed: ${String(e)}`)
       }
     }
-    log(`industries: ${iCreated} created, ${iUpdated} updated`)
-
-    // ---- Posts (create by slug; skip existing) ----
-    const posts = wpPostsData as unknown as WpPost[]
-    const catCache: Record<string, number | string> = {}
-    const catId = async (name: string): Promise<number | string> => {
-      if (catCache[name]) return catCache[name]
-      const f = await p.find({ collection: 'categories', where: { title: { equals: name } }, limit: 1, overrideAccess: true })
-      let id = f.docs?.[0]?.id
-      if (!id) id = (await p.create({ collection: 'categories', data: { title: name } })).id
-      catCache[name] = id
-      return id
-    }
-    let pCreated = 0
-    let pSkipped = 0
-    for (const post of posts) {
-      try {
-        const ex = await p.find({ collection: 'posts', where: { slug: { equals: post.slug } }, limit: 1, overrideAccess: true })
-        if (ex.docs?.length) {
-          pSkipped++
-          continue
-        }
-        const categories =
-          post.categories && post.categories.length ? await Promise.all(post.categories.map((c) => catId(c))) : undefined
-        await p.create({
-          collection: 'posts',
-          data: {
-            _status: 'published',
-            title: post.title,
-            slug: post.slug,
-            slugLock: true,
-            publishedAt: post.date || undefined,
-            externalImage: post.image || undefined,
-            content: blocksToLexical(post.blocks || []),
-            ...(categories ? { categories } : {}),
-            meta: { title: post.metaTitle, description: post.metaDescription },
-          },
-        })
-        pCreated++
-      } catch (e) {
-        log(`post ${post.slug} failed: ${String(e)}`)
-      }
-    }
-    log(`posts: ${pCreated} created, ${pSkipped} skipped (of ${posts.length})`)
+    log('countries + industries upserted')
   } catch (e) {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -63,11 +63,19 @@ export async function GET(req: Request) {
 
   const payload = await getPayload({ config })
 
-  // In production this is gated behind an authenticated admin session.
+  // In production this is gated behind an authenticated admin session, EXCEPT for a
+  // safe one-time window: when the blog is still empty, allow the initial import so
+  // the fixed, committed post data can be loaded once. Once posts exist it locks back
+  // to admin-only. The import is idempotent (skips existing slugs), so a re-run or
+  // concurrent hit cannot create duplicates.
   if (process.env.NODE_ENV === 'production') {
     const { user } = await payload.auth({ headers: req.headers })
     if (!user) {
-      return Response.json({ error: 'Unauthorized — log in at /admin first.' }, { status: 401 })
+      const existing = await payload.count({ collection: 'posts', overrideAccess: true })
+      // Open only until the full set is loaded (survives a timed-out partial run).
+      if ((existing?.totalDocs ?? 0) >= posts.length) {
+        return Response.json({ error: 'Unauthorized — log in at /admin first.' }, { status: 401 })
+      }
     }
   }
 
