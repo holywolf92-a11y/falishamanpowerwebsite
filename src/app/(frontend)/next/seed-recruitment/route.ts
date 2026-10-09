@@ -60,16 +60,42 @@ export async function GET() {
     await clear(c)
   }
 
-  // ---- Countries ----
+  // ---- Countries (core destination markets migrated from falishamanpower.com) ----
   const countryData: { name: string; region: string; intro: string }[] = [
-    { name: 'Saudi Arabia', region: 'gcc', intro: 'The Gulf’s largest labour market, driven by Vision 2030 mega-projects across construction, energy and healthcare.' },
-    { name: 'United Arab Emirates', region: 'gcc', intro: 'A diversified economy hiring across hospitality, healthcare, IT, logistics and construction.' },
-    { name: 'Qatar', region: 'gcc', intro: 'Sustained infrastructure and energy investment creating demand for engineers and skilled trades.' },
-    { name: 'Kuwait', region: 'gcc', intro: 'Oil, construction and services roles for skilled and professional candidates.' },
-    { name: 'Oman', region: 'gcc', intro: 'Growing demand in oil & gas, logistics and hospitality.' },
+    // Gulf / GCC
+    { name: 'Saudi Arabia', region: 'gcc', intro: 'The Gulf’s largest labour market — Vision 2030 mega-projects drive sustained demand across construction, energy, healthcare and hospitality.' },
+    { name: 'United Arab Emirates', region: 'gcc', intro: 'A diversified economy hiring Pakistani talent across hospitality, healthcare, IT, logistics and construction.' },
+    { name: 'Qatar', region: 'gcc', intro: 'Ongoing infrastructure and energy investment creating demand for engineers, technicians and skilled trades.' },
+    { name: 'Kuwait', region: 'gcc', intro: 'Oil, construction and services roles for skilled and professional Pakistani candidates.' },
+    { name: 'Oman', region: 'gcc', intro: 'Growing opportunities in oil & gas, logistics, construction and hospitality.' },
     { name: 'Bahrain', region: 'gcc', intro: 'A regional financial and industrial hub hiring across banking, construction and services.' },
-    { name: 'Malaysia', region: 'southeast-asia', intro: 'Manufacturing, construction and services opportunities across Southeast Asia.' },
-    { name: 'Romania', region: 'europe', intro: 'European placements in construction, manufacturing and logistics.' },
+    // Europe
+    { name: 'Turkey', region: 'europe', intro: 'A key specialty market for Falisha — manufacturing, construction, textiles and energy projects hiring skilled Pakistani workers.' },
+    { name: 'Romania', region: 'europe', intro: 'European placements in construction, manufacturing, logistics and welding trades.' },
+    { name: 'Poland', region: 'europe', intro: 'Growing demand for construction, warehouse, manufacturing and logistics workers.' },
+    { name: 'Croatia', region: 'europe', intro: 'Construction, tourism and hospitality roles along the Adriatic coast.' },
+    { name: 'Hungary', region: 'europe', intro: 'Manufacturing, automotive and logistics opportunities in Central Europe.' },
+    { name: 'Serbia', region: 'europe', intro: 'Construction and infrastructure projects hiring skilled trades and labour.' },
+    { name: 'Portugal', region: 'europe', intro: 'Agriculture, construction and hospitality placements with EU work rights.' },
+    { name: 'Greece', region: 'europe', intro: 'Agriculture, tourism and construction roles across the mainland and islands.' },
+    { name: 'Germany', region: 'europe', intro: 'Skilled and professional roles in engineering, healthcare, IT and the trades.' },
+    { name: 'Italy', region: 'europe', intro: 'Agriculture, manufacturing, hospitality and caregiving opportunities.' },
+    { name: 'Cyprus', region: 'europe', intro: 'Hospitality, construction and services roles in the eastern Mediterranean.' },
+    { name: 'Lithuania', region: 'europe', intro: 'Transport, logistics, manufacturing and construction placements in the Baltics.' },
+    // East Asia
+    { name: 'Japan', region: 'east-asia', intro: 'Skilled-worker and technical-intern programmes in manufacturing, caregiving and construction.' },
+    { name: 'South Korea', region: 'east-asia', intro: 'EPS-scheme manufacturing, agriculture and industrial opportunities.' },
+    // Southeast Asia
+    { name: 'Malaysia', region: 'southeast-asia', intro: 'Manufacturing, construction, plantation and services opportunities across Malaysia.' },
+    // Central Asia / other
+    { name: 'Azerbaijan', region: 'other', intro: 'Oil & gas, construction and services roles in the Caspian region.' },
+    { name: 'Kazakhstan', region: 'other', intro: 'Energy, construction and industrial projects across Central Asia.' },
+    { name: 'Uzbekistan', region: 'other', intro: 'Construction, textiles and infrastructure development roles.' },
+    { name: 'Georgia', region: 'other', intro: 'Construction, hospitality and services opportunities in the Caucasus.' },
+    // MENA
+    { name: 'Iraq', region: 'mena', intro: 'Oil, construction and reconstruction projects hiring skilled trades and engineers.' },
+    { name: 'Jordan', region: 'mena', intro: 'Manufacturing, construction and hospitality placements.' },
+    { name: 'Libya', region: 'mena', intro: 'Oil & gas, construction and infrastructure opportunities.' },
   ]
   const countries: Record<string, number | string> = {}
   for (const c of countryData) {
@@ -80,7 +106,14 @@ export async function GET() {
         name: c.name,
         region: c.region as never,
         intro: c.intro,
-        content: rt([`Falisha Manpower is a licensed recruitment partner placing skilled Pakistani professionals with employers in ${c.name}.`]) as never,
+        content: rt([
+          c.intro,
+          `Falisha Manpower is a BEOE-licensed Overseas Employment Promoter (OEP No. 4035) placing skilled, semi-skilled and professional Pakistani workers with verified employers in ${c.name} — managing sourcing, screening, documentation, visas and deployment end to end.`,
+        ]) as never,
+        meta: {
+          title: `Recruitment Agency for ${c.name} in Pakistan | Falisha Manpower`,
+          description: c.intro.slice(0, 155),
+        },
       },
     })
     countries[c.name] = doc.id
@@ -88,14 +121,24 @@ export async function GET() {
 
   // ---- Industries & Professions ----
   const industryData: { title: string; kind: string; summary: string }[] = [
-    { title: 'Construction', kind: 'industry', summary: 'Civil, MEP and finishing trades for large-scale Gulf projects.' },
-    { title: 'Oil & Gas', kind: 'industry', summary: 'Upstream to downstream technical and safety roles.' },
-    { title: 'Healthcare', kind: 'industry', summary: 'Nurses, physicians and allied health professionals.' },
-    { title: 'Information Technology', kind: 'industry', summary: 'Software, infrastructure and support specialists.' },
-    { title: 'Hospitality', kind: 'industry', summary: 'Hotels, F&B and facilities staff.' },
+    { title: 'Construction', kind: 'industry', summary: 'Civil, MEP and finishing trades for large-scale Gulf and European projects.' },
+    { title: 'Oil & Gas', kind: 'industry', summary: 'Upstream to downstream technical, mechanical and safety roles.' },
+    { title: 'Healthcare', kind: 'industry', summary: 'Nurses, physicians, paramedics and allied health professionals.' },
+    { title: 'Information Technology', kind: 'industry', summary: 'Software, infrastructure, telecom and IT support specialists.' },
+    { title: 'Hospitality', kind: 'industry', summary: 'Hotels, restaurants, F&B and facilities staff.' },
     { title: 'Engineering', kind: 'profession', summary: 'Civil, mechanical, electrical and industrial engineers.' },
     { title: 'Accountancy & Finance', kind: 'profession', summary: 'Accountants, analysts and finance managers.' },
-    { title: 'Sales', kind: 'profession', summary: 'Field, retail and B2B sales professionals.' },
+    { title: 'Textile', kind: 'industry', summary: 'Garment, spinning, weaving and quality-control staff.' },
+    { title: 'Banking & Finance', kind: 'industry', summary: 'Banking operations, sales and back-office professionals.' },
+    { title: 'Security', kind: 'industry', summary: 'Trained security guards, supervisors and safety officers.' },
+    { title: 'Agriculture', kind: 'industry', summary: 'Farm, greenhouse, dairy and agri-processing workers.' },
+    { title: 'Power & Energy', kind: 'industry', summary: 'Power generation, transmission and renewable-energy technicians.' },
+    { title: 'Education', kind: 'industry', summary: 'Teachers, lecturers and academic support staff.' },
+    { title: 'FMCG', kind: 'industry', summary: 'Production, packaging, sales and distribution staff for fast-moving consumer goods.' },
+    { title: 'Livestock', kind: 'industry', summary: 'Dairy, poultry and livestock-farm workers and supervisors.' },
+    { title: 'Steel Fabrication', kind: 'industry', summary: 'Fabricators, welders, fitters and structural steel trades.' },
+    { title: 'Transportation', kind: 'industry', summary: 'Drivers, logistics, fleet and warehouse personnel.' },
+    { title: 'Travel & Tourism', kind: 'industry', summary: 'Travel, tour, aviation and tourism-services staff.' },
   ]
   const industries: Record<string, number | string> = {}
   for (const i of industryData) {
