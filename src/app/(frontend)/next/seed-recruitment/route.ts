@@ -32,7 +32,7 @@ export async function GET(req: Request) {
   const payload = await getPayload({ config })
 
   // In production this is gated behind an authenticated admin session: the
-  // logged-in user triggers it from their browser (no credentials leave Railway).
+  // logged-in site owner triggers it from their browser (no credentials leave Railway).
   if (process.env.NODE_ENV === 'production') {
     const { user } = await payload.auth({ headers: req.headers })
     if (!user) {
