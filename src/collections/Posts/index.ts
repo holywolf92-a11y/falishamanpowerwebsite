@@ -42,6 +42,7 @@ export const Posts: CollectionConfig<'posts'> = {
     title: true,
     slug: true,
     categories: true,
+    externalImage: true,
     meta: {
       image: true,
       description: true,
@@ -80,6 +81,15 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'heroImage',
               type: 'upload',
               relationTo: 'media',
+            },
+            {
+              name: 'externalImage',
+              type: 'text',
+              label: 'External image URL',
+              admin: {
+                description:
+                  'Hotlinked hero image URL, used when no heroImage is uploaded (e.g. posts migrated from the old site).',
+              },
             },
             {
               name: 'content',

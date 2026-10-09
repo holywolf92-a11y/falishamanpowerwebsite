@@ -242,6 +242,10 @@ export interface Post {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
+  /**
+   * Hotlinked hero image URL, used when no heroImage is uploaded (e.g. posts migrated from the old site).
+   */
+  externalImage?: string | null;
   content: {
     root: {
       type: string;
@@ -1509,6 +1513,7 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
+  externalImage?: T;
   content?: T;
   relatedPosts?: T;
   categories?: T;

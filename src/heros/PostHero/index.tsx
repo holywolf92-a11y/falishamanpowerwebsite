@@ -9,7 +9,7 @@ import { formatAuthors } from '@/utilities/formatAuthors'
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, populatedAuthors, publishedAt, title } = post
+  const { categories, heroImage, externalImage, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
@@ -63,8 +63,18 @@ export const PostHero: React.FC<{
         </div>
       </div>
       <div className="min-h-[80vh] select-none">
-        {heroImage && typeof heroImage !== 'string' && (
+        {heroImage && typeof heroImage !== 'string' ? (
           <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
+        ) : externalImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={externalImage}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 -z-10 bg-[var(--navy)]" />
         )}
         <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-linear-to-t from-black to-transparent" />
       </div>
