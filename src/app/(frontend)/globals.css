@@ -223,98 +223,52 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
-/* ===== Falisha Manpower brand palette (deep emerald + warm gold) ===== */
+/* ===== Falisha Manpower brand palette — royal blue + amber ===== */
 :root {
-  --background: oklch(98.6% 0.006 95deg);
-  --foreground: oklch(22% 0.03 165deg);
+  --background: oklch(99% 0.003 264deg);
+  --foreground: oklch(23% 0.03 264deg);
   --card: oklch(100% 0 0deg);
-  --card-foreground: oklch(22% 0.03 165deg);
+  --card-foreground: oklch(23% 0.03 264deg);
   --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(22% 0.03 165deg);
-  --primary: oklch(45% 0.1 164deg);
-  --primary-foreground: oklch(98.5% 0.008 95deg);
-  --secondary: oklch(96% 0.012 95deg);
-  --secondary-foreground: oklch(30% 0.03 165deg);
-  --muted: oklch(96% 0.01 95deg);
-  --muted-foreground: oklch(48% 0.02 160deg);
-  --accent: oklch(95% 0.03 164deg);
-  --accent-foreground: oklch(35% 0.06 164deg);
-  --border: oklch(90% 0.012 95deg);
-  --input: oklch(90% 0.012 95deg);
-  --ring: oklch(45% 0.1 164deg);
-  --gold: oklch(60% 0.115 72deg);
+  --popover-foreground: oklch(23% 0.03 264deg);
+  --primary: oklch(55% 0.21 264deg);
+  --primary-foreground: oklch(99% 0.01 264deg);
+  --secondary: oklch(96.5% 0.01 264deg);
+  --secondary-foreground: oklch(30% 0.04 264deg);
+  --muted: oklch(96.5% 0.01 264deg);
+  --muted-foreground: oklch(48% 0.025 264deg);
+  --accent: oklch(95% 0.035 264deg);
+  --accent-foreground: oklch(40% 0.15 264deg);
+  --border: oklch(91% 0.012 264deg);
+  --input: oklch(91% 0.012 264deg);
+  --ring: oklch(55% 0.21 264deg);
+  --gold: oklch(66% 0.12 78deg);
+  --navy: oklch(26% 0.06 264deg);
 }
 
 [data-theme='dark'] {
-  --background: oklch(19% 0.02 165deg);
-  --foreground: oklch(96% 0.008 95deg);
-  --card: oklch(23% 0.022 165deg);
-  --card-foreground: oklch(96% 0.008 95deg);
-  --popover: oklch(21% 0.02 165deg);
-  --popover-foreground: oklch(96% 0.008 95deg);
-  --primary: oklch(70% 0.13 162deg);
-  --primary-foreground: oklch(19% 0.02 165deg);
-  --secondary: oklch(27% 0.02 165deg);
-  --secondary-foreground: oklch(96% 0.008 95deg);
-  --muted: oklch(27% 0.02 165deg);
-  --muted-foreground: oklch(72% 0.02 100deg);
-  --accent: oklch(30% 0.04 164deg);
-  --accent-foreground: oklch(95% 0.01 95deg);
-  --border: oklch(30% 0.02 165deg);
-  --input: oklch(30% 0.02 165deg);
-  --ring: oklch(70% 0.13 162deg);
-  --gold: oklch(78% 0.13 80deg);
+  --background: oklch(16.5% 0.025 264deg);
+  --foreground: oklch(96% 0.006 264deg);
+  --card: oklch(21% 0.03 264deg);
+  --card-foreground: oklch(96% 0.006 264deg);
+  --popover: oklch(20% 0.03 264deg);
+  --popover-foreground: oklch(96% 0.006 264deg);
+  --primary: oklch(70% 0.15 264deg);
+  --primary-foreground: oklch(18% 0.03 264deg);
+  --secondary: oklch(27% 0.03 264deg);
+  --secondary-foreground: oklch(96% 0.006 264deg);
+  --muted: oklch(27% 0.03 264deg);
+  --muted-foreground: oklch(73% 0.02 264deg);
+  --accent: oklch(31% 0.05 264deg);
+  --accent-foreground: oklch(96% 0.01 264deg);
+  --border: oklch(31% 0.02 264deg);
+  --input: oklch(31% 0.02 264deg);
+  --ring: oklch(70% 0.15 264deg);
+  --gold: oklch(80% 0.12 82deg);
+  --navy: oklch(19% 0.035 264deg);
 }
 
 @theme inline {
   --color-gold: var(--gold);
-}
-
-/* ===== Falisha Manpower — professional teal/azure + navy (supersedes above) ===== */
-:root {
-  --background: oklch(98.5% 0.004 240deg);
-  --foreground: oklch(23% 0.03 250deg);
-  --card: oklch(100% 0 0deg);
-  --card-foreground: oklch(23% 0.03 250deg);
-  --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(23% 0.03 250deg);
-  --primary: oklch(58% 0.11 232deg);
-  --primary-foreground: oklch(99% 0.005 240deg);
-  --secondary: oklch(96% 0.008 240deg);
-  --secondary-foreground: oklch(30% 0.03 250deg);
-  --muted: oklch(96% 0.008 240deg);
-  --muted-foreground: oklch(48% 0.02 250deg);
-  --accent: oklch(95% 0.02 232deg);
-  --accent-foreground: oklch(35% 0.06 232deg);
-  --border: oklch(91% 0.008 240deg);
-  --input: oklch(91% 0.008 240deg);
-  --ring: oklch(58% 0.11 232deg);
-  --gold: oklch(64% 0.12 222deg);
-  --navy: oklch(23% 0.035 252deg);
-}
-
-[data-theme='dark'] {
-  --background: oklch(21% 0.03 250deg);
-  --foreground: oklch(97% 0.006 240deg);
-  --card: oklch(25% 0.03 250deg);
-  --card-foreground: oklch(97% 0.006 240deg);
-  --popover: oklch(23% 0.03 250deg);
-  --popover-foreground: oklch(97% 0.006 240deg);
-  --primary: oklch(72% 0.12 222deg);
-  --primary-foreground: oklch(21% 0.03 250deg);
-  --secondary: oklch(28% 0.03 250deg);
-  --secondary-foreground: oklch(97% 0.006 240deg);
-  --muted: oklch(28% 0.03 250deg);
-  --muted-foreground: oklch(72% 0.02 240deg);
-  --accent: oklch(30% 0.04 232deg);
-  --accent-foreground: oklch(96% 0.01 240deg);
-  --border: oklch(31% 0.02 250deg);
-  --input: oklch(31% 0.02 250deg);
-  --ring: oklch(72% 0.12 222deg);
-  --gold: oklch(74% 0.12 218deg);
-  --navy: oklch(18% 0.03 252deg);
-}
-
-@theme inline {
   --color-navy: var(--navy);
 }
