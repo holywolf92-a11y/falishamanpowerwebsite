@@ -5,7 +5,6 @@ import configPromise from '@payload-config'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tilt3D } from '@/components/visual/Tilt3D'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
-import { service3dIcon } from '@/utilities/sectionImages'
 
 export const dynamic = 'force-dynamic'
 
@@ -48,20 +47,9 @@ export default async function ServicesPage() {
                     <Link href={`/services/${s.slug}`} className="group block h-full">
                       <Card className="h-full transition-all group-hover:-translate-y-1 group-hover:shadow-lg">
                         <CardHeader>
-                          {service3dIcon(s.title) ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={service3dIcon(s.title)}
-                              alt=""
-                              aria-hidden
-                              className="mb-3 h-16 w-16 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                              <ServiceIcon name={s.title} className="h-6 w-6" />
-                            </div>
-                          )}
+                          <div className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105">
+                            <ServiceIcon name={s.title} className="h-7 w-7" />
+                          </div>
                           <CardTitle className="text-lg">{s.title}</CardTitle>
                         </CardHeader>
                         {s.summary && <CardContent className="text-sm text-muted-foreground">{s.summary}</CardContent>}

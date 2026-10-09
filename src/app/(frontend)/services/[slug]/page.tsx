@@ -5,7 +5,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
-import { service3dIcon } from '@/utilities/sectionImages'
+import { ServiceIcon } from '@/components/visual/ServiceIcon'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,15 +34,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           {service.serviceType}
         </p>
         <div className="mt-2 flex items-center gap-4">
-          {service3dIcon(service.title) && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={service3dIcon(service.title)}
-              alt=""
-              aria-hidden
-              className="h-16 w-16 object-contain drop-shadow-md"
-            />
-          )}
+          <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <ServiceIcon name={service.title} className="h-7 w-7" />
+          </span>
           <h1 className="text-4xl font-bold tracking-tight">{service.title}</h1>
         </div>
         {service.summary && <p className="mt-3 text-lg text-muted-foreground">{service.summary}</p>}

@@ -32,27 +32,8 @@ export function industryImage(name: string): string {
 // Group of Gulf-bound workers — used as the hero's 3D back layer.
 export const WORKERS_PHOTO = IMG('1759922378222-47ad736a174d')
 
-// Custom 3D service icons (generated, transparent WebP in /public/icons/services).
-const SERVICE_ICONS_3D: [RegExp, string][] = [
-  [/bulk|mass/, '/icons/services/bulk.webp'],
-  [/permanent/, '/icons/services/permanent.webp'],
-  [/executive/, '/icons/services/executive.webp'],
-  [/mobility|global/, '/icons/services/mobility.webp'],
-  [/visa/, '/icons/services/visa.webp'],
-  [/attestation|document/, '/icons/services/attestation.webp'],
-  [/payroll/, '/icons/services/payroll.webp'],
-  [/\bhr\b|human/, '/icons/services/hr.webp'],
-]
-
 // Employer/client logos in /public/logos. c01–c04 are white-on-transparent
 // (hero variants) and invisible on white tiles, so the wall uses c05–c28.
 // NOTE: sourced from the user's reference — trim to actual Falisha clients before launch.
 export const CLIENT_LOGOS: string[] = Array.from({ length: 24 }, (_, i) => `/logos/c${String(i + 5).padStart(2, '0')}.webp`)
 
-export function service3dIcon(name: string): string | undefined {
-  const n = (name || '').toLowerCase()
-  for (const [re, path] of SERVICE_ICONS_3D) {
-    if (re.test(n)) return path
-  }
-  return undefined
-}

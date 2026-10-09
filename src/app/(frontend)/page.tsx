@@ -12,7 +12,7 @@ import { TrustAward } from '@/components/visual/TrustAward'
 import { CredentialsOrbit } from '@/components/visual/CredentialsOrbit'
 import { ClientLogos } from '@/components/visual/ClientLogos'
 import { LogoWaterfall } from '@/components/visual/LogoWaterfall'
-import { CLIENT_LOGOS, industryImage, service3dIcon } from '@/utilities/sectionImages'
+import { CLIENT_LOGOS, industryImage } from '@/utilities/sectionImages'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
@@ -373,20 +373,9 @@ export default async function HomePage() {
               <Link href={`/services/${s.slug}`} className="group block h-full">
                 <Card className="h-full transition-all group-hover:-translate-y-1 group-hover:shadow-lg">
                   <CardHeader>
-                    {service3dIcon(s.title) ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={service3dIcon(s.title)}
-                        alt=""
-                        aria-hidden
-                        className="mb-3 h-16 w-16 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                        <ServiceIcon name={s.title} className="h-6 w-6" />
-                      </div>
-                    )}
+                    <div className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105">
+                      <ServiceIcon name={s.title} className="h-7 w-7" />
+                    </div>
                     <span className="text-xs font-medium uppercase tracking-wide text-[var(--gold)]">{s.serviceType}</span>
                     <CardTitle className="mt-1 text-lg">{s.title}</CardTitle>
                   </CardHeader>
