@@ -12,7 +12,8 @@ const CANDIDATE_LINKS = [
   { label: 'Latest job openings', href: '/jobs' },
   { label: 'Submit your CV', href: '/upload-cv' },
   { label: 'Our team', href: '/our-team' },
-  { label: 'Blog & insights', href: '/blog' },
+  { label: 'Blog & insights', href: '/posts' },
+  { label: 'FAQs', href: '/faq' },
   { label: 'Contact us', href: '/contact' },
 ]
 

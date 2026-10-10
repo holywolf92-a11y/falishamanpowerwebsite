@@ -143,6 +143,7 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
             { label: 'Our Team', href: '/our-team', desc: 'The people behind Falisha' },
             { label: 'Our Services', href: '/services', desc: 'Recruitment & advisory' },
             { label: 'Insights', href: '/posts', desc: 'News & articles' },
+            { label: 'FAQ', href: '/faq', desc: 'Common questions' },
             { label: 'Contact', href: '/contact', desc: 'Get in touch' },
           ],
         },
