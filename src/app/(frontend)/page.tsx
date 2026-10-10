@@ -20,8 +20,22 @@ import { TestimonialsCarousel } from '@/components/visual/TestimonialsCarousel'
 import { CountryMarquee } from '@/components/visual/CountryMarquee'
 import { Flag } from '@/components/visual/Flag'
 import { ProcessSteps } from '@/components/visual/ProcessSteps'
+import { FAQAccordion } from '@/components/visual/FAQAccordion'
 
 export const dynamic = 'force-dynamic'
+
+const HOME_FAQS = [
+  { q: 'Is Falisha Manpower a licensed recruitment agency?', a: 'Yes. Falisha Manpower is a BEOE-licensed Overseas Employment Promoter (OEP Licence No. 4035), authorised by the Bureau of Emigration & Overseas Employment, Government of Pakistan.' },
+  { q: 'How do I apply for an overseas job through Falisha Manpower?', a: 'Browse our current openings and apply online, or upload your CV to join our talent pool. Our team reviews your profile and contacts you when a suitable vacancy matches your skills and experience.' },
+  { q: 'Which countries can I work in?', a: 'We place Pakistani professionals across the Gulf (Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain), Europe, Central Asia and beyond. See our Destinations page for the full list of markets we serve.' },
+  { q: 'Do candidates have to pay fees to get a job?', a: 'Falisha Manpower operates within Pakistan’s regulated overseas employment framework. We never charge candidates unlawful or hidden fees — any applicable, lawful charges are disclosed transparently and in line with BEOE / Protector rules. Be cautious of anyone demanding large upfront payments.' },
+  { q: 'What documents do I need to apply?', a: 'Typically a valid passport, an updated CV, and relevant trade / education certificates and experience letters. Requirements vary by role and destination country; our team tells you exactly what is needed for each position.' },
+  { q: 'How can employers hire skilled workers from Pakistan?', a: 'Share your workforce requirement through our “Fill a Vacancy” form or contact our team. We source, screen and shortlist candidates, arrange interviews and trade tests, and manage documentation, visas and mobilisation end to end.' },
+  { q: 'Can you handle bulk or large-scale recruitment?', a: 'Yes. We run structured recruitment campaigns for individual specialists, complete technical teams and large project workforces across multiple occupational categories.' },
+  { q: 'Which industries and trades do you recruit for?', a: 'Construction, oil & gas, engineering, healthcare, IT & telecom, hospitality, transportation, agriculture, security, textile, power & energy and more — professional, skilled, semi-skilled and general manpower.' },
+  { q: 'What happens after a candidate is selected?', a: 'Selected candidates proceed through documentation, medicals, visa processing, BEOE / Protector formalities, pre-departure orientation and deployment, according to the destination country’s requirements.' },
+  { q: 'How long does the recruitment and deployment process take?', a: 'Timelines depend on the role, destination country, visa procedures and workforce volume. Our team gives you a realistic estimate once your requirement or application is assessed.' },
+]
 
 function salaryLabel(j: Record<string, any>): string | null {
   if (!j.salaryMin && !j.salaryMax) return null
@@ -542,6 +556,34 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* FAQ */}
+      <section className="container py-20">
+        <Reveal>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Frequently asked questions</h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Answers for candidates seeking overseas jobs and for employers hiring skilled manpower from Pakistan.
+          </p>
+        </Reveal>
+        <div className="mt-10 max-w-3xl">
+          <FAQAccordion items={HOME_FAQS} />
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: HOME_FAQS.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
+      </section>
 
       {/* CTA */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
