@@ -318,7 +318,7 @@ export default function HireFromPakistanPage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Request workforce</Link></Button>
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><a href="https://wa.me/923303333335" target="_blank" rel="noopener noreferrer">WhatsApp us</a></Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full"><a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer">WhatsApp us</a></Button>
           </div>
         </div>
       </section>

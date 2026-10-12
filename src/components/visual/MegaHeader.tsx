@@ -33,7 +33,7 @@ export type MegaHeaderProps = {
 
 const PHONE_DISPLAY = '+92 330 3333335'
 const PHONE_HREF = 'tel:+923303333335'
-const WHATSAPP_HREF = 'https://wa.me/923303333335'
+const WHATSAPP_HREF = 'https://wa.me/923005547806'
 
 type Group = { heading?: string; links: MenuLink[]; viewAll?: MenuLink }
 type Mega = {

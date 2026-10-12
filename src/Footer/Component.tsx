@@ -2,7 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
 import React from 'react'
-import { Facebook, Instagram, Linkedin, Mail, MessageCircle, Phone } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { Logo } from '@/components/Logo/Logo'
@@ -21,7 +21,7 @@ const SOCIALS = [
   { label: 'Facebook', href: 'https://facebook.com/falishamanpower', Icon: Facebook },
   { label: 'Instagram', href: 'https://instagram.com/falishamanpower', Icon: Instagram },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/111465919/', Icon: Linkedin },
-  { label: 'WhatsApp', href: 'https://wa.me/923303333335', Icon: MessageCircle },
+  { label: 'WhatsApp', href: 'https://wa.me/923005547806', Icon: MessageCircle },
 ]
 
 const EMPTY: { docs: Record<string, any>[] } = { docs: [] }
@@ -56,15 +56,22 @@ export async function Footer() {
             across the Gulf and beyond — sourcing, visas, attestation and mobilisation, end to end.
           </p>
           <div className="mt-5 flex flex-col gap-2 text-sm">
-            <a href="mailto:support@falishajobs.com" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
-              <Mail className="h-4 w-4 text-primary" /> support@falishajobs.com
+            <a href="mailto:info@falishamanpower.com" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+              <Mail className="h-4 w-4 text-primary" /> info@falishamanpower.com
             </a>
             <a href="tel:+923303333335" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
               <Phone className="h-4 w-4 text-primary" /> +92 330 3333335
             </a>
-            <a href="https://wa.me/923303333335" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+            <a href="tel:+92514927145" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+              <Phone className="h-4 w-4 text-primary" /> +92 51 4927145-6
+            </a>
+            <a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
               <MessageCircle className="h-4 w-4 text-primary" /> WhatsApp us
             </a>
+            <p className="mt-1 flex items-start gap-2 text-white/55">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              Umer Farooq Plaza, Murree Road, Chandni Chowk, Rawalpindi · Branches: Lahore, Karachi, Peshawar, AJK
+            </p>
           </div>
           <div className="mt-5 flex gap-2.5">
             {SOCIALS.map(({ label, href, Icon }) => (

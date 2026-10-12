@@ -3,7 +3,7 @@ import { UploadCvForm } from '@/components/UploadCvForm'
 
 export const dynamic = 'force-dynamic'
 
-const CAREERS_EMAIL = 'support@falishajobs.com'
+const CAREERS_EMAIL = 'info@falishamanpower.com'
 
 const STEPS = [
   { n: 1, t: 'Browse openings', d: 'Check our live vacancies and apply directly to any open role.' },

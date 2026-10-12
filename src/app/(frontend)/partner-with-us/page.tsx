@@ -3,7 +3,7 @@ import { PartnerApplicationForm } from '@/components/PartnerApplicationForm'
 
 export const dynamic = 'force-dynamic'
 
-const EMAIL = 'support@falishajobs.com'
+const EMAIL = 'info@falishamanpower.com'
 
 const POINTS = [
   'Sub-agents & local recruitment partners across Pakistan',
@@ -41,7 +41,7 @@ export default function PartnerWithUsPage() {
               Email{' '}
               <a href={`mailto:${EMAIL}`} className="text-primary hover:underline">{EMAIL}</a>{' '}
               or reach us on{' '}
-              <a href="https://wa.me/923303333335" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">WhatsApp</a>.
+              <a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">WhatsApp</a>.
             </p>
           </div>
         </aside>

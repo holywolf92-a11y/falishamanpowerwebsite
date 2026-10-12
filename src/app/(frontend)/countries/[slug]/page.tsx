@@ -69,7 +69,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       {extra?.categories && extra.categories.length > 0 && (
         <section className="mt-12 max-w-4xl">
           <h2 className="text-2xl font-bold tracking-tight">
-            {extra.categoriesTitle || `Workforce categories we recruit for ${country.name}`}
+            {extra.categoriesTitle || `Manpower categories we recruit for ${country.name}`}
           </h2>
           <div className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
             {extra.categories.map((c) => (

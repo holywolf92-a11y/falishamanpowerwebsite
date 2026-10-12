@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 const LAST_UPDATED = '26 September 2026'
-const PRIVACY_EMAIL = 'support@falishajobs.com'
+const PRIVACY_EMAIL = 'info@falishamanpower.com'
 
 type Section = { id: string; title: string; body: React.ReactNode }
 

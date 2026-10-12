@@ -4,7 +4,7 @@ import { EmployerEnquiryForm } from '@/components/EmployerEnquiryForm'
 
 export const dynamic = 'force-dynamic'
 
-const EMPLOYER_EMAIL = 'support@falishajobs.com'
+const EMPLOYER_EMAIL = 'info@falishamanpower.com'
 
 export default function FillAVacancyPage() {
   return (
@@ -28,7 +28,7 @@ export default function FillAVacancyPage() {
               Email us at{' '}
               <a href={`mailto:${EMPLOYER_EMAIL}`} className="text-primary hover:underline">{EMPLOYER_EMAIL}</a>{' '}
               or message us on{' '}
-              <a href="https://wa.me/923303333335" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">WhatsApp</a>.
+              <a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">WhatsApp</a>.
             </p>
           </div>
           <div className="rounded-2xl border border-border bg-card p-6">
