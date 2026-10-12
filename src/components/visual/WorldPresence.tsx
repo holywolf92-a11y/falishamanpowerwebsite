@@ -5,7 +5,7 @@ import { WORLD } from './worldMapGeo'
 // muted land, the destination countries highlighted in royal blue, Pakistan as a gold
 // hub, and thin arcs radiating from Pakistan to each market. Designed to sit on navy.
 export function WorldPresence({ className }: { className?: string }) {
-  const { W, H, graticule, other, served, pak, dots, pakCentroid } = WORLD
+  const { viewBox, graticule, other, served, pak, dots, pakCentroid } = WORLD
 
   const arc = (a: readonly [number, number], b: readonly [number, number]) => {
     const mx = (a[0] + b[0]) / 2
@@ -19,7 +19,7 @@ export function WorldPresence({ className }: { className?: string }) {
 
   return (
     <svg
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={viewBox}
       className={className}
       role="img"
       aria-label="World map highlighting the destination countries Falisha Manpower recruits for across the Gulf, Europe, Africa and Asia, with Pakistan as the home base"
