@@ -12,6 +12,7 @@ import { TrustAward } from '@/components/visual/TrustAward'
 import { CredentialsOrbit } from '@/components/visual/CredentialsOrbit'
 import { ClientLogos } from '@/components/visual/ClientLogos'
 import { TurkeyGlobe } from '@/components/visual/TurkeyGlobe'
+import { LogoMarquee } from '@/components/visual/LogoMarquee'
 import { CLIENT_LOGOS, industryImage } from '@/utilities/sectionImages'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
@@ -214,23 +215,7 @@ export default async function HomePage() {
               <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
                 Trusted alongside leading Turkish employers
               </p>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                {TURKEY_LOGOS.map((src) => (
-                  <div
-                    key={src}
-                    className="grid h-20 place-items-center rounded-2xl bg-white px-4 shadow-sm ring-1 ring-black/5"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt=""
-                      aria-hidden
-                      className="max-h-10 max-w-[7rem] object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
+              <LogoMarquee logos={TURKEY_LOGOS} />
             </div>
           </Reveal>
         </div>
