@@ -8,11 +8,17 @@ import { cn } from '@/utilities/ui'
 import { useTheme } from '@/providers/Theme'
 import {
   ArrowRight,
+  Briefcase,
   Building2,
   ChevronDown,
+  FileText,
+  Handshake,
+  HelpCircle,
+  Mail,
   Menu,
   MessageCircle,
   Moon,
+  Newspaper,
   Phone,
   Search,
   ShieldCheck,
@@ -21,8 +27,28 @@ import {
   Users,
   X,
 } from 'lucide-react'
+import { Flag } from '@/components/visual/Flag'
+import { IndustryIcon } from '@/components/visual/IndustryIcon'
+import { ServiceIcon } from '@/components/visual/ServiceIcon'
 
-export type MenuLink = { label: string; href: string; desc?: string }
+export type MenuLink = { label: string; href: string; desc?: string; icon?: React.ReactNode }
+
+// Leading-visual helpers for the mega-menu: flags for destinations, icon chips for
+// industries/services. Kept here so the data-driven menus render consistently.
+const iconChip = (node: React.ReactNode) => (
+  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-primary/10 text-primary">
+    {node}
+  </span>
+)
+const withFlags = (links: MenuLink[]): MenuLink[] =>
+  links.map((l) => ({
+    ...l,
+    icon: <Flag name={l.label} className="h-4 w-6 shrink-0 ring-1 ring-border/60" />,
+  }))
+const withIndustryIcons = (links: MenuLink[]): MenuLink[] =>
+  links.map((l) => ({ ...l, icon: iconChip(<IndustryIcon name={l.label} className="h-4 w-4" />) }))
+const withServiceIcons = (links: MenuLink[]): MenuLink[] =>
+  links.map((l) => ({ ...l, icon: iconChip(<ServiceIcon name={l.label} className="h-4 w-4" />) }))
 
 export type MegaHeaderProps = {
   presence: MenuLink[]
@@ -67,18 +93,18 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
         {
           heading: 'Get started',
           links: [
-            { label: 'Fill a Vacancy', href: '/fill-a-vacancy', desc: 'Share your requirement' },
-            { label: 'Hire from Pakistan', href: '/hire-from-pakistan', desc: 'How our process works' },
-            { label: 'Partner With Us', href: '/partner-with-us', desc: 'For agents & recruiters' },
+            { label: 'Fill a Vacancy', href: '/fill-a-vacancy', desc: 'Share your requirement', icon: iconChip(<FileText className="h-4 w-4" />) },
+            { label: 'Hire from Pakistan', href: '/hire-from-pakistan', desc: 'How our process works', icon: iconChip(<Building2 className="h-4 w-4" />) },
+            { label: 'Partner With Us', href: '/partner-with-us', desc: 'For agents & recruiters', icon: iconChip(<Handshake className="h-4 w-4" />) },
           ],
         },
         {
           heading: 'Recruitment Services',
-          links: recruitment.slice(0, 6),
+          links: withServiceIcons(recruitment.slice(0, 6)),
           viewAll: recruitment.length ? { label: 'All services', href: '/services' } : undefined,
         },
         ...(advisory.length
-          ? [{ heading: 'Advisory Services', links: advisory.slice(0, 6) } as Group]
+          ? [{ heading: 'Advisory Services', links: withServiceIcons(advisory.slice(0, 6)) } as Group]
           : []),
       ],
     },
@@ -95,19 +121,19 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
         {
           heading: 'Your next step',
           links: [
-            { label: 'Browse Jobs', href: '/jobs', desc: 'Current openings' },
-            { label: 'Upload Your CV', href: '/upload-cv', desc: 'Join our talent pool' },
-            { label: 'Contact Us', href: '/contact', desc: 'Talk to our team' },
+            { label: 'Browse Jobs', href: '/jobs', desc: 'Current openings', icon: iconChip(<Briefcase className="h-4 w-4" />) },
+            { label: 'Upload Your CV', href: '/upload-cv', desc: 'Join our talent pool', icon: iconChip(<Upload className="h-4 w-4" />) },
+            { label: 'Contact Us', href: '/contact', desc: 'Talk to our team', icon: iconChip(<Mail className="h-4 w-4" />) },
           ],
         },
         {
           heading: 'Where you can work',
-          links: presence.slice(0, 8),
+          links: withFlags(presence.slice(0, 8)),
           viewAll: presence.length ? { label: 'All destinations', href: '/countries' } : undefined,
         },
         {
           heading: 'By industry',
-          links: expertise.slice(0, 6),
+          links: withIndustryIcons(expertise.slice(0, 6)),
           viewAll: expertise.length ? { label: 'All industries', href: '/industries' } : undefined,
         },
       ],
@@ -118,7 +144,7 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
       wide: true,
       groups: [
         {
-          links: expertise.slice(0, 12),
+          links: withIndustryIcons(expertise.slice(0, 12)),
           viewAll: { label: 'All industries & professions', href: '/industries' },
         },
       ],
@@ -129,7 +155,7 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
       wide: true,
       groups: [
         {
-          links: presence.slice(0, 12),
+          links: withFlags(presence.slice(0, 12)),
           viewAll: { label: 'All destination countries', href: '/countries' },
         },
       ],
@@ -140,11 +166,11 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
       groups: [
         {
           links: [
-            { label: 'Our Team', href: '/our-team', desc: 'The people behind Falisha' },
-            { label: 'Our Services', href: '/services', desc: 'Recruitment & advisory' },
-            { label: 'Insights', href: '/posts', desc: 'News & articles' },
-            { label: 'FAQ', href: '/faq', desc: 'Common questions' },
-            { label: 'Contact', href: '/contact', desc: 'Get in touch' },
+            { label: 'Our Team', href: '/our-team', desc: 'The people behind Falisha', icon: iconChip(<Users className="h-4 w-4" />) },
+            { label: 'Our Services', href: '/services', desc: 'Recruitment & advisory', icon: iconChip(<Briefcase className="h-4 w-4" />) },
+            { label: 'Insights', href: '/posts', desc: 'News & articles', icon: iconChip(<Newspaper className="h-4 w-4" />) },
+            { label: 'FAQ', href: '/faq', desc: 'Common questions', icon: iconChip(<HelpCircle className="h-4 w-4" />) },
+            { label: 'Contact', href: '/contact', desc: 'Get in touch', icon: iconChip(<Mail className="h-4 w-4" />) },
           ],
         },
       ],
@@ -408,8 +434,9 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
                         </p>
                       )}
                       {g.links.map((l) => (
-                        <Link key={l.href + l.label} href={l.href} className="block py-2 text-sm text-foreground/80">
-                          {l.label}
+                        <Link key={l.href + l.label} href={l.href} className="flex items-center gap-2.5 py-2 text-sm text-foreground/80">
+                          {l.icon}
+                          <span>{l.label}</span>
                         </Link>
                       ))}
                       {g.viewAll && (
@@ -449,10 +476,13 @@ function PanelLink({ link }: { link: MenuLink }) {
   return (
     <Link
       href={link.href}
-      className="rounded-lg px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground"
+      className="flex items-center gap-2.5 rounded-lg px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground"
     >
-      <span className="block text-sm font-medium">{link.label}</span>
-      {link.desc && <span className="block text-xs text-muted-foreground">{link.desc}</span>}
+      {link.icon}
+      <span className="min-w-0">
+        <span className="block truncate text-sm font-medium">{link.label}</span>
+        {link.desc && <span className="block text-xs text-muted-foreground">{link.desc}</span>}
+      </span>
     </Link>
   )
 }

@@ -1,16 +1,23 @@
 import {
+  Beef,
   Building2,
   Cpu,
+  Factory,
   Fuel,
   GraduationCap,
   HardHat,
   Hotel,
   Landmark,
+  Plane,
+  Shield,
+  Shirt,
   ShoppingBag,
+  Sprout,
   Stethoscope,
   TrendingUp,
   Truck,
   Wrench,
+  Zap,
   type LucideIcon,
 } from 'lucide-react'
 import { cn } from '@/utilities/ui'
@@ -25,18 +32,27 @@ type IndustryRule = {
   Icon: LucideIcon
 }
 
+// Ordered: the first rule whose keyword is a substring of the lowercased name wins,
+// so put more specific rules before broader ones.
 const industryRules: IndustryRule[] = [
   { keywords: ['construction'], Icon: HardHat },
-  { keywords: ['oil', 'gas'], Icon: Fuel },
-  { keywords: ['health', 'pharma', 'medical'], Icon: Stethoscope },
-  { keywords: ['tech', 'it', 'information'], Icon: Cpu },
-  { keywords: ['hospitality', 'hotel'], Icon: Hotel },
+  { keywords: ['steel', 'fabrication', 'manufactur', 'factory', 'production'], Icon: Factory },
+  { keywords: ['oil', 'gas', 'petro'], Icon: Fuel },
+  { keywords: ['power', 'energy', 'electric'], Icon: Zap },
+  { keywords: ['health', 'pharma', 'medical', 'nurs'], Icon: Stethoscope },
+  { keywords: ['information', 'technology', 'software', 'tech'], Icon: Cpu },
+  { keywords: ['hospitality', 'hotel', 'catering', 'chef'], Icon: Hotel },
   { keywords: ['engineer'], Icon: Wrench },
-  { keywords: ['account', 'finance', 'bank'], Icon: Landmark },
+  { keywords: ['textile', 'garment', 'sewing', 'tailor'], Icon: Shirt },
+  { keywords: ['bank', 'account', 'finance'], Icon: Landmark },
+  { keywords: ['security', 'guard', 'safety'], Icon: Shield },
+  { keywords: ['agri', 'farm', 'crop'], Icon: Sprout },
+  { keywords: ['livestock', 'dairy', 'poultry'], Icon: Beef },
+  { keywords: ['travel', 'tourism', 'aviation'], Icon: Plane },
+  { keywords: ['transport', 'logistics', 'supply', 'driver'], Icon: Truck },
+  { keywords: ['fmcg', 'retail', 'consumer'], Icon: ShoppingBag },
   { keywords: ['sales'], Icon: TrendingUp },
-  { keywords: ['logistics', 'supply'], Icon: Truck },
-  { keywords: ['retail', 'consumer'], Icon: ShoppingBag },
-  { keywords: ['education'], Icon: GraduationCap },
+  { keywords: ['education', 'teach'], Icon: GraduationCap },
 ]
 
 function resolveIcon(name: string): LucideIcon {
