@@ -30,6 +30,24 @@ const STATS = [
   { value: 'ISO', label: '9001:2015 certified' },
 ]
 
+const CREDENTIALS = [
+  {
+    logo: '/logos/credentials/beoe.webp',
+    title: 'Government Registered',
+    desc: 'Registered Overseas Employment Promoter in Pakistan — OEP Licence: H.R.D. 4035/RWP.',
+  },
+  {
+    logo: '/logos/credentials/iso.webp',
+    title: 'ISO Certified',
+    desc: 'ISO 9001:2015 certified manpower recruitment agency in Pakistan.',
+  },
+  {
+    logo: '/logos/credentials/fpcci.webp',
+    title: 'PCCI Member',
+    desc: 'PCCI-certified manpower recruitment agency in Pakistan.',
+  },
+]
+
 const VALUES = [
   { t: 'Collaboration', d: 'We work hand-in-hand with employers and candidates as genuine, long-term partners.' },
   { t: 'Responsibility', d: 'Legal, ethical and transparent recruitment, with accountability at every step.' },
@@ -221,6 +239,30 @@ export default function ProfilePage() {
               </div>
             </Reveal>
           </div>
+
+          {/* Accreditations */}
+          <Reveal>
+            <div className="mt-12">
+              <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Accredited &amp; registered
+              </p>
+              <div className="mt-5 grid gap-5 sm:grid-cols-3">
+                {CREDENTIALS.map((c) => (
+                  <div
+                    key={c.title}
+                    className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center"
+                  >
+                    <div className="grid h-20 w-20 place-items-center rounded-full bg-white shadow-sm ring-1 ring-black/5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={c.logo} alt={c.title} className="h-14 w-14 object-contain" width={56} height={56} />
+                    </div>
+                    <h3 className="mt-4 font-semibold">{c.title}</h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground">{c.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
