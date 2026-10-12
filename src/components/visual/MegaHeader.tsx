@@ -166,6 +166,7 @@ export function MegaHeader({ presence, expertise, recruitment, advisory }: MegaH
       groups: [
         {
           links: [
+            { label: 'Company Profile', href: '/profile', desc: 'Our full profile & brochure', icon: iconChip(<FileText className="h-4 w-4" />) },
             { label: 'Our Team', href: '/our-team', desc: 'The people behind Falisha', icon: iconChip(<Users className="h-4 w-4" />) },
             { label: 'Our Services', href: '/services', desc: 'Recruitment & advisory', icon: iconChip(<Briefcase className="h-4 w-4" />) },
             { label: 'Insights', href: '/posts', desc: 'News & articles', icon: iconChip(<Newspaper className="h-4 w-4" />) },

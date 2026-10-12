@@ -19,6 +19,7 @@ const ROUTES: {
   { path: '/industries', priority: 0.9, changefreq: 'weekly' },
   { path: '/services', priority: 0.9, changefreq: 'weekly' },
   { path: '/jobs', priority: 0.9, changefreq: 'daily' },
+  { path: '/profile', priority: 0.7, changefreq: 'monthly' },
   { path: '/hire-from-pakistan', priority: 0.8, changefreq: 'monthly' },
   { path: '/fill-a-vacancy', priority: 0.8, changefreq: 'monthly' },
   { path: '/partner-with-us', priority: 0.7, changefreq: 'monthly' },
