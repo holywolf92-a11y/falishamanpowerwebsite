@@ -78,6 +78,7 @@ export default async function CountriesPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/countries' },
     title: 'Destination Countries | Falisha Manpower',
     description: 'Countries where Falisha Manpower places skilled Pakistani workers, across the Gulf, Europe and Asia.',
   }

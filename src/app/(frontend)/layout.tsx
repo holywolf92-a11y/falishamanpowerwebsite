@@ -12,6 +12,7 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { organizationSchema } from '@/utilities/orgSchema'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
@@ -32,6 +33,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.png" rel="icon" type="image/png" sizes="32x32" />
         <link href="/icon.png" rel="icon" type="image/png" sizes="512x512" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
+        />
       </head>
       <body>
         <Providers>
@@ -53,9 +58,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: 'Falisha Manpower | Overseas Recruitment Agency in Pakistan',
+  description:
+    'BEOE-licensed overseas recruitment agency in Pakistan (OEP 4035). We place skilled, technical and professional workers across the Gulf, Türkiye and beyond — visa, attestation and mobilisation included.',
+  applicationName: 'Falisha Manpower',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }

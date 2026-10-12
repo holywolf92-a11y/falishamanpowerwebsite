@@ -149,6 +149,7 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/jobs' },
     title: 'Latest Overseas Job Openings | Falisha Manpower',
     description:
       'Browse current overseas job vacancies in Saudi Arabia, UAE, Qatar and more with Falisha Manpower.',

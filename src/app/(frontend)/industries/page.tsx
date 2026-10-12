@@ -74,6 +74,7 @@ export default async function IndustriesPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/industries' },
     title: 'Industries & Professions | Falisha Manpower',
     description: 'The industries and professional functions Falisha Manpower recruits for across the Gulf and beyond.',
   }

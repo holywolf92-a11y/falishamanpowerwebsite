@@ -652,6 +652,7 @@ export default async function HomePage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/' },
     title: 'Falisha Manpower | Overseas Recruitment Agency in Pakistan',
     description:
       'Falisha Manpower places skilled Pakistani professionals with employers across the Gulf and beyond, with full visa, attestation and mobilisation support.',

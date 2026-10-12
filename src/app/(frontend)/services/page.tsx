@@ -68,6 +68,7 @@ export default async function ServicesPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/services' },
     title: 'Recruitment & Advisory Services | Falisha Manpower',
     description: 'Bulk and executive recruitment, visa processing, attestation, payroll and HR services from Falisha Manpower.',
   }

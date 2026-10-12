@@ -139,6 +139,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { country } = await getData(slug)
   if (!country) return { title: 'Country not found | Falisha Manpower' }
   return {
+    alternates: { canonical: `/countries/${slug}` },
     title: country.meta?.title || `Recruitment Agency in Pakistan for ${country.name} | Falisha Manpower`,
     description: country.meta?.description || country.intro || `Hire or find work in ${country.name} with Falisha Manpower.`,
   }

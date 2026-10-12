@@ -5,8 +5,113 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import RichText from '@/components/RichText'
 import { ApplyForm } from '@/components/ApplyForm'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-dynamic'
+
+const EMPLOYMENT_TYPE: Record<string, string> = {
+  'full-time': 'FULL_TIME',
+  'part-time': 'PART_TIME',
+  contract: 'CONTRACTOR',
+  temporary: 'TEMPORARY',
+  internship: 'INTERN',
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+// Minimal Lexical-richtext → HTML for the JobPosting description (Google accepts HTML).
+function richTextToHtml(data: any): string {
+  const root = data?.root
+  if (!root?.children) return ''
+  const walk = (nodes: any[]): string =>
+    nodes
+      .map((n) => {
+        if (n?.type === 'text') return escapeHtml(n.text || '')
+        if (n?.type === 'linebreak') return '<br/>'
+        if (Array.isArray(n?.children)) {
+          const inner = walk(n.children)
+          switch (n.type) {
+            case 'paragraph':
+              return `<p>${inner}</p>`
+            case 'heading':
+              return `<p><strong>${inner}</strong></p>`
+            case 'list':
+              return `<ul>${inner}</ul>`
+            case 'listitem':
+              return `<li>${inner}</li>`
+            default:
+              return inner
+          }
+        }
+        return ''
+      })
+      .join('')
+  return walk(root.children)
+}
+
+function jobPostingSchema(job: Record<string, any>, countryName: string | null, serverUrl: string) {
+  const reqs: string[] = Array.isArray(job.requirements)
+    ? job.requirements
+        .map((r: { item?: string }) => r?.item)
+        .filter((x: string | undefined): x is string => Boolean(x))
+    : []
+  let description = richTextToHtml(job.description)
+  if (reqs.length) {
+    description += `<p><strong>Requirements</strong></p><ul>${reqs
+      .map((r) => `<li>${escapeHtml(r)}</li>`)
+      .join('')}</ul>`
+  }
+  if (!description) {
+    description = `<p>${escapeHtml(
+      `${job.title}${countryName ? ` in ${countryName}` : ''} — overseas placement via Falisha Manpower, with full visa, documentation and mobilisation support.`,
+    )}</p>`
+  }
+
+  const schema: Record<string, any> = {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: job.title,
+    description,
+    datePosted: job.createdAt,
+    employmentType: EMPLOYMENT_TYPE[String(job.employmentType)] || 'FULL_TIME',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'Falisha Manpower',
+      sameAs: serverUrl,
+      logo: `${serverUrl}/icon.png`,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        ...(job.city ? { addressLocality: job.city } : {}),
+        ...(countryName ? { addressCountry: countryName } : {}),
+      },
+    },
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'Falisha Manpower',
+      value: job.slug || String(job.id),
+    },
+    directApply: true,
+  }
+  if (job.deadline) schema.validThrough = new Date(job.deadline).toISOString()
+  if (job.salaryMin || job.salaryMax) {
+    schema.baseSalary = {
+      '@type': 'MonetaryAmount',
+      ...(job.salaryCurrency ? { currency: job.salaryCurrency } : {}),
+      value: {
+        '@type': 'QuantitativeValue',
+        ...(job.salaryMin ? { minValue: job.salaryMin } : {}),
+        ...(job.salaryMax ? { maxValue: job.salaryMax } : {}),
+        unitText: String(job.salaryPeriod || 'month').toUpperCase(),
+      },
+    }
+  }
+  return schema
+}
 
 async function getJob(slug: string) {
   const payload = await getPayload({ config: configPromise })
@@ -40,6 +145,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
   const countryName = typeof job.country === 'object' ? job.country?.name : null
   const industryName = typeof job.industry === 'object' ? job.industry?.title : null
   const salary = formatSalary(job)
+  const schema = isOpen ? jobPostingSchema(job, countryName, getServerSideURL()) : null
 
   const facts: [string, string | null][] = [
     ['Location', [job.city, countryName].filter(Boolean).join(', ') || null],
@@ -52,6 +158,12 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
 
   return (
     <div className="container py-16 md:py-24">
+      {schema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      )}
       <Link href="/jobs" className="text-sm text-muted-foreground hover:text-foreground">
         ← Back to all jobs
       </Link>
@@ -127,6 +239,7 @@ export async function generateMetadata({
   if (!job) return { title: 'Job not found | Falisha Manpower' }
   const countryName = typeof job.country === 'object' ? job.country?.name : ''
   return {
+    alternates: { canonical: `/jobs/${slug}` },
     title: job.meta?.title || `${job.title}${countryName ? ` in ${countryName}` : ''} | Falisha Manpower`,
     description:
       job.meta?.description ||

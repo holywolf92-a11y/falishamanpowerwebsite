@@ -96,6 +96,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { industry } = await getData(slug)
   if (!industry) return { title: 'Industry not found | Falisha Manpower' }
   return {
+    alternates: { canonical: `/industries/${slug}` },
     title: industry.meta?.title || `${industry.title} Recruitment | Falisha Manpower`,
     description: industry.meta?.description || industry.summary || `${industry.title} recruitment from Falisha Manpower.`,
   }

@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = await getService(slug)
   if (!service) return { title: 'Service not found | Falisha Manpower' }
   return {
+    alternates: { canonical: `/services/${slug}` },
     title: service.meta?.title || `${service.title} | Falisha Manpower`,
     description: service.meta?.description || service.summary || `${service.title} from Falisha Manpower.`,
   }

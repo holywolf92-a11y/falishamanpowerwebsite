@@ -65,6 +65,7 @@ export default function FAQPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/faq' },
     title: 'FAQs | Overseas Recruitment from Pakistan — Falisha Manpower',
     description:
       'Answers to common questions about overseas recruitment, OEP licensing, the BEOE & Protector process, fees, Gulf & Europe jobs, and hiring skilled Pakistani workers through Falisha Manpower (OEP 4035).',
