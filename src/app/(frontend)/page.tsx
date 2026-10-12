@@ -11,7 +11,7 @@ import { Tilt3D } from '@/components/visual/Tilt3D'
 import { TrustAward } from '@/components/visual/TrustAward'
 import { CredentialsOrbit } from '@/components/visual/CredentialsOrbit'
 import { ClientLogos } from '@/components/visual/ClientLogos'
-import { LogoWaterfall } from '@/components/visual/LogoWaterfall'
+import { TurkeyGlobe } from '@/components/visual/TurkeyGlobe'
 import { CLIENT_LOGOS, industryImage } from '@/utilities/sectionImages'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
@@ -131,43 +131,106 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Turkey specialty */}
-      <section className="border-b border-border py-16 md:py-20">
-        <div className="container grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-          <Reveal>
-            <div>
-              <div className="flex items-center gap-3">
-                <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm" />
-                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Our speciality</p>
-              </div>
-              <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
-                <span className="text-primary">Türkiye</span> is our speciality
-              </h2>
-              <p className="mt-4 max-w-md text-muted-foreground">
-                Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
-                Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
-                managing the full journey from sourcing to on-site deployment.
-              </p>
-              <ul className="mt-6 space-y-2.5 text-sm">
-                {TURKEY_POINTS.map((p) => (
-                  <li key={p} className="flex items-center gap-2.5 text-muted-foreground">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild className="mt-8 rounded-full px-6">
-                <Link href="/hire-from-pakistan">Hire from Pakistan for Türkiye</Link>
-              </Button>
-            </div>
-          </Reveal>
+      {/* Turkey specialty — focus band */}
+      <section className="relative overflow-hidden bg-[var(--navy)] py-20 text-white md:py-28">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+            maskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
+            WebkitMaskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 top-4 h-[36rem] w-[36rem] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(227,10,23,0.20), transparent 70%)' }}
+        />
 
-          <Reveal delay={0.1}>
-            <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Leading Turkish employers
+        <div className="container relative">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
+            {/* Globe */}
+            <Reveal>
+              <div className="relative mx-auto w-full max-w-[32rem]">
+                <TurkeyGlobe className="w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]" />
+                <div className="absolute right-1 top-5 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                  <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">Türkiye corridor</p>
+                </div>
+                <div className="absolute bottom-6 left-0 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                  <p className="text-xl font-bold leading-none text-white">OEP 4035</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">BEOE licensed</p>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Copy */}
+            <Reveal delay={0.1}>
+              <div>
+                <div className="flex items-center gap-3">
+                  <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-white/20" />
+                  <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                    Our speciality market
+                  </p>
+                </div>
+                <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
+                  <span className="text-white">Türkiye</span> is where we go deepest
+                </h2>
+                <p className="mt-4 max-w-xl text-white/70">
+                  Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
+                  Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
+                  managing the full journey from sourcing to on-site deployment.
+                </p>
+                <ul className="mt-6 space-y-3 text-sm">
+                  {TURKEY_POINTS.map((p) => (
+                    <li key={p} className="flex items-center gap-3 text-white/80">
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--gold)]" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild className="rounded-full px-6">
+                    <Link href="/fill-a-vacancy">Hire from Pakistan for Türkiye</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
+                  >
+                    <Link href="/countries/turkey">Explore Türkiye →</Link>
+                  </Button>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Employer logos */}
+          <Reveal delay={0.15}>
+            <div className="mt-16 border-t border-white/10 pt-10">
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+                Trusted alongside leading Turkish employers
               </p>
-              <LogoWaterfall logos={TURKEY_LOGOS} columns={2} heightClass="h-[24rem]" />
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                {TURKEY_LOGOS.map((src) => (
+                  <div
+                    key={src}
+                    className="grid h-20 place-items-center rounded-2xl bg-white px-4 shadow-sm ring-1 ring-black/5"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt=""
+                      aria-hidden
+                      className="max-h-10 max-w-[7rem] object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
         </div>
