@@ -7,6 +7,8 @@ import RichText from '@/components/RichText'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Flag } from '@/components/visual/Flag'
+import { CheckCircle2 } from 'lucide-react'
+import { COUNTRY_CONTENT } from '@/data/countryContent'
 
 export const dynamic = 'force-dynamic'
 
@@ -36,6 +38,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params
   const { country, jobs } = await getData(slug)
   if (!country) notFound()
+  const extra = COUNTRY_CONTENT[slug]
 
   return (
     <div className="container py-16 md:py-24">
@@ -49,10 +52,37 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
         {country.intro && <p className="mt-3 text-lg text-muted-foreground">{country.intro}</p>}
       </header>
 
-      {country.content && (
+      {extra?.lead ? (
+        <div className="mt-8 max-w-3xl space-y-4">
+          {extra.lead.map((p, i) => (
+            <p key={i} className="text-[15px] leading-relaxed text-muted-foreground">
+              {p}
+            </p>
+          ))}
+        </div>
+      ) : country.content ? (
         <div className="prose dark:prose-invert mt-8 max-w-3xl">
           <RichText data={country.content} enableGutter={false} />
         </div>
+      ) : null}
+
+      {extra?.categories && extra.categories.length > 0 && (
+        <section className="mt-12 max-w-4xl">
+          <h2 className="text-2xl font-bold tracking-tight">
+            {extra.categoriesTitle || `Workforce categories we recruit for ${country.name}`}
+          </h2>
+          <div className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {extra.categories.map((c) => (
+              <div
+                key={c}
+                className="flex items-start gap-2.5 rounded-lg border border-border bg-card p-3 text-sm"
+              >
+                <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{c}</span>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       <div className="mt-12">
@@ -81,6 +111,25 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
           </div>
         )}
       </div>
+
+      {extra?.partnership && (
+        <section className="mt-12 overflow-hidden rounded-2xl bg-primary px-6 py-8 text-primary-foreground md:px-10">
+          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold tracking-tight">Hiring from Pakistan for {country.name}?</h2>
+              <p className="mt-2 text-primary-foreground/80">{extra.partnership}</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg" variant="secondary" className="rounded-full">
+                <Link href="/fill-a-vacancy">Request workforce</Link>
+              </Button>
+              <Button asChild size="lg" variant="secondary" className="rounded-full">
+                <Link href="/contact">Contact us</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   )
 }
