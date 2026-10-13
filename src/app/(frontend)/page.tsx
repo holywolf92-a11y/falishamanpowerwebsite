@@ -2,9 +2,10 @@ import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ArrowRight, ClipboardCheck, Plane, UsersRound, Layers, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, ClipboardCheck, Plane, UsersRound, Layers, CheckCircle2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { cn } from '@/utilities/ui'
 import { HeroShowcase } from '@/components/visual/HeroShowcase'
 import { CredentialTicker } from '@/components/visual/CredentialTicker'
 import { CircleBadge } from '@/components/visual/CircleBadge'
@@ -457,31 +458,97 @@ export default async function HomePage() {
       {/* Services */}
       <section className="container py-20">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">What we do</p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Complete recruitment solutions</h2>
+              <p className="mt-3 text-muted-foreground">
+                One BEOE-licensed partner for the entire journey — sourcing and executive search through to
+                visas, attestation and large-scale mobilisation.
+              </p>
             </div>
-            <Link href="/services" className="text-sm font-medium text-primary hover:underline">All services →</Link>
+            <Link
+              href="/services"
+              className="group inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:text-primary"
+            >
+              All services
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {(services.docs as Record<string, any>[]).map((s, i) => (
-            <Reveal key={s.id} delay={(i % 3) * 0.08}>
-              <Link href={`/services/${s.slug}`} className="group block h-full">
-                <Card className="h-full transition-all group-hover:-translate-y-1 group-hover:shadow-lg">
-                  <CardHeader>
-                    <div className="mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105">
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {(services.docs as Record<string, any>[]).map((s, i) => {
+            const isRecruit = /recruit|search|executive/i.test(String(s.serviceType ?? ''))
+            return (
+              <Reveal key={s.id} delay={(i % 3) * 0.08} className="h-full">
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-[0_22px_48px_-20px_rgba(37,99,235,0.45)]"
+                >
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                  />
+                  <div className="relative flex items-start justify-between">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--navy)] to-primary text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105">
                       <ServiceIcon name={s.title} className="h-7 w-7" />
                     </div>
-                    <span className="text-xs font-medium uppercase tracking-wide text-[var(--gold)]">{s.serviceType}</span>
-                    <CardTitle className="mt-1 text-lg">{s.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">{s.summary}</CardContent>
-                </Card>
-              </Link>
-            </Reveal>
-          ))}
+                    <span
+                      className={cn(
+                        'rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ring-1',
+                        isRecruit
+                          ? 'bg-primary/10 text-primary ring-primary/20'
+                          : 'bg-[var(--gold)]/10 text-[var(--gold)] ring-[var(--gold)]/25',
+                      )}
+                    >
+                      {s.serviceType}
+                    </span>
+                  </div>
+                  <h3 className="relative mt-5 text-lg font-bold">{s.title}</h3>
+                  <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
+                  <span className="relative mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary">
+                    Learn more
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </span>
+                </Link>
+              </Reveal>
+            )
+          })}
+          {/* Tailored-solution CTA — fills the grid and drives enquiries */}
+          <Reveal
+            delay={0.1}
+            className={cn(
+              'h-full',
+              services.docs.length % 2 === 1 ? 'md:col-span-1' : 'md:col-span-2',
+              services.docs.length % 3 === 2
+                ? 'lg:col-span-1'
+                : services.docs.length % 3 === 1
+                  ? 'lg:col-span-2'
+                  : 'lg:col-span-3',
+            )}
+          >
+            <Link
+              href="/hire-from-pakistan"
+              className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--navy)] to-primary p-6 text-white shadow-lg shadow-primary/30 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/40"
+            >
+              <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full border border-white/15" />
+              <div aria-hidden className="pointer-events-none absolute -bottom-20 -right-8 h-56 w-56 rounded-full border border-white/10" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider backdrop-blur">
+                  <Sparkles className="h-3.5 w-3.5" /> Tailored hiring
+                </span>
+                <h3 className="mt-4 text-xl font-bold leading-snug">Need a custom manpower solution?</h3>
+                <p className="mt-2 max-w-md text-sm text-white/85">
+                  Tell us your roles, volumes and destination — we&apos;ll build a compliant plan across the
+                  Gulf, Europe and Asia.
+                </p>
+              </div>
+              <span className="relative mt-6 inline-flex items-center gap-2 font-semibold">
+                Talk to our team
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+              </span>
+            </Link>
+          </Reveal>
         </div>
       </section>
 
