@@ -19,6 +19,8 @@ type Prof = { profession: string; count: number }
 type Category = { category: string; total: number; professions: Prof[] }
 type Card = {
   code: string
+  name: string | null
+  title: string | null
   category: string
   profession: string
   nationality: string | null
@@ -199,7 +201,12 @@ const CandidateCard: React.FC<{ c: Card; enquiry: Enquiry }> = ({ c, enquiry }) 
   ].filter(Boolean)
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
-      <div className="text-base font-semibold">{c.profession}</div>
+      <div>
+        <div className="text-base font-semibold">{c.name || c.title || c.profession}</div>
+        {c.name && (
+          <div className="text-sm font-medium text-primary">{c.title || c.profession}</div>
+        )}
+      </div>
       <span className="self-start rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
         {c.category}
       </span>
