@@ -68,7 +68,7 @@ const CORRIDORS = [
 
 const DIVISIONS = [
   {
-    img: '/profile/trades.svg',
+    img: '/profile/trades.webp',
     Icon: HardHat,
     title: 'Skilled Trades & Construction',
     desc: 'Pre-screened, medically-cleared workers for construction, civil, oil & gas and industrial projects — ready to meet your timelines and quality standards.',
@@ -80,7 +80,7 @@ const DIVISIONS = [
     ],
   },
   {
-    img: '/profile/professionals.svg',
+    img: '/profile/professionals.webp',
     Icon: Briefcase,
     title: 'Professional Recruitment',
     desc: 'Mid- to senior-level professionals across diverse industries, matched through targeted sourcing, rigorous screening and market insight.',
@@ -92,7 +92,7 @@ const DIVISIONS = [
     ],
   },
   {
-    img: '/profile/hospitality.svg',
+    img: '/profile/hospitality.webp',
     Icon: Hotel,
     title: 'Hospitality & Services',
     desc: 'Skilled professionals for hotels, restaurants and tourism services overseas — polished, service-ready and internationally compliant.',
@@ -206,9 +206,9 @@ export default function ProfilePage() {
 
           <Reveal delay={0.2}>
             <div className="relative">
-              <div className="rounded-2xl bg-white p-5 shadow-2xl shadow-black/50 ring-1 ring-white/10">
+              <div className="overflow-hidden rounded-2xl shadow-2xl shadow-black/50 ring-1 ring-white/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/profile/hero.svg" alt="Falisha Manpower connects Pakistani talent with employers across the Gulf, Europe and Asia" className="block w-full" width={560} height={420} />
+                <img src="/profile/hero.webp" alt="Falisha Manpower — a skilled Pakistani engineer at an overseas construction project" className="block aspect-[4/3] w-full object-cover" width={1200} height={900} />
               </div>
             </div>
           </Reveal>
@@ -370,9 +370,9 @@ export default function ProfilePage() {
             {DIVISIONS.map((d, i) => (
               <Reveal key={d.title} delay={i * 0.08}>
                 <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  <div className="relative aspect-[3/2] overflow-hidden bg-white">
+                  <div className="relative aspect-[3/2] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={d.img} alt={`${d.title} — Falisha Manpower`} className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105" width={420} height={280} loading="lazy" />
+                    <img src={d.img} alt={`${d.title} — Falisha Manpower`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" width={900} height={600} loading="lazy" />
                   </div>
                   <div className="flex flex-1 flex-col p-6">
                     <div className="flex items-center gap-3">
