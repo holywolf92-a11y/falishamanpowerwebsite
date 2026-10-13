@@ -575,11 +575,17 @@ export default async function HomePage() {
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
                         />
-                        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-                        <div className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-white/15 text-white backdrop-blur">
+                        <div
+                          aria-hidden
+                          className="absolute inset-0"
+                          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.28) 24%, transparent 55%)' }}
+                        />
+                        <div className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-black/30 text-white backdrop-blur-sm">
                           <IndustryIcon name={ind.title} className="h-5 w-5" />
                         </div>
-                        <p className="absolute inset-x-4 bottom-3 text-xl font-bold text-white">{ind.title} Jobs</p>
+                        <p className="absolute inset-x-4 bottom-3 text-xl font-bold text-white [text-shadow:0_1px_4px_rgba(0,0,0,0.7)]">
+                          {ind.title} Jobs
+                        </p>
                       </div>
                       <div className="flex flex-1 flex-col p-5">
                         <ul className="space-y-2 text-base text-muted-foreground">

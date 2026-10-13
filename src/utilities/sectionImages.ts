@@ -21,8 +21,9 @@ const INDUSTRY_IMAGES: [RegExp, string][] = [
   [/telecom|\bit\b|network/, IMG('1581094794329-c8112a89af12')], // developer at a workstation
   [/steel|fabricat|welding/, IMG('1504307651254-35680f356dfd')], // heavy industrial site crew
   [/livestock|dairy|poultry|cattle/, IMG('1500595046743-cd271d694d30')], // cattle on a farm
-  [/fmcg|consumer|packaging/, IMG('1553413077-190dd305871c')], // warehouse / distribution
+  [/fmcg|consumer/, IMG('1534723452862-4c874018d66d')], // supermarket shelves (consumer goods)
   [/education|school|teach|academ|training/, IMG('1509062522246-3755977927d7')], // classroom / lecture
+  [/security|surveillance|guard/, IMG('1557597774-9d273605dfa9')], // CCTV / surveillance cameras
 ]
 
 export function industryImage(name: string): string {
