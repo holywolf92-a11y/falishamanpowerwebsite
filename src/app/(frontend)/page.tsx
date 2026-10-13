@@ -644,10 +644,10 @@ export default async function HomePage() {
                     <Link
                       key={cc.slug}
                       href={`/countries/${cc.slug}`}
-                      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                      className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
                     >
-                      <Flag name={cc.name} className="h-8 w-[3rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
-                      <span className="text-sm leading-snug text-muted-foreground">
+                      <Flag name={cc.name} className="h-[2.45rem] w-[3.65rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
+                      <span className="text-base leading-snug text-muted-foreground">
                         Recruitment Agency for{' '}
                         <span className="font-semibold text-foreground group-hover:text-primary">{cc.name}</span> in Pakistan
                       </span>
