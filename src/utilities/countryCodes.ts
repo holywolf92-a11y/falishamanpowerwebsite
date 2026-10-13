@@ -78,6 +78,13 @@ const COUNTRY_CODE_MAP: Record<string, string> = {
   uganda: 'UG',
   'united states': 'US',
   usa: 'US',
+  luxembourg: 'LU',
+  russia: 'RU',
+  iceland: 'IS',
+  moldova: 'MD',
+  // England & Scotland are part of the UK — show the UK flag.
+  england: 'GB',
+  scotland: 'GB',
 }
 
 /**
