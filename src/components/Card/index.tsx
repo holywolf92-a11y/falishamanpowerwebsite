@@ -7,6 +7,7 @@ import React, { Fragment } from 'react'
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { postImageSrc } from '@/utilities/postImageSrc'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'externalImage'>
 
@@ -42,7 +43,7 @@ export const Card: React.FC<{
           <Media resource={metaImage} size="33vw" />
         ) : externalImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={externalImage} alt="" aria-hidden className="aspect-video w-full object-cover" />
+          <img src={postImageSrc(externalImage)} alt="" aria-hidden className="aspect-video w-full object-cover" />
         ) : (
           <div className="aspect-video w-full bg-muted" />
         )}

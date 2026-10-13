@@ -1,5 +1,6 @@
 import type { Post, Media } from '@/payload-types'
 import { getServerSideURL } from './getURL'
+import { postImageSrc } from './postImageSrc'
 
 // Best-available absolute image URL for a post: uploaded meta image (OG size) →
 // hero image → hotlinked externalImage → site OG fallback.
@@ -16,7 +17,8 @@ function resolveImage(post: Post, base: string): string | undefined {
     if (u) return base + u
   }
   if (post.externalImage) {
-    return post.externalImage.startsWith('http') ? post.externalImage : base + post.externalImage
+    const local = postImageSrc(post.externalImage)
+    if (local) return local.startsWith('http') ? local : base + local
   }
   return `${base}/og-image.png`
 }

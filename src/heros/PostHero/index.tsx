@@ -5,6 +5,7 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import { postImageSrc } from '@/utilities/postImageSrc'
 
 export const PostHero: React.FC<{
   post: Post
@@ -68,7 +69,7 @@ export const PostHero: React.FC<{
         ) : externalImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={externalImage}
+            src={postImageSrc(externalImage)}
             alt=""
             aria-hidden
             className="absolute inset-0 -z-10 h-full w-full object-cover"
