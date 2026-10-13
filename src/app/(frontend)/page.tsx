@@ -183,13 +183,13 @@ export default async function HomePage() {
       </section>
 
       {/* Turkey specialty — focus band */}
-      <section className="relative overflow-hidden bg-[var(--navy)] py-20 text-white md:py-28">
+      <section className="relative overflow-hidden bg-background py-20 text-foreground md:py-28">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-50"
+          className="pointer-events-none absolute inset-0 opacity-70"
           style={{
             backgroundImage:
-              'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              'linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px)',
             backgroundSize: '44px 44px',
             maskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
             WebkitMaskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
@@ -198,7 +198,7 @@ export default async function HomePage() {
         <div
           aria-hidden
           className="pointer-events-none absolute -left-32 top-4 h-[36rem] w-[36rem] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(227,10,23,0.20), transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle, rgba(227,10,23,0.14), transparent 70%)' }}
         />
 
         <div className="container relative">
@@ -206,14 +206,14 @@ export default async function HomePage() {
             {/* Globe */}
             <Reveal>
               <div className="relative mx-auto w-full max-w-[32rem]">
-                <TurkeyGlobe className="w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]" />
-                <div className="absolute right-1 top-5 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                <TurkeyGlobe className="w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]" />
+                <div className="absolute right-1 top-5 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
                   <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">Türkiye corridor</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Türkiye corridor</p>
                 </div>
-                <div className="absolute bottom-6 left-0 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
-                  <p className="text-xl font-bold leading-none text-white">OEP 4035</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">BEOE licensed</p>
+                <div className="absolute bottom-6 left-0 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                  <p className="text-xl font-bold leading-none text-foreground">OEP 4035</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">BEOE licensed</p>
                 </div>
               </div>
             </Reveal>
@@ -222,22 +222,22 @@ export default async function HomePage() {
             <Reveal delay={0.1}>
               <div>
                 <div className="flex items-center gap-3">
-                  <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-white/20" />
+                  <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-border" />
                   <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
                     Our speciality market
                   </p>
                 </div>
                 <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
-                  <span className="text-white">Türkiye</span> is where we go deepest
+                  <span className="text-primary">Türkiye</span> is where we go deepest
                 </h2>
-                <p className="mt-4 max-w-xl text-white/70">
+                <p className="mt-4 max-w-xl text-muted-foreground">
                   Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
                   Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
                   managing the full journey from sourcing to on-site deployment.
                 </p>
                 <ul className="mt-6 space-y-3 text-sm">
                   {TURKEY_POINTS.map((p) => (
-                    <li key={p} className="flex items-center gap-3 text-white/80">
+                    <li key={p} className="flex items-center gap-3 text-muted-foreground">
                       <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--gold)]" />
                       {p}
                     </li>
@@ -250,7 +250,7 @@ export default async function HomePage() {
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
+                    className="rounded-full border-border bg-transparent px-6 text-foreground hover:bg-muted hover:text-foreground"
                   >
                     <Link href="/countries/turkey">Explore Türkiye →</Link>
                   </Button>
@@ -261,8 +261,8 @@ export default async function HomePage() {
 
           {/* Employer logos */}
           <Reveal delay={0.15}>
-            <div className="mt-16 border-t border-white/10 pt-10">
-              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+            <div className="mt-16 border-t border-border pt-10">
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Trusted alongside leading Turkish employers
               </p>
               <LogoMarquee logos={TURKEY_LOGOS} />
