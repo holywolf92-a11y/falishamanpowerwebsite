@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea'
 
 type State = 'idle' | 'submitting' | 'success' | 'error'
 
-export const EmployerEnquiryForm: React.FC = () => {
+export const EmployerEnquiryForm: React.FC<{ hideHeader?: boolean }> = ({ hideHeader = false }) => {
   const [state, setState] = useState<State>('idle')
   const [message, setMessage] = useState('')
   const [reference, setReference] = useState<string | null>(null)
@@ -56,10 +56,12 @@ export const EmployerEnquiryForm: React.FC = () => {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-7">
-      <div>
-        <h3 className="text-xl font-semibold">Request your workforce</h3>
-        <p className="mt-1 text-sm text-muted-foreground">A few essentials to start — fields marked * are required.</p>
-      </div>
+      {!hideHeader && (
+        <div>
+          <h3 className="text-xl font-semibold">Request your workforce</h3>
+          <p className="mt-1 text-sm text-muted-foreground">A few essentials to start — fields marked * are required.</p>
+        </div>
+      )}
 
       {/* The essentials */}
       <div className="grid gap-4 sm:grid-cols-2">

@@ -1,27 +1,23 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
-import { ArrowRight, BadgeCheck, Clock, MessageCircle, Plane, Search, ShieldCheck, Users } from 'lucide-react'
+import { ArrowRight, MessageCircle, Plane, Search, ShieldCheck, Users } from 'lucide-react'
 import Reveal from '@/components/visual/Reveal'
-import { EmployerEnquiryForm } from '@/components/EmployerEnquiryForm'
-import { TalentPool } from '@/components/TalentPool'
+import LiveTalentCount from '@/components/visual/LiveTalentCount'
+import { EmployerActionPanel } from '@/components/EmployerActionPanel'
 
 export const dynamic = 'force-dynamic'
 
 const EMPLOYER_EMAIL = 'info@falishamanpower.com'
 const WHATSAPP = 'https://wa.me/923005547806'
 
-const TRUST = [
-  { icon: ShieldCheck, label: 'BEOE-licensed', sub: 'OEP No. 4035' },
-  { icon: BadgeCheck, label: '22+ years', sub: 'Since 2004' },
-  { icon: Clock, label: 'Reply in 1 day', sub: 'Business days' },
-]
+const TRUST = ['BEOE-licensed · OEP No. 4035', '22+ years · since 2004', 'End-to-end service']
 
 const STEPS = [
   {
     icon: MessageCircle,
     n: '01',
     t: 'Share your requirement',
-    d: 'Tell us the roles, numbers and destination. We confirm the scope and details with you.',
+    d: 'Browse and enquire, or send us the roles, numbers and destination. We confirm the scope with you.',
   },
   {
     icon: Search,
@@ -46,7 +42,7 @@ const STEPS = [
 export default function FillAVacancyPage() {
   return (
     <div>
-      {/* Hero — value prop + the request form, above the fold */}
+      {/* Hero */}
       <section className="relative overflow-hidden bg-[var(--navy)] text-white">
         <div
           aria-hidden
@@ -54,66 +50,45 @@ export default function FillAVacancyPage() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-[var(--primary)]/25 blur-3xl"
+          className="pointer-events-none absolute -bottom-10 left-1/4 h-80 w-80 rounded-full bg-[var(--primary)]/25 blur-3xl"
         />
-        <div className="container relative py-14 md:py-20">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.95fr] lg:gap-14">
-            {/* Left — value proposition */}
-            <Reveal>
-              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">For employers</p>
-              <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-                Hire skilled, <span className="text-[var(--gold)]">work-ready talent</span> from Pakistan
-              </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/70">
-                Share your workforce requirement and our BEOE-licensed team sources, screens and mobilises your
-                team end-to-end — from shortlisting to visas and travel.
-              </p>
-
-              <ul className="mt-7 flex flex-wrap gap-2.5">
-                {TRUST.map((t) => (
-                  <li
-                    key={t.label}
-                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm"
-                  >
-                    <t.icon className="h-4 w-4 text-[var(--gold)]" />
-                    <span className="font-medium">{t.label}</span>
-                    <span className="text-white/45">· {t.sub}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href="#browse"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
+        <div className="container relative pb-28 pt-14 text-center md:pb-32 md:pt-20">
+          <Reveal className="mx-auto max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">For employers</p>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+              Hire skilled, <span className="text-[var(--gold)]">work-ready talent</span> from Pakistan
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
+              Browse <LiveTalentCount className="font-semibold text-white" /> pre-screened candidates, or tell us
+              exactly what you need. Our BEOE-licensed team handles sourcing, screening, visas and mobilisation —
+              end to end.
+            </p>
+            <ul className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
+              {TRUST.map((t) => (
+                <li
+                  key={t}
+                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm text-white/85"
                 >
-                  Browse available talent
-                </a>
-                <a
-                  href={WHATSAPP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-white/80 transition hover:text-white"
-                >
-                  <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
-                </a>
-              </div>
-            </Reveal>
-
-            {/* Right — the request form, prominent */}
-            <Reveal delay={0.1}>
-              <div id="request" className="scroll-mt-28 rounded-2xl shadow-2xl shadow-black/30">
-                <EmployerEnquiryForm />
-              </div>
-            </Reveal>
-          </div>
+                  <ShieldCheck className="h-4 w-4 text-[var(--gold)]" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
 
-      <div className="container py-16 md:py-20">
+      {/* Action panel — floats over the hero: Browse (default) or Request */}
+      <div className="container relative -mt-16 md:-mt-20">
+        <Reveal>
+          <EmployerActionPanel />
+        </Reveal>
+      </div>
+
+      <div className="container py-16 md:py-24">
         {/* How we deliver */}
         <section>
-          <Reveal className="max-w-2xl">
+          <Reveal className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">How we deliver</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight">From requirement to mobilisation</h2>
             <p className="mt-3 text-muted-foreground">
@@ -136,21 +111,6 @@ export default function FillAVacancyPage() {
                 </div>
               </Reveal>
             ))}
-          </div>
-        </section>
-
-        {/* Browse the live talent pool */}
-        <section id="browse" className="mt-16 scroll-mt-28 md:mt-24">
-          <Reveal className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Available now</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight">Browse our live talent pool</h2>
-            <p className="mt-3 text-muted-foreground">
-              Explore pre-screened candidates by profession, nationality and destination. Found who you need?
-              Enquire and we handle screening, documentation, visas and mobilisation.
-            </p>
-          </Reveal>
-          <div className="mt-8">
-            <TalentPool />
           </div>
         </section>
 
@@ -201,6 +161,6 @@ export function generateMetadata(): Metadata {
     alternates: { canonical: '/fill-a-vacancy' },
     title: 'Fill a Vacancy | Falisha Manpower',
     description:
-      'Employers: request skilled manpower from Pakistan. Share your workforce requirement and Falisha Manpower (BEOE OEP 4035) will source, screen and mobilise your team end-to-end.',
+      'Employers: browse 5,000+ pre-screened candidates or request skilled manpower from Pakistan. Falisha Manpower (BEOE OEP 4035) sources, screens and mobilises your team end-to-end.',
   }
 }
