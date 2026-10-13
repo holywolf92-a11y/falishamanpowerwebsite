@@ -13,6 +13,7 @@ import type { Post } from '@/payload-types'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
+import { articleSchema } from '@/utilities/articleSchema'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -70,6 +71,10 @@ export default async function Post({ params: paramsPromise }: Args) {
             ]),
           ),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema(post, url)) }}
       />
       <PageClient />
 
