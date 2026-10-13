@@ -4,6 +4,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Tilt3D } from '@/components/visual/Tilt3D'
 import { Flag } from '@/components/visual/Flag'
+import { COUNTRY_CONTENT } from '@/data/countryContent'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,9 +13,13 @@ const REGION_LABELS: Record<string, string> = {
   europe: 'Europe',
   'east-asia': 'East Asia',
   'southeast-asia': 'Southeast Asia',
+  'central-asia': 'Central Asia & Caucasus',
   mena: 'MENA / North Africa',
   other: 'Other',
 }
+
+// Code-level content uses its own region keys; map them to the CMS keys above.
+const REGION_ALIAS: Record<string, string> = { gulf: 'gcc', sea: 'southeast-asia' }
 
 export default async function CountriesPage() {
   const payload = await getPayload({ config: configPromise })
@@ -26,8 +31,25 @@ export default async function CountriesPage() {
     sort: 'name',
   })
 
+  // Merge in any code-level countries that don't yet have a CMS record, so
+  // enriched markets (e.g. the UK) are discoverable without a DB write.
+  const cmsSlugs = new Set((countries.docs as Record<string, any>[]).map((c) => c.slug))
+  const codeOnly = Object.entries(COUNTRY_CONTENT)
+    .filter(([slug, c]) => c.name && !cmsSlugs.has(slug))
+    .map(([slug, c]) => ({
+      id: `code-${slug}`,
+      slug,
+      name: c.name,
+      intro: c.intro,
+      region: REGION_ALIAS[c.region ?? ''] ?? c.region ?? 'other',
+    }))
+
+  const all = [...(countries.docs as Record<string, any>[]), ...codeOnly].sort((a, b) =>
+    String(a.name).localeCompare(String(b.name)),
+  )
+
   const byRegion = new Map<string, Record<string, any>[]>()
-  for (const c of countries.docs as Record<string, any>[]) {
+  for (const c of all) {
     const key = c.region || 'other'
     if (!byRegion.has(key)) byRegion.set(key, [])
     byRegion.get(key)!.push(c)
