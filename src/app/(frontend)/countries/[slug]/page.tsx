@@ -3,13 +3,15 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ArrowRight, CheckCircle2, Clock, MapPin, MessageCircle, Plane, Search, ShieldCheck, Users } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Clock, FileCheck2, MapPin, MessageCircle, Plane, Search, ShieldCheck, Users } from 'lucide-react'
 import RichText from '@/components/RichText'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Flag } from '@/components/visual/Flag'
 import Reveal from '@/components/visual/Reveal'
+import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
+import { COUNTRY_SEO } from '@/data/countrySeo'
 
 export const dynamic = 'force-dynamic'
 
@@ -97,6 +99,19 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   if (!c) notFound()
 
   const related = relatedCountries(slug, COUNTRY_CONTENT[slug]?.region)
+  const seo = COUNTRY_SEO[slug]
+  const faqSchema =
+    seo?.faqs && seo.faqs.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: seo.faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }
+      : null
   const gridBg = {
     backgroundImage:
       'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
@@ -107,6 +122,9 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div>
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
       {/* Hero */}
       <section className="relative overflow-hidden bg-[var(--navy)] text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60" style={gridBg} />
@@ -251,6 +269,36 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
+        {/* Work & visa routes */}
+        {seo?.visaRoutes && seo.visaRoutes.length > 0 && (
+          <section className="mt-16 md:mt-20">
+            <Reveal className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Work &amp; visa routes</p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">How Pakistanis work in {c.name}</h2>
+              <p className="mt-3 text-muted-foreground">
+                The main legal pathways we recruit through. We handle the documentation and visa process end-to-end.
+              </p>
+            </Reveal>
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {seo.visaRoutes.map((v, i) => (
+                <Reveal key={v.name} delay={(i % 3) * 0.06}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <FileCheck2 className="h-5 w-5" />
+                    </span>
+                    <h3 className="mt-4 font-semibold">{v.name}</h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground">{v.detail}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Immigration rules change — details are a general guide, not legal advice. We confirm the current route and
+              requirements for each role.
+            </p>
+          </section>
+        )}
+
         {/* How we deploy */}
         <section className="mt-16 md:mt-20">
           <Reveal className="max-w-2xl">
@@ -310,6 +358,19 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             </div>
           )}
         </section>
+
+        {/* FAQ */}
+        {seo?.faqs && seo.faqs.length > 0 && (
+          <section className="mt-16 md:mt-20">
+            <Reveal className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Working in {c.name} — your questions</h2>
+            </Reveal>
+            <div className="mt-8 max-w-3xl">
+              <FAQAccordion items={seo.faqs} />
+            </div>
+          </section>
+        )}
 
         {/* Related destinations */}
         {related.length > 0 && (

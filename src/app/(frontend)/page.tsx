@@ -593,16 +593,18 @@ export default async function HomePage() {
                   {region.label}
                   <span className="text-xs font-normal text-muted-foreground/60">({region.countries.length})</span>
                 </h3>
-                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {region.countries.map((cc) => (
                     <Link
                       key={cc.slug}
                       href={`/countries/${cc.slug}`}
-                      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
                     >
-                      <Flag name={cc.name} className="h-7 w-[2.6rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
-                      <span className="truncate text-sm font-medium group-hover:text-primary">{cc.name}</span>
-                      <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-transparent transition group-hover:text-primary" />
+                      <Flag name={cc.name} className="h-8 w-[3rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
+                      <span className="text-sm leading-snug text-muted-foreground">
+                        Recruitment Agency for{' '}
+                        <span className="font-semibold text-foreground group-hover:text-primary">{cc.name}</span> in Pakistan
+                      </span>
                     </Link>
                   ))}
                 </div>
