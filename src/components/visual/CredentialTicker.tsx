@@ -15,6 +15,12 @@ const CREDENTIALS: TickerCredential[] = [
     alt: 'Bureau of Emigration & Overseas Employment',
   },
   {
+    title: 'SECP Registered',
+    sub: 'Securities & Exchange Commission',
+    logo: '/logos/credentials/secp.webp',
+    alt: 'Securities & Exchange Commission of Pakistan (SECP)',
+  },
+  {
     title: 'ISO Certified',
     sub: 'ISO 9001:2015',
     logo: '/logos/credentials/iso.webp',
@@ -25,6 +31,12 @@ const CREDENTIALS: TickerCredential[] = [
     sub: 'Rawalpindi Chamber of Commerce',
     logo: '/logos/credentials/rcci.webp',
     alt: 'Rawalpindi Chamber of Commerce & Industry',
+  },
+  {
+    title: 'FPCCI Member',
+    sub: 'Federation of Pakistan Chambers',
+    logo: '/logos/credentials/fpcci.webp',
+    alt: 'Federation of Pakistan Chambers of Commerce & Industry (FPCCI)',
   },
   {
     title: 'POEPA Member',
