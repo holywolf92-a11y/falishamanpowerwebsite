@@ -109,10 +109,25 @@ export default async function HomePage() {
     payload.find({ collection: 'industries', overrideAccess: false, limit: 24, depth: 0 }),
   ])
 
+  // Live talent-pool numbers for the headline stats (real, non-zero) — falls
+  // back to the Payload collection counts if the portal API is unreachable.
+  const PORTAL_API = (
+    process.env.NEXT_PUBLIC_PORTAL_API_URL ||
+    process.env.PORTAL_API_URL ||
+    'https://glorious-flexibility-production.up.railway.app'
+  ).replace(/\/$/, '')
+  const talent = (await fetch(`${PORTAL_API}/api/talent/stats`, { next: { revalidate: 600 } })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null)) as null | {
+    total_candidates: number
+    by_category: unknown[]
+    by_country: unknown[]
+  }
+
   const stats = [
-    { n: jobs.totalDocs, l: 'Open vacancies' },
-    { n: countries.totalDocs, l: 'Destination countries' },
-    { n: industries.totalDocs, l: 'Sectors covered' },
+    { n: talent?.total_candidates ?? jobs.totalDocs, l: 'Skilled candidates' },
+    { n: Math.max(countries.totalDocs, talent?.by_country?.length ?? 0), l: 'Destination countries' },
+    { n: Math.max(industries.totalDocs, talent?.by_category?.length ?? 0), l: 'Sectors covered' },
   ]
 
   return (
