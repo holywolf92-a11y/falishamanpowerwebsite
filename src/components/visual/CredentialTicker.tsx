@@ -51,7 +51,7 @@ function Item({ c }: { c: TickerCredential }) {
     <div className="flex shrink-0 items-center gap-3.5">
       <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white shadow-sm ring-1 ring-black/[0.06]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={c.logo} alt={c.alt} className="h-11 w-11 object-contain" loading="lazy" />
+        <img src={c.logo} alt={c.alt} className="h-11 w-11 object-contain" loading="eager" decoding="async" width={44} height={44} />
       </span>
       <div className="whitespace-nowrap">
         <div className="text-[15px] font-semibold leading-tight text-foreground">{c.title}</div>
