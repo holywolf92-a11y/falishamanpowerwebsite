@@ -154,7 +154,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
               <ul className="mt-7 flex flex-wrap gap-2.5">
                 {[
                   { icon: ShieldCheck, t: 'BEOE-licensed · OEP 4035' },
-                  { icon: Clock, t: '15+ years' },
+                  { icon: Clock, t: '20+ years' },
                   { icon: Layers, t: `${roles.length}+ roles` },
                 ].map((p) => (
                   <li key={p.t} className="flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm text-foreground shadow-sm">
@@ -242,7 +242,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
                 <Fact label="Sector" value={title} />
                 <Fact label="Skill levels" value="Skilled, semi-skilled & professional" />
                 <Fact label="Licence" value="OEP No. 4035 · BEOE-registered" />
-                <Fact label="Experience" value="15+ years of overseas recruitment" />
+                <Fact label="Experience" value="20+ years of overseas recruitment" />
                 <Fact label="Offices" value="Rawalpindi (HO), Lahore, Karachi, Peshawar & AJK" />
               </dl>
               <Button asChild className="mt-6 w-full rounded-full">

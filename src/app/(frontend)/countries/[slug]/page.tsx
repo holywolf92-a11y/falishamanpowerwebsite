@@ -169,7 +169,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
               <ul className="mt-7 flex flex-wrap gap-2.5">
                 {[
                   { icon: ShieldCheck, t: 'BEOE-licensed · OEP 4035' },
-                  { icon: Clock, t: '15+ years' },
+                  { icon: Clock, t: '20+ years' },
                   { icon: MapPin, t: c.regionLabel },
                 ].map((p) => (
                   <li
@@ -243,7 +243,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                 <Fact label="Region" value={c.regionLabel} />
                 {c.sectorsLabel && <Fact label="Key sectors" value={c.sectorsLabel} />}
                 <Fact label="Licence" value="OEP No. 4035 · BEOE-registered" />
-                <Fact label="Experience" value="15+ years of overseas recruitment" />
+                <Fact label="Experience" value="20+ years of overseas recruitment" />
                 <Fact label="Offices" value="Rawalpindi (HO), Lahore, Karachi, Peshawar & AJK" />
               </dl>
               <Button asChild className="mt-6 w-full rounded-full">

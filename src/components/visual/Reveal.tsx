@@ -61,9 +61,12 @@ export function CountUp({ to, duration = 2, suffix = '', prefix = '', className 
       return
     }
 
-    setValue(0)
+    // Keep the real value until the stats actually scroll into view, so crawlers
+    // that run JS without scrolling (and no-JS clients) never see "0+". Only then
+    // reset to 0 and count up.
     if (!inView) return
 
+    setValue(0)
     const controls = animate(0, to, {
       duration,
       ease: [0.16, 1, 0.3, 1],
