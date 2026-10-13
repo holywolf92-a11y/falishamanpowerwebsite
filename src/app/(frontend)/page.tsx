@@ -6,6 +6,7 @@ import { ArrowRight, ClipboardCheck, Plane, UsersRound, Layers, CheckCircle2 } f
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { HeroShowcase } from '@/components/visual/HeroShowcase'
+import { CredentialTicker } from '@/components/visual/CredentialTicker'
 import { CircleBadge } from '@/components/visual/CircleBadge'
 import { Tilt3D } from '@/components/visual/Tilt3D'
 import { TrustAward } from '@/components/visual/TrustAward'
@@ -174,6 +175,9 @@ export default async function HomePage() {
         primary={{ href: '/jobs', label: 'Job Opening' }}
         secondary={{ href: '/contact', label: 'Recruit Manpower' }}
       />
+
+      {/* Accreditations & memberships ticker */}
+      <CredentialTicker />
 
       {/* Client logos — partner wall */}
       <section className="border-b border-border bg-secondary/40 py-16 md:py-20">
