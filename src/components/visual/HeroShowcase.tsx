@@ -61,23 +61,24 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
   const s = slides[i] || slides[0]
 
   return (
-    <section className="relative overflow-hidden bg-[var(--navy)] text-white">
+    <section className="relative overflow-hidden bg-background text-foreground">
       {/* grid pattern */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
+        className="pointer-events-none absolute inset-0 opacity-70"
         style={{
           backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+            'linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px)',
           backgroundSize: '44px 44px',
           maskImage: 'radial-gradient(120% 90% at 50% 0%, black, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(120% 90% at 50% 0%, black, transparent 75%)',
         }}
       />
-      {/* teal glow */}
+      {/* brand glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-32 -top-24 h-[520px] w-[520px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 45%, transparent), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 22%, transparent), transparent 70%)' }}
       />
 
       <div className="container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
@@ -91,13 +92,13 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               exit={reduce ? undefined : { opacity: 0, y: -12 }}
               transition={{ duration: 0.4 }}
             >
-              <p className="text-sm font-semibold text-white/70">{s.eyebrow}</p>
+              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">{s.eyebrow}</p>
               <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
                 {s.titleLead}
                 <span className="text-primary">{s.titleAccent}</span>
                 {s.titleRest}
               </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/70">{s.subtitle}</p>
+              <p className="mt-5 max-w-xl text-lg text-muted-foreground">{s.subtitle}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -111,7 +112,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
             </Link>
             <Link
               href={secondary.href}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 font-medium text-white transition hover:bg-white/10"
+              className="group inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 font-medium text-foreground transition hover:bg-muted"
             >
               {secondary.label}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -158,7 +159,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
 
           {/* Card: market chart */}
           <div className="absolute -left-4 top-0 md:-left-10" style={{ transform: 'translateZ(30px)' }}>
-          <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+          <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
             <div className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-primary" />
               <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">Market Static</span>
@@ -185,7 +186,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
 
           {/* Card: new employees */}
           <div className="absolute -right-3 top-10 md:-right-8" style={{ transform: 'translateZ(30px)' }}>
-          <FloatCard reduce={reduce} delay={0.35} className="w-44 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+          <FloatCard reduce={reduce} delay={0.35} className="w-44 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
             <div className="flex items-center justify-between">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
                 <UserPlus className="h-4 w-4" />
@@ -201,7 +202,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
 
           {/* Card: job qualification */}
           <div className="absolute bottom-8 -right-2 md:-right-6" style={{ transform: 'translateZ(90px)' }}>
-          <FloatCard reduce={reduce} delay={0.6} className="w-60 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl">
+          <FloatCard reduce={reduce} delay={0.6} className="w-60 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
             <div className="flex items-center justify-between text-sm">
               <span className="font-semibold">Job Qualification</span>
               <span className="font-bold text-primary">77%</span>
