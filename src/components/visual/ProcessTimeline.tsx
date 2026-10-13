@@ -18,7 +18,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
       <ol className="relative">
         {steps.map((step) => (
           <li key={step.num} className="flex gap-5 pb-8 last:pb-0">
-            <div className="z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[var(--navy)] font-bold text-white ring-4 ring-primary/20">
+            <div className="z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary font-bold text-primary-foreground ring-4 ring-primary/20">
               {step.num}
             </div>
             <div className="pt-1.5">

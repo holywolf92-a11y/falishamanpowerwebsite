@@ -45,31 +45,31 @@ export async function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto bg-[var(--navy)] text-white">
+    <footer className="mt-auto border-t border-border bg-secondary/40 text-foreground">
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div>
-          <Link href="/" className="inline-block text-white">
+          <Link href="/" className="inline-block text-foreground">
             <Logo />
           </Link>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Overseas recruitment agency connecting skilled Pakistani professionals with employers
             across the Gulf and beyond — sourcing, visas, attestation and mobilisation, end to end.
           </p>
           <div className="mt-5 flex flex-col gap-2 text-sm">
-            <a href="mailto:info@falishamanpower.com" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+            <a href="mailto:info@falishamanpower.com" className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
               <Mail className="h-4 w-4 text-primary" /> info@falishamanpower.com
             </a>
-            <a href="tel:+923303333335" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+            <a href="tel:+923303333335" className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
               <Phone className="h-4 w-4 text-primary" /> +92 330 3333335
             </a>
-            <a href="tel:+92514927145" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+            <a href="tel:+92514927145" className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
               <Phone className="h-4 w-4 text-primary" /> +92 51 4927145-6
             </a>
-            <a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+            <a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
               <MessageCircle className="h-4 w-4 text-primary" /> WhatsApp us
             </a>
-            <p className="mt-1 flex items-start gap-2 text-white/55">
+            <p className="mt-1 flex items-start gap-2 text-muted-foreground">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
               Umer Farooq Plaza, Murree Road, Chandni Chowk, Rawalpindi · Branches: Lahore, Karachi, Peshawar, AJK
             </p>
@@ -82,7 +82,7 @@ export async function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-primary hover:text-primary"
+                className="grid h-9 w-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -96,7 +96,7 @@ export async function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             {(services.docs as Record<string, any>[]).map((s) => (
               <li key={s.id}>
-                <Link href={`/services/${s.slug}`} className="text-white/70 transition-colors hover:text-white">
+                <Link href={`/services/${s.slug}`} className="text-muted-foreground transition-colors hover:text-foreground">
                   {s.title}
                 </Link>
               </li>
@@ -117,7 +117,7 @@ export async function Footer() {
               <li key={c.id}>
                 <Link
                   href={`/countries/${c.slug}`}
-                  className="inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white"
+                  className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <Flag name={c.name} className="h-3.5 w-5 rounded-[2px]" />
                   {c.name}
@@ -138,7 +138,7 @@ export async function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             {CANDIDATE_LINKS.map((l) => (
               <li key={l.href + l.label}>
-                <Link href={l.href} className="text-white/70 transition-colors hover:text-white">
+                <Link href={l.href} className="text-muted-foreground transition-colors hover:text-foreground">
                   {l.label}
                 </Link>
               </li>
@@ -148,11 +148,11 @@ export async function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="container flex flex-col items-start justify-between gap-4 py-5 text-sm text-white/55 md:flex-row md:items-center">
+      <div className="border-t border-border">
+        <div className="container flex flex-col items-start justify-between gap-4 py-5 text-sm text-muted-foreground md:flex-row md:items-center">
           <p>© {year} Falisha Manpower. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="text-white/60 transition-colors hover:text-white">
+            <Link href="/privacy" className="text-muted-foreground transition-colors hover:text-foreground">
               Privacy &amp; Cookies
             </Link>
             <span className="hidden font-medium text-gold sm:inline">OEP Licence No. 4035</span>

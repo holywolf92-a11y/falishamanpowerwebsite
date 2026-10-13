@@ -567,7 +567,7 @@ export default async function HomePage() {
                 return (
                   <Reveal key={ind.id} delay={(i % 3) * 0.06}>
                     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-                      <div className="relative h-28 overflow-hidden">
+                      <div className="relative h-44 overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={industryImage(ind.title)}
@@ -579,20 +579,20 @@ export default async function HomePage() {
                         <div className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-white/15 text-white backdrop-blur">
                           <IndustryIcon name={ind.title} className="h-5 w-5" />
                         </div>
-                        <p className="absolute inset-x-4 bottom-2.5 text-base font-bold text-white">{ind.title} Jobs</p>
+                        <p className="absolute inset-x-4 bottom-3 text-xl font-bold text-white">{ind.title} Jobs</p>
                       </div>
                       <div className="flex flex-1 flex-col p-5">
-                        <ul className="space-y-1.5 text-sm text-muted-foreground">
+                        <ul className="space-y-2 text-base text-muted-foreground">
                           {roles.slice(0, 5).map((r) => (
-                            <li key={r} className="flex items-start gap-2">
-                              <span aria-hidden className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-primary" />
+                            <li key={r} className="flex items-start gap-2.5">
+                              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                               {r}
                             </li>
                           ))}
                         </ul>
                         <Link
                           href={`/industries/${ind.slug}`}
-                          className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+                          className="mt-5 inline-block text-[15px] font-semibold text-primary hover:underline"
                         >
                           All {ind.title} roles →
                         </Link>

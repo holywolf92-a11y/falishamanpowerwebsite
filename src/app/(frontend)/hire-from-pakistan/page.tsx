@@ -168,13 +168,13 @@ export default function HireFromPakistanPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[var(--navy)] py-20 text-white md:py-28">
+      <section className="relative overflow-hidden bg-background py-20 text-foreground md:py-28">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-60"
           style={{
             backgroundImage:
-              'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              'linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px)',
             backgroundSize: '44px 44px',
             maskImage: 'radial-gradient(120% 90% at 50% 0%, black, transparent 75%)',
           }}
@@ -184,7 +184,7 @@ export default function HireFromPakistanPage() {
           <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
             Hire skilled manpower <span className="text-primary">from Pakistan</span>
           </h1>
-          <p className="mt-5 text-lg text-white/70">
+          <p className="mt-5 text-lg text-muted-foreground">
             Falisha Manpower provides employer-focused recruitment services covering the complete international
             hiring lifecycle — from workforce planning and nationwide sourcing to assessment, documentation and
             deployment. BEOE-licensed OEP No. 4035.
@@ -193,7 +193,7 @@ export default function HireFromPakistanPage() {
             <Button asChild size="lg" className="rounded-full">
               <Link href="/fill-a-vacancy">Request workforce <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full border-white/25 bg-transparent text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="rounded-full">
               <Link href="/jobs">For candidates</Link>
             </Button>
           </div>

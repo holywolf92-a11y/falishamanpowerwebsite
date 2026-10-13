@@ -12,11 +12,11 @@ export default function FAQPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="border-b border-border bg-[var(--navy)] py-16 text-white md:py-20">
+      <section className="border-b border-border bg-secondary/40 py-16 text-foreground md:py-20">
         <div className="container">
           <p className="text-sm font-semibold uppercase tracking-widest text-gold">Help centre</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Frequently asked questions</h1>
-          <p className="mt-4 max-w-2xl text-white/70">
+          <p className="mt-4 max-w-2xl text-muted-foreground">
             Everything candidates and employers ask about overseas recruitment with Falisha Manpower — a
             BEOE-licensed Overseas Employment Promoter (OEP Licence No. 4035).
           </p>

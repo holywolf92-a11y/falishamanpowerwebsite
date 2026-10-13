@@ -19,6 +19,10 @@ const INDUSTRY_IMAGES: [RegExp, string][] = [
   [/facilit/, IMG('1581578731548-c64695cc6952')], // maintenance / cleaning worker
   [/agricultur|farming|food/, IMG('1625246333195-78d9c38ad449')], // crop seedlings in a field
   [/telecom|\bit\b|network/, IMG('1581094794329-c8112a89af12')], // developer at a workstation
+  [/steel|fabricat|welding/, IMG('1504307651254-35680f356dfd')], // heavy industrial site crew
+  [/livestock|dairy|poultry|cattle/, IMG('1500595046743-cd271d694d30')], // cattle on a farm
+  [/fmcg|consumer|packaging/, IMG('1553413077-190dd305871c')], // warehouse / distribution
+  [/education|school|teach|academ|training/, IMG('1509062522246-3755977927d7')], // classroom / lecture
 ]
 
 export function industryImage(name: string): string {
