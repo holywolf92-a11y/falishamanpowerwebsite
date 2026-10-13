@@ -43,20 +43,20 @@ const HERO_PHOTO = '/hero-person.webp'
 
 const HERO_SLIDES = [
   {
-    eyebrow: 'No.1 recruitment agency in Pakistan',
-    titleLead: 'Manpower ',
-    titleAccent: 'Recruitment Agency',
-    titleRest: ' for the Gulf.',
-    subtitle:
-      'We connect skilled Pakistani professionals with leading employers across Saudi Arabia, the UAE and beyond — visa, attestation and mobilisation included.',
-  },
-  {
     eyebrow: 'BEOE-licensed · OEP 4035',
     titleLead: 'Best ',
     titleAccent: 'Manpower Recruitment',
     titleRest: ' Agency in Pakistan.',
     subtitle:
       'Two decades of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
+  },
+  {
+    eyebrow: 'No.1 recruitment agency in Pakistan',
+    titleLead: 'Manpower ',
+    titleAccent: 'Recruitment Agency',
+    titleRest: ' for the Gulf.',
+    subtitle:
+      'We connect skilled Pakistani professionals with leading employers across Saudi Arabia, the UAE and beyond — visa, attestation and mobilisation included.',
   },
   {
     eyebrow: 'For employers',
