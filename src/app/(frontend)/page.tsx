@@ -51,12 +51,28 @@ const HERO_SLIDES = [
       'We connect skilled Pakistani professionals with leading employers across Saudi Arabia, the UAE and beyond — visa, attestation and mobilisation included.',
   },
   {
+    eyebrow: 'BEOE-licensed · OEP 4035',
+    titleLead: 'Best ',
+    titleAccent: 'Manpower Recruitment',
+    titleRest: ' Agency in Pakistan.',
+    subtitle:
+      'Two decades of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
+  },
+  {
     eyebrow: 'For employers',
     titleLead: 'Your workforce, ',
     titleAccent: 'sourced & mobilised',
     titleRest: ' end-to-end.',
     subtitle:
       'From bulk hiring to executive search — we handle sourcing, screening, visas, attestation and payroll so you can focus on operations.',
+  },
+  {
+    eyebrow: 'Our speciality market',
+    titleLead: 'Skilled talent for ',
+    titleAccent: 'Türkiye’s',
+    titleRest: ' top employers.',
+    subtitle:
+      'One of our strongest corridors — we supply skilled and technical Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies.',
   },
   {
     eyebrow: 'Ethical recruitment',
