@@ -279,13 +279,13 @@ export default async function HomePage() {
       </div>
 
       {/* For employers — Hire from Pakistan gateway */}
-      <section className="relative overflow-hidden bg-[var(--navy)] py-16 text-white md:py-24">
+      <section className="relative overflow-hidden bg-background py-16 text-foreground md:py-24">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-50"
+          className="pointer-events-none absolute inset-0 opacity-70"
           style={{
             backgroundImage:
-              'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              'linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px)',
             backgroundSize: '44px 44px',
             maskImage: 'radial-gradient(120% 90% at 15% 0%, black, transparent 70%)',
             WebkitMaskImage: 'radial-gradient(120% 90% at 15% 0%, black, transparent 70%)',
@@ -298,7 +298,7 @@ export default async function HomePage() {
               <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
                 Hire skilled manpower <span className="text-primary">from Pakistan</span>
               </h2>
-              <p className="mt-4 max-w-md text-white/70">
+              <p className="mt-4 max-w-md text-muted-foreground">
                 Falisha Manpower manages the complete international hiring lifecycle — from workforce
                 planning and nationwide sourcing to assessment, documentation and deployment. BEOE-licensed
                 OEP No. 4035.
@@ -313,7 +313,7 @@ export default async function HomePage() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-white/25 bg-transparent text-white hover:bg-white/10"
+                  className="rounded-full border-border bg-transparent text-foreground hover:bg-muted"
                 >
                   <Link href="/fill-a-vacancy">Request workforce</Link>
                 </Button>
@@ -326,13 +326,13 @@ export default async function HomePage() {
               {EMPLOYER_HIGHLIGHTS.map(({ Icon, t, d }) => (
                 <div
                   key={t}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur transition-colors hover:border-primary/40 hover:bg-white/[0.07]"
+                  className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-colors hover:border-primary/40 hover:bg-accent/40"
                 >
                   <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/15 text-primary">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="mt-4 font-semibold">{t}</h3>
-                  <p className="mt-1.5 text-sm text-white/65">{d}</p>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{d}</p>
                 </div>
               ))}
             </div>
