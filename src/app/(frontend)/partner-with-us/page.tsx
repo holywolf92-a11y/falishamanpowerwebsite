@@ -52,6 +52,7 @@ export default function PartnerWithUsPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/partner-with-us' },
     title: 'Partner With Us | Falisha Manpower',
     description:
       'Become a recruitment partner of Falisha Manpower (BEOE OEP 4035) — for sub-agents, overseas recruiters and companies. Apply online.',

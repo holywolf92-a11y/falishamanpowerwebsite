@@ -24,7 +24,7 @@ import { CountryMarquee } from '@/components/visual/CountryMarquee'
 import { Flag } from '@/components/visual/Flag'
 import { ProcessSteps } from '@/components/visual/ProcessSteps'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
-import { HOME_FAQS } from '@/data/faqs'
+import { HOME_FAQS, faqSchema } from '@/data/faqs'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
 
@@ -580,32 +580,49 @@ export default async function HomePage() {
             <Link href="/jobs" className="text-sm font-medium text-primary hover:underline">View all jobs →</Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {(jobs.docs as Record<string, any>[]).map((job, i) => {
-            const country = typeof job.country === 'object' ? job.country?.name : ''
-            return (
-              <Reveal key={job.id} delay={(i % 3) * 0.08}>
-                <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
-                        <span className="h-2 w-2 rounded-full bg-green-500" /> Open
+        {jobs.docs.length > 0 ? (
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {(jobs.docs as Record<string, any>[]).map((job, i) => {
+              const country = typeof job.country === 'object' ? job.country?.name : ''
+              return (
+                <Reveal key={job.id} delay={(i % 3) * 0.08}>
+                  <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                          <span className="h-2 w-2 rounded-full bg-green-500" /> Open
+                        </div>
+                        {country && <Flag name={country} className="h-4 w-6" />}
                       </div>
-                      {country && <Flag name={country} className="h-4 w-6" />}
-                    </div>
-                    <CardTitle className="mt-2 text-lg leading-snug">
-                      <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="mt-auto space-y-1 text-sm text-muted-foreground">
-                    <div>📍 {[job.city, country].filter(Boolean).join(', ')}</div>
-                    {salaryLabel(job) && <div className="font-medium text-[var(--gold)]">{salaryLabel(job)}</div>}
-                  </CardContent>
-                </Card>
-              </Reveal>
-            )
-          })}
-        </div>
+                      <CardTitle className="mt-2 text-lg leading-snug">
+                        <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="mt-auto space-y-1 text-sm text-muted-foreground">
+                      <div>📍 {[job.city, country].filter(Boolean).join(', ')}</div>
+                      {salaryLabel(job) && <div className="font-medium text-[var(--gold)]">{salaryLabel(job)}</div>}
+                    </CardContent>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="mt-10 rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-10">
+            <h3 className="text-lg font-semibold">New roles are posted regularly</h3>
+            <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+              Register your interest and we&apos;ll contact you the moment a matching overseas position opens.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button asChild>
+                <Link href="/upload-cv">Register your interest</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/fill-a-vacancy">Hire talent</Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Industries & roles — "Best Manpower Recruitment Agency in Pakistan" */}
@@ -753,6 +770,10 @@ export default async function HomePage() {
 
       {/* FAQ */}
       <section className="container py-20">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(HOME_FAQS)) }}
+        />
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Frequently asked questions</h2>

@@ -12,6 +12,7 @@ import Reveal from '@/components/visual/Reveal'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { COUNTRY_SEO } from '@/data/countrySeo'
+import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -125,6 +126,18 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       {faqSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Destinations', path: '/countries' },
+              { name: c.name, path: `/countries/${slug}` },
+            ]),
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden bg-background text-foreground">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70" style={gridBg} />

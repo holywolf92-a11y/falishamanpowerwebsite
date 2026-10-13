@@ -575,6 +575,7 @@ export default function ProfilePage() {
 export function generateMetadata(): Metadata {
   return {
     alternates: { canonical: '/profile' },
+    robots: { index: false, follow: true },
     title: 'Company Profile | Falisha Manpower',
     description:
       'Falisha Manpower — a licensed (OEP 4035), ISO 9001:2015 certified international recruitment group connecting Pakistan’s skilled, professional and technical talent with employers across the Gulf, Europe, Africa and Asia since 2004.',

@@ -87,5 +87,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 export function generateMetadata(): Metadata {
   return {
     title: `Falisha Manpower Search`,
+    description: 'Search Falisha Manpower for overseas jobs, destinations, industries and services.',
+    robots: { index: false, follow: true },
   }
 }

@@ -328,6 +328,7 @@ export default function HireFromPakistanPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/hire-from-pakistan' },
     title: 'Hire Skilled Manpower from Pakistan | Falisha Manpower',
     description:
       'BEOE-licensed (OEP 4035) employer-focused overseas recruitment from Pakistan — professional, engineering, technical, skilled and bulk manpower for the Gulf, Europe and beyond.',

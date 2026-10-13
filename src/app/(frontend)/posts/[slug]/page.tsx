@@ -12,6 +12,7 @@ import type { Post } from '@/payload-types'
 
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
@@ -58,6 +59,18 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <article className="pt-16 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Blog', path: '/posts' },
+              { name: post.title, path: `/posts/${decodedSlug}` },
+            ]),
+          ),
+        }}
+      />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}

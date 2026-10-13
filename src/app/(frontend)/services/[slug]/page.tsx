@@ -6,6 +6,7 @@ import configPromise from '@payload-config'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
+import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,6 +29,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="container py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Services', path: '/services' },
+              { name: service.title, path: `/services/${slug}` },
+            ]),
+          ),
+        }}
+      />
       <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground">← All services</Link>
       <header className="mt-6 max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)] capitalize">

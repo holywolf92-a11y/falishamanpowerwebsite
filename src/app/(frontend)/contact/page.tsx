@@ -78,6 +78,7 @@ export default function ContactPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/contact' },
     title: 'Contact | Falisha Manpower',
     description: 'Contact Falisha Manpower — for employers hiring overseas talent and candidates seeking overseas jobs.',
   }

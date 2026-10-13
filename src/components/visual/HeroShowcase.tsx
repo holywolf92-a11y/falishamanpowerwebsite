@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, TrendingUp, UserPlus } from 'lucide-react'
+import { ArrowRight, Globe, Award, ShieldCheck } from 'lucide-react'
 import { Tilt3D } from './Tilt3D'
 
 export type HeroSlide = {
@@ -157,58 +157,43 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               />
             </div>
 
-          {/* Card: market chart */}
+          {/* Card: markets served */}
           <div className="absolute -left-4 top-0 md:-left-10" style={{ transform: 'translateZ(30px)' }}>
           <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-primary" />
-              <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">Market Static</span>
+            <div className="flex items-center justify-between">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary">
+                <Globe className="h-5 w-5" />
+              </span>
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">Gulf · EU · Asia</span>
             </div>
-            <div className="mt-2 flex items-baseline justify-between">
-              <span className="text-sm font-semibold">Course overview</span>
-              <span className="text-sm font-bold text-primary">+15%</span>
-            </div>
-            <svg viewBox="0 0 200 56" className="mt-2 w-full" fill="none">
-              <polyline
-                points="0,44 25,40 50,46 75,30 100,34 125,16 150,24 175,10 200,18"
-                stroke="var(--primary)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="125" cy="16" r="4" fill="var(--primary)" />
-            </svg>
-            <div className="mt-1 flex justify-between text-[9px] text-muted-foreground">
-              <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span>
-            </div>
+            <p className="mt-3 text-xs text-muted-foreground">Markets served</p>
+            <p className="text-2xl font-bold">48+</p>
           </FloatCard>
           </div>
 
-          {/* Card: new employees */}
+          {/* Card: experience */}
           <div className="absolute -right-3 top-10 md:-right-8" style={{ transform: 'translateZ(30px)' }}>
           <FloatCard reduce={reduce} delay={0.35} className="w-44 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <div className="flex items-center justify-between">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
-                <UserPlus className="h-4 w-4" />
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                <TrendingUp className="h-3 w-3" /> 12%
-              </span>
-            </div>
-            <p className="mt-2 text-xs text-muted-foreground">New Employees</p>
-            <p className="text-2xl font-bold">1,248</p>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary">
+              <Award className="h-5 w-5" />
+            </span>
+            <p className="mt-3 text-xs text-muted-foreground">Experience</p>
+            <p className="text-2xl font-bold">20+ Years</p>
+            <p className="text-[11px] text-muted-foreground">of ethical recruitment</p>
           </FloatCard>
           </div>
 
-          {/* Card: job qualification */}
+          {/* Card: government licence */}
           <div className="absolute bottom-8 -right-2 md:-right-6" style={{ transform: 'translateZ(90px)' }}>
           <FloatCard reduce={reduce} delay={0.6} className="w-60 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-semibold">Job Qualification</span>
-              <span className="font-bold text-primary">77%</span>
-            </div>
-            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-primary" style={{ width: '77%' }} />
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                <ShieldCheck className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-xs text-muted-foreground">Govt. Licensed</p>
+                <p className="text-base font-bold leading-tight">BEOE · OEP 4035</p>
+              </div>
             </div>
           </FloatCard>
           </div>

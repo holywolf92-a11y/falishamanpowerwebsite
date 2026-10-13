@@ -21,7 +21,9 @@ export const redirects: NextConfig['redirects'] = async () => {
   const legacy = (legacyRedirects as { source: string; destination: string }[]).map((r) => ({
     source: r.source,
     destination: r.destination,
-    permanent: true,
+    // Classic 301 (vs. Next's default 308 for `permanent: true`) — explicitly what
+    // the migration playbook asks for; SEO-equivalent but the expected status code.
+    statusCode: 301 as const,
   }))
 
   return [internetExplorerRedirect, ...legacy]

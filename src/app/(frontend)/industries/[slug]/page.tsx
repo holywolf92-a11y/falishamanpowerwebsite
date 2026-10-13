@@ -12,6 +12,7 @@ import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
 import { industryImage } from '@/utilities/sectionImages'
+import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -119,6 +120,18 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   return (
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Industries', path: '/industries' },
+              { name: title, path: `/industries/${slug}` },
+            ]),
+          ),
+        }}
+      />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-background text-foreground">

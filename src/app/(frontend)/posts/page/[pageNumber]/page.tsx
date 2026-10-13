@@ -66,6 +66,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { pageNumber } = await paramsPromise
   return {
     title: `Falisha Manpower Posts Page ${pageNumber || ''}`,
+    description: 'Overseas recruitment guides and insights from Falisha Manpower.',
+    alternates: { canonical: `/posts/page/${pageNumber}` },
   }
 }
 

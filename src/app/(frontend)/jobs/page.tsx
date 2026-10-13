@@ -138,10 +138,26 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
       </div>
 
       {jobs.totalDocs === 0 && (
-        <p className="mt-10 rounded-lg border border-dashed border-border p-8 text-center text-muted-foreground">
-          No open vacancies match your filters right now. Try resetting, or{' '}
-          <Link href="/upload-cv" className="text-primary underline">send us your CV</Link> for future roles.
-        </p>
+        <div className="mt-10 rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-12">
+          <h2 className="text-xl font-semibold">
+            {country || type ? 'No vacancies match your filters' : 'No open vacancies right now'}
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-muted-foreground">
+            {country || type
+              ? 'Try resetting the filters, or register your interest and we’ll match you to roles as they open.'
+              : 'New overseas roles are added regularly. Register your interest and we’ll contact you the moment a matching position opens.'}
+          </p>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            {(country || type) && (
+              <Button asChild variant="outline">
+                <Link href="/jobs">Reset filters</Link>
+              </Button>
+            )}
+            <Button asChild>
+              <Link href="/upload-cv">Register your interest</Link>
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   )

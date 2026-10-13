@@ -6,6 +6,7 @@ import configPromise from '@payload-config'
 import RichText from '@/components/RichText'
 import { ApplyForm } from '@/components/ApplyForm'
 import { getServerSideURL } from '@/utilities/getURL'
+import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
 export const dynamic = 'force-dynamic'
 
@@ -164,6 +165,18 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Jobs', path: '/jobs' },
+              { name: job.title, path: `/jobs/${slug}` },
+            ]),
+          ),
+        }}
+      />
       <Link href="/jobs" className="text-sm text-muted-foreground hover:text-foreground">
         ← Back to all jobs
       </Link>

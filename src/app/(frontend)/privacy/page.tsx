@@ -267,6 +267,7 @@ export default function PrivacyPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/privacy' },
     title: 'Privacy & Cookie Policy | Falisha Manpower',
     description:
       'How Falisha Manpower collects, uses, shares and protects personal data, and how we use cookies on this website.',

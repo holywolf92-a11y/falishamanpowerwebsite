@@ -59,6 +59,9 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Falisha Manpower Posts`,
+    title: 'Overseas Recruitment Blog & Guides | Falisha Manpower',
+    description:
+      'Expert guides on overseas jobs, work visas, attestation and recruitment for Pakistani professionals heading to the Gulf, Europe and Asia.',
+    alternates: { canonical: '/posts' },
   }
 }

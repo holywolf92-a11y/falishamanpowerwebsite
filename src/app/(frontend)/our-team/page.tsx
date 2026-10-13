@@ -90,6 +90,7 @@ export default async function TeamPage() {
 
 export function generateMetadata(): Metadata {
   return {
+    alternates: { canonical: '/our-team' },
     title: 'Our Team | Falisha Manpower',
     description: 'Meet the specialists behind Falisha Manpower — recruitment, processing, business development and more.',
   }
