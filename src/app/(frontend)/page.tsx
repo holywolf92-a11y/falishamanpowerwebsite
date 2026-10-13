@@ -23,6 +23,7 @@ import { Flag } from '@/components/visual/Flag'
 import { ProcessSteps } from '@/components/visual/ProcessSteps'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { HOME_FAQS } from '@/data/faqs'
+import { COUNTRY_CONTENT } from '@/data/countryContent'
 
 export const dynamic = 'force-dynamic'
 
@@ -65,14 +66,31 @@ const HERO_SLIDES = [
   },
 ]
 
-const REGION_LABELS: Record<string, string> = {
-  gcc: 'Gulf / GCC',
-  europe: 'Europe',
-  'east-asia': 'East Asia',
-  'southeast-asia': 'Southeast Asia',
-  mena: 'MENA / North Africa',
-  other: 'Worldwide',
-}
+// Destination markets grouped by region, sourced from code-level content so the
+// home page lists every market (including those without a CMS record yet).
+const REGION_ORDER: { key: string; label: string }[] = [
+  { key: 'gulf', label: 'Gulf / GCC' },
+  { key: 'europe', label: 'Europe' },
+  { key: 'mena', label: 'Middle East & North Africa' },
+  { key: 'east-asia', label: 'East Asia' },
+  { key: 'sea', label: 'Southeast Asia' },
+  { key: 'central-asia', label: 'Central Asia & Caucasus' },
+]
+
+const DESTINATIONS_BY_REGION = REGION_ORDER.map((r) => ({
+  ...r,
+  countries: Object.entries(COUNTRY_CONTENT)
+    .filter(([, c]) => c.name && c.region === r.key)
+    .map(([slug, c]) => ({ slug, name: c.name as string }))
+    .sort((a, b) => a.name.localeCompare(b.name)),
+})).filter((r) => r.countries.length > 0)
+
+const ALL_DESTINATIONS = Object.entries(COUNTRY_CONTENT)
+  .filter(([, c]) => c.name)
+  .map(([slug, c]) => ({ name: c.name as string, href: `/countries/${slug}` }))
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+const MARKET_COUNT = ALL_DESTINATIONS.length
 
 const TURKEY_LOGOS = ['enka', 'ronesans', 'limak', 'tav', 'tekfen', 'nurol', 'gama', 'cengiz'].map(
   (n) => `/logos/turkey/${n}.webp`,
@@ -126,7 +144,7 @@ export default async function HomePage() {
 
   const stats = [
     { n: talent?.total_candidates ?? jobs.totalDocs, l: 'Skilled candidates' },
-    { n: Math.max(countries.totalDocs, talent?.by_country?.length ?? 0), l: 'Destination countries' },
+    { n: Math.max(MARKET_COUNT, countries.totalDocs, talent?.by_country?.length ?? 0), l: 'Destination countries' },
     { n: Math.max(industries.totalDocs, talent?.by_category?.length ?? 0), l: 'Sectors covered' },
   ]
 
@@ -239,13 +257,7 @@ export default async function HomePage() {
       {/* Country marquee */}
       <div className="border-b border-border bg-secondary/40 py-10">
         <div className="container">
-          <CountryMarquee
-            label="We place talent across"
-            items={(countries.docs as Record<string, any>[]).map((c) => ({
-              name: c.name,
-              href: `/countries/${c.slug}`,
-            }))}
-          />
+          <CountryMarquee label="We place talent across" items={ALL_DESTINATIONS} />
         </div>
       </div>
 
@@ -553,36 +565,48 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Countries — 3D flag cards */}
+      {/* Destinations by region */}
       <section className="container py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-xl">
+            <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Where we place</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Destination countries</h2>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+                Recruitment across {MARKET_COUNT}+ markets
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                We source, screen and deploy skilled Pakistani talent across the Gulf, Europe, Asia and beyond. Explore
+                recruitment by country.
+              </p>
             </div>
-            <Link href="/countries" className="text-sm font-medium text-primary hover:underline">All countries →</Link>
+            <Link href="/countries" className="text-sm font-medium text-primary hover:underline">
+              All countries →
+            </Link>
           </div>
         </Reveal>
-        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {(countries.docs as Record<string, any>[]).map((c, i) => (
-            <Reveal key={c.id} delay={(i % 4) * 0.06}>
-              <Tilt3D max={6}>
-                <Link
-                  href={`/countries/${c.slug}`}
-                  className="group relative block overflow-hidden rounded-2xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-xl"
-                >
-                  <div aria-hidden className="absolute -bottom-5 -right-7 opacity-[0.08] transition-opacity duration-300 group-hover:opacity-20">
-                    <Flag name={c.name} className="h-24 w-36" />
-                  </div>
-                  <Flag name={c.name} className="h-10 w-[3.75rem] rounded-md shadow-md" />
-                  <p className="mt-4 font-semibold">{c.name}</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{REGION_LABELS[c.region] || 'Worldwide'}</p>
-                  <p className="mt-3 text-sm font-medium text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    Open roles →
-                  </p>
-                </Link>
-              </Tilt3D>
+
+        <div className="mt-12 space-y-10">
+          {DESTINATIONS_BY_REGION.map((region, ri) => (
+            <Reveal key={region.key} delay={ri * 0.05}>
+              <div>
+                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {region.label}
+                  <span className="text-xs font-normal text-muted-foreground/60">({region.countries.length})</span>
+                </h3>
+                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {region.countries.map((cc) => (
+                    <Link
+                      key={cc.slug}
+                      href={`/countries/${cc.slug}`}
+                      className="group flex items-center gap-3 rounded-xl border border-border bg-card p-3.5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                    >
+                      <Flag name={cc.name} className="h-7 w-[2.6rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
+                      <span className="truncate text-sm font-medium group-hover:text-primary">{cc.name}</span>
+                      <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-transparent transition group-hover:text-primary" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
