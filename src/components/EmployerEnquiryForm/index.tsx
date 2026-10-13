@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -45,20 +46,23 @@ export const EmployerEnquiryForm: React.FC = () => {
           ) : null}
         </p>
         <div className="mt-6">
-          <Button asChild variant="outline"><Link href="/hire-from-pakistan">Our employer services</Link></Button>
+          <Button asChild variant="outline">
+            <Link href="/hire-from-pakistan">Our employer services</Link>
+          </Button>
         </div>
       </div>
     )
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+    <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-7">
       <div>
-        <h3 className="text-xl font-semibold">Request workforce</h3>
-        <p className="mt-1 text-sm text-muted-foreground">Tell us what you need — fields marked * are required.</p>
+        <h3 className="text-xl font-semibold">Request your workforce</h3>
+        <p className="mt-1 text-sm text-muted-foreground">A few essentials to start — fields marked * are required.</p>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      {/* The essentials */}
+      <div className="grid gap-4 sm:grid-cols-2">
         <div className="grid gap-2">
           <Label htmlFor="emp-company">Company name *</Label>
           <Input id="emp-company" name="companyName" required autoComplete="organization" />
@@ -73,51 +77,69 @@ export const EmployerEnquiryForm: React.FC = () => {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="emp-phone">Phone / WhatsApp</Label>
-          <Input id="emp-phone" name="phone" autoComplete="tel" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="emp-country">Country</Label>
-          <Input id="emp-country" name="country" placeholder="e.g. Saudi Arabia, UAE" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="emp-city">City</Label>
-          <Input id="emp-city" name="city" />
+          <Input id="emp-phone" name="phone" autoComplete="tel" placeholder="+92 3XX XXXXXXX" />
         </div>
       </div>
 
       <div className="grid gap-2">
         <Label htmlFor="emp-professions">Roles / trades needed *</Label>
-        <Input id="emp-professions" name="professions" required placeholder="e.g. Welders, Electricians, Civil Engineers" />
+        <Input
+          id="emp-professions"
+          name="professions"
+          required
+          placeholder="e.g. Welders, Electricians, Civil Engineers"
+        />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="grid gap-2">
-          <Label htmlFor="emp-quantity">Number of workers</Label>
-          <Input id="emp-quantity" name="quantity" placeholder="e.g. 50" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="emp-salary">Salary range</Label>
-          <Input id="emp-salary" name="salaryRange" placeholder="e.g. SAR 1500–2500" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="emp-duty">Duty hours</Label>
-          <Input id="emp-duty" name="dutyHours" placeholder="e.g. 8 hrs/day, 6 days" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="emp-contract">Contract duration</Label>
-          <Input id="emp-contract" name="contractDuration" placeholder="e.g. 2 years" />
-        </div>
+      <div className="grid gap-2 sm:max-w-[55%]">
+        <Label htmlFor="emp-quantity">Number of workers</Label>
+        <Input id="emp-quantity" name="quantity" placeholder="e.g. 50" inputMode="numeric" />
       </div>
 
-      <div className="grid gap-2">
-        <Label htmlFor="emp-benefits">Benefits included</Label>
-        <Input id="emp-benefits" name="benefitsIncluded" placeholder="e.g. Food, accommodation, transport" />
-      </div>
-
-      <div className="grid gap-2">
-        <Label htmlFor="emp-comments">Additional details</Label>
-        <Textarea id="emp-comments" name="comments" rows={3} placeholder="Project details, mobilisation timeline, selection preferences…" />
-      </div>
+      {/* Optional detail — collapsed so the form stays short */}
+      <details className="group rounded-xl border border-border bg-background/50">
+        <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium text-foreground">
+          Add job details (optional)
+          <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+        </summary>
+        <div className="grid gap-4 border-t border-border p-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-2">
+              <Label htmlFor="emp-country">Country</Label>
+              <Input id="emp-country" name="country" placeholder="e.g. Saudi Arabia, UAE" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="emp-city">City</Label>
+              <Input id="emp-city" name="city" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="emp-salary">Salary range</Label>
+              <Input id="emp-salary" name="salaryRange" placeholder="e.g. SAR 1500–2500" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="emp-duty">Duty hours</Label>
+              <Input id="emp-duty" name="dutyHours" placeholder="e.g. 8 hrs/day, 6 days" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="emp-contract">Contract duration</Label>
+              <Input id="emp-contract" name="contractDuration" placeholder="e.g. 2 years" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="emp-benefits">Benefits included</Label>
+              <Input id="emp-benefits" name="benefitsIncluded" placeholder="Food, accommodation, transport" />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="emp-comments">Additional details</Label>
+            <Textarea
+              id="emp-comments"
+              name="comments"
+              rows={3}
+              placeholder="Project details, mobilisation timeline, selection preferences…"
+            />
+          </div>
+        </div>
+      </details>
 
       <label htmlFor="emp-consent" className="flex items-start gap-2.5 text-sm text-muted-foreground">
         <input
@@ -129,8 +151,8 @@ export const EmployerEnquiryForm: React.FC = () => {
           className="mt-0.5 h-4 w-4 shrink-0 rounded border-input accent-[var(--primary)]"
         />
         <span>
-          I consent to Falisha Manpower storing and processing this enquiry for recruitment purposes, as
-          described in the{' '}
+          I consent to Falisha Manpower storing and processing this enquiry for recruitment purposes, as described in
+          the{' '}
           <Link href="/privacy" className="font-medium text-primary hover:underline" target="_blank">
             Privacy &amp; Cookie Policy
           </Link>
@@ -140,8 +162,14 @@ export const EmployerEnquiryForm: React.FC = () => {
 
       {state === 'error' && <p className="text-sm text-red-600">{message}</p>}
 
-      <Button type="submit" disabled={state === 'submitting'} className="w-fit">
-        {state === 'submitting' ? 'Submitting…' : 'Submit requirement'}
+      <Button type="submit" disabled={state === 'submitting'} size="lg" className="w-full rounded-full">
+        {state === 'submitting' ? (
+          'Submitting…'
+        ) : (
+          <>
+            <Send className="mr-2 h-4 w-4" /> Send requirement
+          </>
+        )}
       </Button>
     </form>
   )
