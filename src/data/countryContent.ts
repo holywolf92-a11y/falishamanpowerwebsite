@@ -178,8 +178,8 @@ const MENA_CATEGORIES = [
 ]
 
 const UK_CATEGORIES = [
-  'Care Assistants & Senior Carers',
-  'Nurses & Healthcare Assistants',
+  'Registered Nurses (NMC)',
+  'Doctors & Allied Health Professionals',
   'Chefs, Cooks & Kitchen Staff',
   'Hospitality & Hotel Staff',
   'Construction & Civil Workers',
@@ -188,7 +188,7 @@ const UK_CATEGORIES = [
   'Warehouse & Logistics Workers',
   'LGV / HGV & Delivery Drivers',
   'Food-Processing & Packaging Workers',
-  'Cleaners & Housekeeping Staff',
+  'Engineers & Technical Specialists',
   'General Labourers & Helpers',
 ]
 
@@ -280,7 +280,7 @@ export const COUNTRY_CONTENT: Record<string, CountryContent> = {
   // ---- Europe ----
   'united-kingdom': entry(
     'the United Kingdom',
-    "The United Kingdom offers structured, sponsored routes for Pakistani workers under its Skilled Worker and Health & Care Worker visas, with strong demand across health & social care, construction, hospitality and logistics.",
+    "The United Kingdom offers sponsored routes for skilled Pakistani workers across England, Scotland, Wales and Northern Ireland, under its Skilled Worker and Health & Care Worker visas — with demand across construction, engineering, welding, hospitality, logistics, food processing and registered nursing.",
     UK_SECTORS,
     UK_CATEGORIES,
     R_EUROPE,

@@ -91,7 +91,7 @@ const UK_VISA: VisaRoute[] = [
   {
     name: 'Health & Care Worker visa',
     detail:
-      'For eligible health and adult-social-care roles (care assistants, senior carers, nurses) sponsored by an approved employer — reduced fees and no Immigration Health Surcharge.',
+      'For eligible health professionals — registered nurses, doctors and allied health roles — sponsored by an approved employer, with reduced fees and no Immigration Health Surcharge. Since 22 July 2025 this route no longer accepts new overseas applications for care workers or senior care workers.',
   },
 ]
 
@@ -178,7 +178,7 @@ export const COUNTRY_SEO: Record<string, CountrySeo> = {
       {
         name: 'Health & Care Worker visa',
         detail:
-          'For eligible health and adult-social-care roles (care assistants, senior carers, nurses) sponsored by an approved employer — reduced fees and no Immigration Health Surcharge.',
+          'For eligible health professionals — registered nurses, doctors and allied health roles — sponsored by an approved employer, with reduced fees and no Immigration Health Surcharge. Since 22 July 2025 this route no longer accepts new overseas applications for care workers or senior care workers.',
       },
     ],
     faqs: [
@@ -192,7 +192,7 @@ export const COUNTRY_SEO: Record<string, CountrySeo> = {
       },
       {
         q: 'Which roles are most in demand in the UK?',
-        a: 'Health and social care (care assistants, senior carers, nurses) is the largest route, alongside construction, hospitality, food processing and logistics.',
+        a: 'Skilled trades — construction, welding, engineering and HGV/LGV driving — alongside hospitality and food processing, plus registered nurses and other health professionals. Since 22 July 2025 the Health & Care route no longer accepts new overseas care-worker or senior-care-worker applications.',
       },
       {
         q: 'Does an employer have to sponsor me?',

@@ -35,7 +35,7 @@ export default async function CountriesPage() {
   // enriched markets (e.g. the UK) are discoverable without a DB write.
   const cmsSlugs = new Set((countries.docs as Record<string, any>[]).map((c) => c.slug))
   const codeOnly = Object.entries(COUNTRY_CONTENT)
-    .filter(([slug, c]) => c.name && !cmsSlugs.has(slug))
+    .filter(([slug, c]) => c.name && !cmsSlugs.has(slug) && slug !== 'england' && slug !== 'scotland')
     .map(([slug, c]) => ({
       id: `code-${slug}`,
       slug,

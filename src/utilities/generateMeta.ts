@@ -27,9 +27,11 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Falisha Manpower'
-    : 'Falisha Manpower'
+  // Strip any trailing "|" / "| Falisha Manpower" the imported meta.title may
+  // already carry (some old Yoast titles ended in a stray separator) so we never
+  // render a double separator like "… | | Falisha Manpower".
+  const cleanTitle = (doc?.meta?.title ?? '').replace(/\s*\|\s*(Falisha Manpower\s*)?$/i, '').trim()
+  const title = cleanTitle ? `${cleanTitle} | Falisha Manpower` : 'Falisha Manpower'
 
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : (doc?.slug ?? '')
   const path =

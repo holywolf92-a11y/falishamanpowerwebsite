@@ -26,5 +26,13 @@ export const redirects: NextConfig['redirects'] = async () => {
     statusCode: 301 as const,
   }))
 
-  return [internetExplorerRedirect, ...legacy]
+  // England & Scotland share the UK's immigration system — consolidate the
+  // near-duplicate regional pages into the single United Kingdom page (avoids
+  // Google's "substantially similar regional landing pages" spam signal).
+  const countryConsolidation = [
+    { source: '/countries/england', destination: '/countries/united-kingdom', statusCode: 301 as const },
+    { source: '/countries/scotland', destination: '/countries/united-kingdom', statusCode: 301 as const },
+  ]
+
+  return [internetExplorerRedirect, ...countryConsolidation, ...legacy]
 }

@@ -161,10 +161,15 @@ export default async function HomePage() {
     by_country: unknown[]
   }
 
+  // Count of distinct roles we recruit across all sectors — a real, non-zero
+  // fallback so the stat never renders "0+" when the live talent feed is empty.
+  const roleCount = Object.values(INDUSTRY_ROLES).reduce((sum, r) => sum + (Array.isArray(r) ? r.length : 0), 0)
   const stats = [
-    { n: talent?.total_candidates ?? jobs.totalDocs, l: 'Skilled candidates' },
+    talent?.total_candidates && talent.total_candidates > 0
+      ? { n: talent.total_candidates, l: 'Skilled candidates' }
+      : { n: roleCount, l: 'Specialist roles & trades' },
     { n: Math.max(MARKET_COUNT, countries.totalDocs, talent?.by_country?.length ?? 0), l: 'Destination countries' },
-    { n: Math.max(industries.totalDocs, talent?.by_category?.length ?? 0), l: 'Sectors covered' },
+    { n: Math.max(18, industries.totalDocs, talent?.by_category?.length ?? 0), l: 'Sectors covered' },
   ]
 
   return (

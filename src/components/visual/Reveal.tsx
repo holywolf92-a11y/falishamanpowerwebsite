@@ -50,7 +50,10 @@ export function CountUp({ to, duration = 2, suffix = '', prefix = '', className 
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const prefersReducedMotion = useReducedMotion()
-  const [value, setValue] = useState(0)
+  // Start at the final value so the server-rendered HTML (and no-JS clients /
+  // crawlers) show the real number, never "0". The count-up resets to 0 on mount
+  // (the stats sit below the fold) and animates when scrolled into view.
+  const [value, setValue] = useState(to)
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -58,6 +61,7 @@ export function CountUp({ to, duration = 2, suffix = '', prefix = '', className 
       return
     }
 
+    setValue(0)
     if (!inView) return
 
     const controls = animate(0, to, {

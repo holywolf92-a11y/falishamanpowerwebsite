@@ -14,7 +14,9 @@ const SITE_URL =
 export async function GET() {
   const lastmod = new Date().toISOString()
   return getServerSideSitemap(
-    Object.keys(COUNTRY_CONTENT).map((slug) => ({
+    Object.keys(COUNTRY_CONTENT)
+      .filter((slug) => slug !== 'england' && slug !== 'scotland')
+      .map((slug) => ({
       loc: `${SITE_URL}/countries/${slug}`,
       lastmod,
       changefreq: 'weekly' as const,

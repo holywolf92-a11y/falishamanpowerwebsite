@@ -11,6 +11,7 @@ import Reveal from '@/components/visual/Reveal'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
+import { INDUSTRY_DETAIL } from '@/data/industryDetail'
 import { industryImage } from '@/utilities/sectionImages'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
@@ -98,6 +99,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
     ? (industry.roles as { title: string }[]).map((r) => r.title).filter(Boolean)
     : []
   const roles = INDUSTRY_ROLES[slug] ?? cmsRoles
+  const detail = INDUSTRY_DETAIL[slug]
   const intro: string =
     industry.summary ||
     `Skilled, semi-skilled and professional ${title.toLowerCase()} manpower from Pakistan for employers across the Gulf, Europe and Asia.`
@@ -202,7 +204,16 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         <section className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
           <Reveal>
             <h2 className="text-2xl font-bold tracking-tight">{title} recruitment from Pakistan</h2>
-            {industry.content ? (
+            {detail ? (
+              <div className="mt-5 space-y-4 text-muted-foreground">
+                <p>{detail.overview}</p>
+                <p>
+                  With a nationwide sourcing network and offices in Rawalpindi (head office), Lahore, Karachi, Peshawar
+                  and Azad Jammu &amp; Kashmir (AJK), our team delivers skilled, semi-skilled and professional
+                  {` ${title.toLowerCase()}`} manpower tailored to your project requirements.
+                </p>
+              </div>
+            ) : industry.content ? (
               <div className="prose dark:prose-invert mt-5 max-w-none">
                 <RichText data={industry.content} enableGutter={false} />
               </div>
@@ -264,6 +275,37 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
                   </div>
                 </Reveal>
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* Qualifications & screening — per-industry */}
+        {detail && (
+          <section className="mt-16 md:mt-20">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+              <Reveal>
+                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Qualifications</p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Certifications &amp; qualifications we check</h2>
+                <ul className="mt-6 space-y-2.5">
+                  {detail.qualifications.map((q) => (
+                    <li key={q} className="flex items-start gap-2.5 text-[15px]">
+                      <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Screening</p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">How we screen {title.toLowerCase()} candidates</h2>
+                <p className="mt-6 leading-relaxed text-muted-foreground">{detail.screening}</p>
+                <div className="mt-6 rounded-2xl border border-border bg-card p-5 shadow-sm">
+                  <p className="text-sm text-muted-foreground">
+                    Trade-tested, document-verified and pre-screened before you interview — so you only meet candidates
+                    who meet the brief.
+                  </p>
+                </div>
+              </Reveal>
             </div>
           </section>
         )}
