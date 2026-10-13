@@ -79,6 +79,7 @@ export const TalentPool: React.FC = () => {
   const resetTo = (cat: string) => {
     setCategory(cat)
     setProfession('')
+    setQ('')
     setPage(1)
   }
 
@@ -119,7 +120,7 @@ export const TalentPool: React.FC = () => {
           }}
           className="h-10 min-w-[200px] rounded-lg border border-input bg-background px-3 text-sm"
         >
-          <option value="">All professions</option>
+          <option value="">{category ? `All ${category} roles` : 'All professions'}</option>
           {professions.map((p) => (
             <option key={p.profession} value={p.profession}>
               {p.profession} ({p.count})
@@ -139,7 +140,13 @@ export const TalentPool: React.FC = () => {
 
       {/* Results */}
       <div className="text-sm text-muted-foreground">
-        {loading ? 'Searching…' : data ? `${data.total.toLocaleString()} candidate(s) available` : ''}
+        {loading
+          ? 'Searching…'
+          : data
+            ? data.total > 0
+              ? `${data.total.toLocaleString()} candidate(s) available`
+              : 'No exact matches for these filters — tell us what you need below.'
+            : ''}
       </div>
 
       {data && data.candidates.length > 0 ? (
