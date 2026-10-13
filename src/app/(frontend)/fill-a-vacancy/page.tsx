@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { EmployerEnquiryForm } from '@/components/EmployerEnquiryForm'
+import { TalentPool } from '@/components/TalentPool'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,7 +19,28 @@ export default function FillAVacancyPage() {
         </p>
       </header>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+      {/* Live talent pool — browse available workforce before enquiring */}
+      <section className="mt-12">
+        <div className="max-w-2xl">
+          <h2 className="text-2xl font-bold tracking-tight">Browse our available workforce</h2>
+          <p className="mt-2 text-muted-foreground">
+            Explore live, pre-screened candidates by profession, nationality and destination. Found who you
+            need? Enquire and our team handles the rest — screening, documentation, visas and mobilisation.
+          </p>
+        </div>
+        <div className="mt-6">
+          <TalentPool />
+        </div>
+      </section>
+
+      <div className="mt-16 max-w-2xl">
+        <h2 className="text-2xl font-bold tracking-tight">Or tell us exactly what you need</h2>
+        <p className="mt-2 text-muted-foreground">
+          Share your requirement and we&apos;ll build a sourcing plan for your project.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
         <EmployerEnquiryForm />
 
         <aside className="space-y-4">
