@@ -114,7 +114,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       : null
   const gridBg = {
     backgroundImage:
-      'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+      'linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px)',
     backgroundSize: '44px 44px',
     maskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
     WebkitMaskImage: 'radial-gradient(120% 90% at 85% 10%, black, transparent 72%)',
@@ -126,8 +126,8 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[var(--navy)] text-white">
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60" style={gridBg} />
+      <section className="relative overflow-hidden bg-background text-foreground">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70" style={gridBg} />
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[var(--gold)]/20 blur-3xl"
@@ -137,7 +137,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
           className="pointer-events-none absolute -bottom-24 left-1/4 h-96 w-96 rounded-full bg-[var(--primary)]/25 blur-3xl"
         />
         <div className="container relative py-14 md:py-20">
-          <Link href="/countries" className="inline-flex items-center gap-1.5 text-sm text-white/55 transition hover:text-white">
+          <Link href="/countries" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition hover:text-foreground">
             ← All destinations
           </Link>
 
@@ -148,10 +148,10 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                 Recruitment Agency in Pakistan for
               </p>
               <div className="mt-3 flex items-center gap-4">
-                <Flag name={c.name} className="h-11 w-[4.1rem] rounded-md shadow-lg ring-1 ring-white/20" />
+                <Flag name={c.name} className="h-11 w-[4.1rem] rounded-md shadow-lg ring-1 ring-border" />
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{c.name}</h1>
               </div>
-              {c.intro && <p className="mt-5 max-w-xl text-lg text-white/70">{c.intro}</p>}
+              {c.intro && <p className="mt-5 max-w-xl text-lg text-muted-foreground">{c.intro}</p>}
 
               <ul className="mt-7 flex flex-wrap gap-2.5">
                 {[
@@ -161,7 +161,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                 ].map((p) => (
                   <li
                     key={p.t}
-                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm text-white/85"
+                    className="flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm text-foreground shadow-sm"
                   >
                     <p.icon className="h-4 w-4 text-[var(--gold)]" />
                     {p.t}
@@ -173,11 +173,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                 <Button asChild className="rounded-full px-6">
                   <Link href="/fill-a-vacancy">Hire from Pakistan for {c.name}</Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
-                >
+                <Button asChild variant="outline" className="rounded-full px-6">
                   <Link href="/upload-cv">Find work →</Link>
                 </Button>
               </div>
@@ -186,20 +182,20 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             {/* Destination card */}
             <Reveal delay={0.1}>
               <div className="relative mx-auto w-full max-w-sm">
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/40 ring-1 ring-white/15">
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/20 ring-1 ring-border">
                   <Flag name={c.name} className="block h-auto w-full rounded-none" />
                   <div
                     aria-hidden
                     className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
                   />
                 </div>
-                <div className="absolute -right-3 top-5 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                <div className="absolute -right-3 top-5 rounded-2xl border border-border bg-card/90 px-4 py-2.5 shadow-lg backdrop-blur-md">
                   <p className="text-lg font-bold leading-none text-[var(--gold)]">OEP 4035</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">BEOE licensed</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">BEOE licensed</p>
                 </div>
-                <div className="absolute -bottom-4 left-0 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 shadow-lg backdrop-blur-md">
-                  <p className="text-lg font-bold leading-none text-white">End-to-end</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/70">Sourcing to travel</p>
+                <div className="absolute -bottom-4 left-0 rounded-2xl border border-border bg-card/90 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                  <p className="text-lg font-bold leading-none text-foreground">End-to-end</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Sourcing to travel</p>
                 </div>
               </div>
             </Reveal>
@@ -397,7 +393,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       {/* CTA band */}
       {c.partnership && (
         <section className="container pb-20">
-          <div className="relative overflow-hidden rounded-3xl bg-[var(--navy)] px-6 py-10 text-white md:px-12 md:py-12">
+          <div className="relative overflow-hidden rounded-3xl bg-foreground px-6 py-10 text-background md:px-12 md:py-12">
             <div
               aria-hidden
               className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--gold)]/15 blur-3xl"
@@ -405,7 +401,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             <div className="relative flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
               <div className="max-w-2xl">
                 <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Hiring from Pakistan for {c.name}?</h2>
-                <p className="mt-2 text-white/70">{c.partnership}</p>
+                <p className="mt-2 text-background/70">{c.partnership}</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button asChild size="lg" className="rounded-full bg-[var(--gold)] px-6 text-[var(--navy)] hover:brightness-105">
@@ -415,7 +411,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white"
+                  className="rounded-full border-background/30 bg-transparent px-6 text-background hover:bg-background/10 hover:text-background"
                 >
                   <Link href="/contact">
                     Contact us <ArrowRight className="ml-1.5 h-4 w-4" />

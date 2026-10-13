@@ -43,7 +43,7 @@ export default function FillAVacancyPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[var(--navy)] text-white">
+      <section className="relative overflow-hidden bg-background text-foreground">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[var(--gold)]/20 blur-3xl"
@@ -58,8 +58,8 @@ export default function FillAVacancyPage() {
             <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
               Hire skilled, <span className="text-[var(--gold)]">work-ready talent</span> from Pakistan
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
-              Browse <LiveTalentCount className="font-semibold text-white" /> pre-screened candidates, or tell us
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
+              Browse <LiveTalentCount className="font-semibold text-foreground" /> pre-screened candidates, or tell us
               exactly what you need. Our BEOE-licensed team handles sourcing, screening, visas and mobilisation —
               end to end.
             </p>
@@ -67,7 +67,7 @@ export default function FillAVacancyPage() {
               {TRUST.map((t) => (
                 <li
                   key={t}
-                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm text-white/85"
+                  className="flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm text-foreground shadow-sm"
                 >
                   <ShieldCheck className="h-4 w-4 text-[var(--gold)]" />
                   {t}
@@ -116,14 +116,14 @@ export default function FillAVacancyPage() {
 
         {/* Closing contact strip */}
         <section className="mt-16 md:mt-24">
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-[var(--navy)] px-6 py-10 text-center text-white md:px-12 md:py-12">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-foreground px-6 py-10 text-center text-background md:px-12 md:py-12">
             <div
               aria-hidden
               className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--gold)]/15 blur-3xl"
             />
             <div className="relative">
               <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Prefer to talk it through first?</h2>
-              <p className="mx-auto mt-3 max-w-xl text-white/70">
+              <p className="mx-auto mt-3 max-w-xl text-background/70">
                 Tell us about your project and we&apos;ll recommend the right sourcing approach — no obligation.
               </p>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
@@ -137,13 +137,13 @@ export default function FillAVacancyPage() {
                 </a>
                 <a
                   href={`mailto:${EMPLOYER_EMAIL}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold transition hover:bg-white/10"
+                  className="inline-flex items-center gap-2 rounded-full border border-background/25 px-6 py-3 text-sm font-semibold transition hover:bg-background/10"
                 >
                   {EMPLOYER_EMAIL}
                 </a>
                 <Link
                   href="/hire-from-pakistan"
-                  className="inline-flex items-center gap-1.5 px-4 py-3 text-sm font-semibold text-white/80 transition hover:text-white"
+                  className="inline-flex items-center gap-1.5 px-4 py-3 text-sm font-semibold text-background/80 transition hover:text-background"
                 >
                   Employer services <ArrowRight className="h-4 w-4" />
                 </Link>
