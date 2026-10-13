@@ -38,6 +38,63 @@ function gccFaqs(name: string, idDoc: string): Faq[] {
   ]
 }
 
+// ---- Generic (non-GCC) builders --------------------------------------------
+
+function workFaqs(name: string, routeAnswer: string): Faq[] {
+  return [
+    { q: `How can I get a job in ${name} from Pakistan?`, a: routeAnswer },
+    {
+      q: `Who sponsors the work visa or permit?`,
+      a: `Your employer in ${name} sponsors the work permit and issues the employment contract. Falisha Manpower (OEP Licence No. 4035) manages sourcing, screening, documentation and mobilisation in line with Pakistani and ${name} regulations.`,
+    },
+    {
+      q: `What documents do I need?`,
+      a: `Typically a valid passport, an updated CV, trade / education certificates and experience letters, plus any role-specific skill or qualification evidence and a medical where required. We confirm the exact checklist for each role in ${name}.`,
+    },
+    {
+      q: `What salary and benefits can I expect in ${name}?`,
+      a: `Salary depends on your role, experience, employer and local regulations. Skilled roles typically pay more than general labour, and your contract sets out the salary, hours and any benefits. We confirm the exact terms for every role before you accept.`,
+    },
+    {
+      q: `Do I have to pay fees to get the job?`,
+      a: `Falisha Manpower works within Pakistan's regulated overseas-employment framework. We never charge unlawful or hidden fees — any applicable, lawful charges are disclosed transparently and in line with BEOE / Protector rules.`,
+    },
+  ]
+}
+
+function routeAnswerFor(name: string, primary: VisaRoute): string {
+  return `Your employer in ${name} secures the required work authorisation (${primary.name}); you then complete the visa, documentation, medical and BEOE / Protector formalities in Pakistan before deployment. Browse our ${name} openings or upload your CV to begin.`
+}
+
+const blueCard = (name: string): VisaRoute => ({
+  name: 'EU Blue Card',
+  detail: `For university graduates with a qualifying job offer in ${name} meeting the salary threshold — a fast route to EU residence.`,
+})
+
+function euSeo(name: string, primary: VisaRoute, withBlueCard = true): CountrySeo {
+  return {
+    visaRoutes: withBlueCard ? [primary, blueCard(name)] : [primary],
+    faqs: workFaqs(name, routeAnswerFor(name, primary)),
+  }
+}
+
+function simpleSeo(name: string, primary: VisaRoute): CountrySeo {
+  return { visaRoutes: [primary], faqs: workFaqs(name, routeAnswerFor(name, primary)) }
+}
+
+const UK_VISA: VisaRoute[] = [
+  {
+    name: 'Skilled Worker visa',
+    detail:
+      'For eligible occupations with a licensed UK sponsor. Requires a Certificate of Sponsorship (CoS), meeting the salary threshold and an approved English-language test.',
+  },
+  {
+    name: 'Health & Care Worker visa',
+    detail:
+      'For eligible health and adult-social-care roles (care assistants, senior carers, nurses) sponsored by an approved employer — reduced fees and no Immigration Health Surcharge.',
+  },
+]
+
 export const COUNTRY_SEO: Record<string, CountrySeo> = {
   // ---- Gulf / GCC ----
   'saudi-arabia': {
@@ -234,4 +291,197 @@ export const COUNTRY_SEO: Record<string, CountrySeo> = {
       },
     ],
   },
+
+  // ---- Türkiye ----
+  turkey: simpleSeo('Türkiye', {
+    name: 'Work Permit (Çalışma İzni)',
+    detail:
+      'Issued by the Turkish Ministry of Labour and Social Security when your employer applies; it also serves as your residence authorisation for the contract period.',
+  }),
+
+  // ---- Europe (EU) ----
+  romania: euSeo('Romania', {
+    name: 'Work Permit + Long-stay (D/AM) Visa',
+    detail:
+      'Your Romanian employer obtains a work permit (aviz de angajare); you then apply for a long-stay employment visa and residence permit.',
+  }),
+  poland: euSeo('Poland', {
+    name: 'Work Permit (Type A) + National (D) Visa',
+    detail:
+      'Your Polish employer secures a Type A work permit; you then apply for a national visa and temporary residence & work permit.',
+  }),
+  croatia: euSeo('Croatia', {
+    name: 'Residence & Work Permit',
+    detail: 'Croatia issues a combined residence-and-work permit when your employer applies.',
+  }),
+  hungary: euSeo('Hungary', {
+    name: 'Combined Work & Residence Permit',
+    detail: 'Hungary issues a single combined permit for work and residence through a one-stop procedure.',
+  }),
+  portugal: euSeo('Portugal', {
+    name: 'Residence Visa for Subordinate Work',
+    detail: 'With a Portuguese job offer you apply for a work residence visa; Portugal also offers a job-seeker visa.',
+  }),
+  greece: euSeo('Greece', {
+    name: 'Work Visa (Type D) + Residence Permit',
+    detail:
+      'Greece admits workers under annual quotas; your employer secures approval, then you apply for the national visa and residence permit.',
+  }),
+  italy: euSeo('Italy', {
+    name: 'Decreto Flussi Work Visa',
+    detail:
+      'Italy admits non-EU workers under annual quotas (Decreto Flussi); your employer applies for the nulla osta, then you apply for the visa.',
+  }),
+  cyprus: euSeo(
+    'Cyprus',
+    {
+      name: 'Temporary Residence & Employment Permit',
+      detail: 'Employer-sponsored; the permit authorises work and residence for the contract period.',
+    },
+    false,
+  ),
+  lithuania: euSeo('Lithuania', {
+    name: 'National (D) Visa + Work Permit',
+    detail: 'Your Lithuanian employer secures the work-permit decision; you then apply for a national visa and residence permit.',
+  }),
+  austria: euSeo('Austria', {
+    name: 'Red-White-Red Card',
+    detail: 'A points-based route for skilled workers with a job offer, authorising both work and residence.',
+  }),
+  ireland: euSeo(
+    'Ireland',
+    {
+      name: 'Critical Skills / General Employment Permit',
+      detail: 'Ireland issues employment permits for eligible occupations; Critical Skills permits target high-demand roles.',
+    },
+    false,
+  ),
+  luxembourg: euSeo('Luxembourg', {
+    name: 'Salaried Worker Authorisation',
+    detail: 'With a job offer you obtain a combined work-and-residence authorisation to live and work in Luxembourg.',
+  }),
+  finland: euSeo('Finland', {
+    name: 'Residence Permit for an Employed Person',
+    detail: 'Finland issues a residence permit based on a job offer, authorising work in the relevant sector.',
+  }),
+  france: euSeo('France', {
+    name: '"Salarié" Work Visa / Talent Passport',
+    detail:
+      'With a French job offer and work authorisation you obtain a long-stay work visa; the Talent Passport (Passeport Talent) covers skilled and qualified roles.',
+  }),
+  'czech-republic': euSeo('the Czech Republic', {
+    name: 'Employee Card',
+    detail: 'The Czech Employee Card (zaměstnanecká karta) is a combined work-and-residence permit tied to a specific job.',
+  }),
+  belgium: euSeo('Belgium', {
+    name: 'Single Permit',
+    detail: 'Belgium issues a combined single permit for work and residence when your employer applies.',
+  }),
+  denmark: euSeo(
+    'Denmark',
+    {
+      name: 'Positive List / Pay Limit scheme',
+      detail: 'Denmark admits skilled workers whose occupation is on the Positive List, or whose salary meets the Pay Limit threshold.',
+    },
+    false,
+  ),
+  sweden: euSeo('Sweden', {
+    name: 'Work Permit',
+    detail: 'Sweden issues a work permit based on a job offer meeting collective-agreement pay and conditions.',
+  }),
+  netherlands: euSeo('the Netherlands', {
+    name: 'Single Permit (GVVA)',
+    detail: 'The Dutch single permit combines work and residence; the Highly Skilled Migrant route covers qualified roles.',
+  }),
+  spain: euSeo('Spain', {
+    name: 'Work & Residence Authorisation',
+    detail: 'Spain issues a work-and-residence authorisation (por cuenta ajena); shortage roles are listed in the Catálogo de Ocupaciones.',
+  }),
+  malta: euSeo('Malta', {
+    name: 'Single Permit',
+    detail: 'Malta issues a single work-and-residence permit; the Key Employee Initiative fast-tracks skilled roles.',
+  }),
+
+  // ---- Europe (EEA / EFTA) ----
+  norway: simpleSeo('Norway', {
+    name: 'Skilled Worker Residence Permit',
+    detail: 'Norway grants a residence permit for skilled workers with a concrete job offer meeting pay and qualification requirements.',
+  }),
+  iceland: simpleSeo('Iceland', {
+    name: 'Work & Residence Permit',
+    detail: 'Iceland issues work and residence permits for specialists and shortage occupations under the EEA framework.',
+  }),
+  switzerland: simpleSeo('Switzerland', {
+    name: 'Work Permit (employer-sponsored)',
+    detail: 'Switzerland admits non-EU/EFTA workers under annual quotas; your employer must show the role could not be filled locally.',
+  }),
+
+  // ---- Europe (non-EU) ----
+  russia: simpleSeo('Russia', {
+    name: 'Work Permit + Work Visa',
+    detail: 'Your Russian employer obtains a work permit and invitation; you then receive a work visa for the contract period.',
+  }),
+  moldova: simpleSeo('Moldova', {
+    name: 'Work Permit + Long-stay Visa',
+    detail: 'Your Moldovan employer secures a work permit; you then apply for a long-stay employment visa and residence.',
+  }),
+  serbia: simpleSeo('Serbia', {
+    name: 'Single Work & Residence Permit',
+    detail: 'Serbia issues a combined work-and-residence permit when your employer applies.',
+  }),
+
+  // ---- United Kingdom (England & Scotland) ----
+  england: {
+    visaRoutes: UK_VISA,
+    faqs: workFaqs(
+      'England',
+      'To work in England you need a job offer from a UK employer who holds a sponsor licence and can issue a Certificate of Sponsorship, then apply for the Skilled Worker or Health & Care Worker visa. Demand is strongest in health & social care, construction, hospitality and logistics.',
+    ),
+  },
+  scotland: {
+    visaRoutes: UK_VISA,
+    faqs: workFaqs(
+      'Scotland',
+      'Scotland uses the UK Skilled Worker and Health & Care Worker visa routes: secure a job offer from a licensed sponsor and a Certificate of Sponsorship, then apply for the visa. Care, hospitality, energy and construction are key areas of demand.',
+    ),
+  },
+
+  // ---- Southeast Asia ----
+  malaysia: simpleSeo('Malaysia', {
+    name: 'Employment Pass / Temporary Employment Pass',
+    detail:
+      'Skilled roles use an Employment Pass; sector workers use a Temporary Employment Pass processed through the Foreign Worker Centralised Management System (FWCMS).',
+  }),
+
+  // ---- Central Asia & Caucasus ----
+  azerbaijan: simpleSeo('Azerbaijan', {
+    name: 'Work Permit + Temporary Residence Permit',
+    detail: 'Your employer obtains a work permit; you then receive a work visa and temporary residence permit.',
+  }),
+  kazakhstan: simpleSeo('Kazakhstan', {
+    name: 'Work Permit + Work Visa',
+    detail: 'Kazakh employers hire foreign workers under a quota and permit system; you then obtain a work visa.',
+  }),
+  uzbekistan: simpleSeo('Uzbekistan', {
+    name: 'Work Permit + Work Visa',
+    detail: 'Your Uzbek employer secures a work permit and confirmation; you then obtain a work visa.',
+  }),
+  georgia: simpleSeo('Georgia', {
+    name: 'Work Residence Permit',
+    detail: 'Georgia has a relatively open regime; after entry you obtain a work residence permit tied to your employment.',
+  }),
+
+  // ---- Middle East & North Africa ----
+  iraq: simpleSeo('Iraq', {
+    name: 'Employer-sponsored Work Visa + Residence',
+    detail: 'Your Iraqi employer secures the work visa and residence; large projects sponsor workers directly.',
+  }),
+  jordan: simpleSeo('Jordan', {
+    name: 'Work Permit + Residence',
+    detail: 'Your Jordanian employer obtains a work permit; residence follows for the contract period.',
+  }),
+  libya: simpleSeo('Libya', {
+    name: 'Employer-sponsored Work Visa + Residence',
+    detail: 'Your Libyan employer secures the work visa and residence for project-based employment.',
+  }),
 }
