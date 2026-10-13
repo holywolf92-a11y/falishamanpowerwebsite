@@ -24,6 +24,7 @@ import { ProcessSteps } from '@/components/visual/ProcessSteps'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { HOME_FAQS } from '@/data/faqs'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
+import { INDUSTRY_ROLES } from '@/data/industryContent'
 
 export const dynamic = 'force-dynamic'
 
@@ -520,47 +521,70 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Industries — 3D photo cards */}
+      {/* Industries & roles — "Best Manpower Recruitment Agency in Pakistan" */}
       <section className="border-t border-border bg-secondary/40">
         <div className="container py-20">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">
-              <div className="max-w-xl">
-                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Sectors we cover</p>
-                <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Industries &amp; professions</h2>
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Sectors &amp; roles</p>
+                <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+                  Best Manpower Recruitment Agency in Pakistan
+                </h2>
+                <p className="mt-3 text-muted-foreground">
+                  We source, screen and deploy skilled Pakistani talent across every major sector — explore the roles we
+                  recruit for in each.
+                </p>
               </div>
-              <Link href="/industries" className="text-sm font-medium text-primary hover:underline">All industries →</Link>
+              <Link href="/industries" className="text-sm font-medium text-primary hover:underline">
+                All industries →
+              </Link>
             </div>
           </Reveal>
-          <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {(industries.docs as Record<string, any>[]).slice(0, 8).map((ind, i) => (
-              <Reveal key={ind.id} delay={(i % 4) * 0.06}>
-                <Tilt3D max={6}>
-                  <Link
-                    href={`/industries/${ind.slug}`}
-                    className="group relative block h-44 overflow-hidden rounded-2xl border border-border shadow-lg md:h-52"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={industryImage(ind.title)}
-                      alt={ind.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[var(--navy)] via-[var(--navy)]/30 to-transparent" />
-                    <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
-                      <IndustryIcon name={ind.title} className="h-5 w-5" />
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {(industries.docs as Record<string, any>[])
+              .filter((ind) => INDUSTRY_ROLES[ind.slug]?.length)
+              .slice(0, 9)
+              .map((ind, i) => {
+                const roles = INDUSTRY_ROLES[ind.slug] || []
+                return (
+                  <Reveal key={ind.id} delay={(i % 3) * 0.06}>
+                    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                      <div className="relative h-28 overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={industryImage(ind.title)}
+                          alt=""
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                        <div className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-lg bg-white/15 text-white backdrop-blur">
+                          <IndustryIcon name={ind.title} className="h-5 w-5" />
+                        </div>
+                        <p className="absolute inset-x-4 bottom-2.5 text-base font-bold text-white">{ind.title} Jobs</p>
+                      </div>
+                      <div className="flex flex-1 flex-col p-5">
+                        <ul className="space-y-1.5 text-sm text-muted-foreground">
+                          {roles.slice(0, 5).map((r) => (
+                            <li key={r} className="flex items-start gap-2">
+                              <span aria-hidden className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-primary" />
+                              {r}
+                            </li>
+                          ))}
+                        </ul>
+                        <Link
+                          href={`/industries/${ind.slug}`}
+                          className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+                        >
+                          All {ind.title} roles →
+                        </Link>
+                      </div>
                     </div>
-                    <div className="absolute inset-x-4 bottom-4 text-white">
-                      <p className="font-semibold leading-snug">{ind.title}</p>
-                      <p className="mt-0.5 text-xs text-white/75 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        View roles →
-                      </p>
-                    </div>
-                  </Link>
-                </Tilt3D>
-              </Reveal>
-            ))}
+                  </Reveal>
+                )
+              })}
           </div>
         </div>
       </section>

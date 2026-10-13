@@ -3,8 +3,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { CheckCircle2 } from 'lucide-react'
 import RichText from '@/components/RichText'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { INDUSTRY_ROLES } from '@/data/industryContent'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,6 +37,11 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const { industry, jobs } = await getData(slug)
   if (!industry) notFound()
 
+  const cmsRoles = Array.isArray(industry.roles)
+    ? (industry.roles as { title: string }[]).map((r) => r.title).filter(Boolean)
+    : []
+  const roles = INDUSTRY_ROLES[slug] ?? cmsRoles
+
   return (
     <div className="container py-16 md:py-24">
       <Link href="/industries" className="text-sm text-muted-foreground hover:text-foreground">← All industries</Link>
@@ -52,17 +59,22 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         </div>
       )}
 
-      {Array.isArray(industry.roles) && industry.roles.length > 0 && (
-        <div className="mt-8 max-w-3xl">
-          <h2 className="text-lg font-semibold">Typical roles</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {industry.roles.map((r: { id?: string; title: string }, i: number) => (
-              <span key={r.id || i} className="rounded-full bg-secondary px-3 py-1 text-sm text-secondary-foreground">
-                {r.title}
-              </span>
+      {roles.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold tracking-tight">{industry.title} roles we recruit for</h2>
+          <p className="mt-2 max-w-2xl text-muted-foreground">
+            Skilled, semi-skilled and professional {industry.title.toLowerCase()} manpower from Pakistan — sourced,
+            screened and deployed for your projects.
+          </p>
+          <div className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {roles.map((r) => (
+              <div key={r} className="flex items-start gap-2.5 rounded-xl border border-border bg-card p-3.5 text-sm shadow-sm">
+                <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{r}</span>
+              </div>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
       {jobs.totalDocs > 0 && (
