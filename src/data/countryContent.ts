@@ -1281,6 +1281,15 @@ const POLAND_EXTRA: CountrySection[] = [
       'We coordinate the permit, visa and travel end-to-end and brief candidates fully before departure, so expectations are set and mobilisation stays on schedule.',
     ],
   },
+  {
+    heading: 'Life and work in Poland',
+    body: [
+      'Poland has a large and growing community of South Asian workers, so new arrivals usually find established networks, halal food and places of worship in the main cities, and employers of overseas staff are familiar with the documentation and onboarding — which makes settling in smoother.',
+      'Contracts set out your salary, hours and conditions; wages are paid on record, and Poland’s EU membership means your employment carries EU labour protections. Winters are cold, so we brief candidates on the practical realities as well as the paperwork.',
+      'The route is employer-led and well-trodden — work permit, national visa, then residence formalities on arrival — and because we run it regularly, we can give realistic timelines rather than vague promises.',
+      'We prepare each candidate for the role, the documents and the move, and in line with BEOE rules we never charge candidates unlawful fees. The aim is workers who arrive informed and stay for the full contract.',
+    ],
+  },
 ]
 const ITALY_EXTRA: CountrySection[] = [
   {
@@ -1313,6 +1322,15 @@ const PORTUGAL_EXTRA: CountrySection[] = [
     body: [
       'A Portuguese placement starts with an employment contract and a work/residence visa, with residence completed through the immigration authority after arrival — and over time it can open a path to longer-term residence in the EU. That prospect is a big part of Portugal’s appeal.',
       'We coordinate the contract, visa and travel end-to-end and brief candidates before departure, so the move is orderly and expectations are realistic.',
+    ],
+  },
+  {
+    heading: 'Life and work in Portugal',
+    body: [
+      'Portugal is known for being welcoming to migrant workers, and the main cities and the Algarve have growing South Asian communities, halal food and places of worship, which helps new arrivals settle. Employers of overseas staff are used to the paperwork and onboarding.',
+      'Contracts set out salary, hours and conditions, wages are paid on record, and as an EU member Portugal’s employment carries EU labour protections. The cost of living is moderate by Western-European standards, which many workers appreciate.',
+      'The route is contract-led — a job offer and work/residence visa, with residence completed on arrival — and because tourism and construction hire year-round, timelines can be practical when the paperwork is in order.',
+      'We prepare each candidate for the role, the documents and the move, and in line with BEOE rules we never charge candidates unlawful fees — aiming for workers who arrive informed and build a stable future.',
     ],
   },
 ]
