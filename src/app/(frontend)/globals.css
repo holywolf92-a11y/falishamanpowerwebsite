@@ -22,6 +22,26 @@
   }
 }
 
+/* --- Mobile hardening: prevent iOS auto-zoom & stray horizontal overflow --- */
+/* Unlayered so these win over Tailwind utility classes (e.g. a select's text-sm). */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* `clip` (not `hidden`) stops accidental horizontal overflow from zooming the
+     page to fit on mobile, while keeping the sticky header working. */
+  overflow-x: clip;
+}
+
+/* iOS Safari zooms in when a focused form control is smaller than 16px — force
+   16px on phones so tapping an input/select/filter never triggers a zoom. */
+@media (max-width: 767.98px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 @plugin "@tailwindcss/typography";
 
 @source inline("lg:col-span-4");
