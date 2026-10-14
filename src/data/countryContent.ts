@@ -562,6 +562,276 @@ const TURKEY_SECTIONS: CountrySection[] = [
   },
 ]
 
+const UK_SECTIONS: CountrySection[] = [
+  {
+    heading: 'The UK Skilled Worker route',
+    body: [
+      'The United Kingdom hires overseas workers mainly through the Skilled Worker visa, which requires a job with a UK employer that holds a sponsor licence and issues a Certificate of Sponsorship. The role must meet the skill level and salary threshold set by the Home Office, and the worker must show the required level of English. Falisha Manpower works with licensed UK sponsors to place skilled Pakistani candidates into eligible roles.',
+      'It is important to be realistic about the rules: since 22 July 2025 the Health & Care Worker route no longer accepts new overseas applications for care workers and senior care workers, so UK demand we recruit for now centres on registered nurses, skilled trades, engineering, construction, hospitality, logistics and food production rather than entry-level care.',
+    ],
+  },
+  {
+    heading: 'Trades and professions we recruit for',
+    body: [
+      'On the technical side we place construction and civil trades (with CSCS where required), welders and fabricators, electricians, plumbers, HVAC and mechanical technicians, and engineers, along with HGV and bus drivers where sponsorship is available. Food-production, warehouse and logistics roles are also recruited where they meet the Skilled Worker criteria.',
+      'In healthcare we focus on registered nurses who meet NMC registration requirements, including the English test (IELTS or OET) and the OSCE clinical exam. We assess each candidate against the specific role and sponsor before putting them forward, so employers only see people who genuinely qualify.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'We place candidates across the United Kingdom — England, Scotland, Wales and Northern Ireland — following where licensed sponsors are hiring, from London and the South East to the Midlands, the North of England and the Scottish central belt.',
+      'Because the UK consolidates England, Scotland, Wales and Northern Ireland under one immigration system, we handle all four nations through the same Skilled Worker framework, matching candidates to the employer and location.',
+    ],
+  },
+  {
+    heading: 'Visas, English and recognition',
+    body: [
+      'The route runs through the Skilled Worker visa: the sponsor issues a Certificate of Sponsorship, the candidate proves English at the required level through an approved test, pays the visa fee and Immigration Health Surcharge, gives biometrics and receives the visa. Nurses must complete NMC registration before they can work in that role.',
+      'We guide candidates through documentation, English testing and qualification recognition, and complete Protector of Emigrants clearance in Pakistan, so the process is orderly from offer to travel.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Skilled Worker roles must pay at least the Home Office salary threshold for the occupation, and all workers are covered by UK employment law — a written contract, at least the National Minimum or National Living Wage, paid holiday, and automatic enrolment into a workplace pension.',
+      'We make sure every placement is on a clear, sponsor-backed contract before travel and brief candidates on their role, pay and conditions, so there are no surprises on arrival.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in the UK you will need a valid passport, relevant qualifications and experience, an approved English-language test at the required level, and a Certificate of Sponsorship from a licensed UK employer. Budget for the visa fee and Immigration Health Surcharge, which the Home Office sets.',
+      'We only put candidates forward for genuine sponsored roles, guide you through each step, and — in line with BEOE and Protector rules — never charge candidates unlawful fees. Beware of anyone promising UK work without a real sponsor.',
+    ],
+  },
+]
+
+const GERMANY_SECTIONS: CountrySection[] = [
+  {
+    heading: 'Germany’s Skilled Immigration Act',
+    body: [
+      'Germany faces a well-documented shortage of skilled workers (Fachkräftemangel) and has opened several routes for non-EU talent under its Skilled Immigration Act. These include a work visa with a job offer, the EU Blue Card for higher-qualified roles, and the points-based Opportunity Card (Chancenkarte) that lets qualified people come to look for work. Falisha Manpower helps Pakistani candidates match to German employers and the right route.',
+      'Demand spans construction and the skilled trades, manufacturing and engineering, healthcare and nursing, hospitality, logistics and increasingly IT. German employers value formally trained, certified workers, which plays to the strengths of Pakistan’s technical and vocational workforce.',
+    ],
+  },
+  {
+    heading: 'Trades and professions in demand',
+    body: [
+      'We recruit construction and civil trades, welders and metal fabricators, electricians, plumbers, HVAC and mechanical technicians, machine and production operators, and engineers. Hospitality (hotels, kitchens, restaurants), logistics, warehousing and professional driving are also active, and healthcare demand for nurses and carers is strong where qualifications can be recognised.',
+      'Because German roles usually expect recognised qualifications and some language, we assess each candidate honestly against the role before putting them forward, rather than overpromising.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'Hiring is strongest in the industrial south and west — Bavaria, Baden-Württemberg and North Rhine-Westphalia — and in the major cities of Berlin, Hamburg, Munich, Frankfurt, Stuttgart and Cologne, with manufacturing and logistics spread across the country.',
+      'We follow where German employers and their recruitment partners are hiring and match candidates to the location and role.',
+    ],
+  },
+  {
+    heading: 'Qualification recognition and language',
+    body: [
+      'Two things shape a German placement: recognition of your qualification (Anerkennung), which confirms your foreign training is equivalent to the German standard, and language. Many skilled roles ask for German at roughly A2–B2 depending on the job, while some technical and IT roles accept English to start.',
+      'We help candidates understand the recognition and language requirements for their target role up front, so nobody travels on false expectations.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Germany has a statutory minimum wage (Mindestlohn) and strong labour protections: a written contract, regulated working hours, paid leave, and enrolment in the social-security system that covers health insurance, pension and unemployment. These protections are a major reason Germany is such a sought-after destination.',
+      'We place candidates only on documented contracts and brief them on pay, hours and conditions before departure.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Germany you will typically need a valid passport, a recognised qualification (or a path to recognition), the required German or English level for the role, and a job offer or an Opportunity Card. The work visa is applied for at the German mission.',
+      'We guide you through recognition, language, documentation and Protector of Emigrants clearance, and never charge candidates unlawful fees, in line with BEOE rules.',
+    ],
+  },
+]
+
+const ROMANIA_SECTIONS: CountrySection[] = [
+  {
+    heading: 'A fast-growing EU corridor',
+    body: [
+      'Romania has become one of the most active EU destinations for Pakistani workers. A growing economy, EU membership and a shortage of local labour have opened steady demand across construction, manufacturing, logistics, agriculture and hospitality, and the work-permit route is well understood by employers and agencies there.',
+      'Falisha Manpower sources and screens candidates in Pakistan and mobilises them for Romanian employers under the country’s work-permit and long-stay visa system, handling documentation end-to-end.',
+    ],
+  },
+  {
+    heading: 'Roles in demand',
+    body: [
+      'We place construction and civil trades — masons, steel fixers, carpenters, scaffolders, electricians, plumbers and welders — along with factory and production workers, warehouse and logistics staff, drivers, and agricultural and food-processing workers. Hospitality and services add further demand.',
+      'Candidates are trade-tested and documented before travel so Romanian employers receive workers who are ready to start.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'Demand is spread across Bucharest and the major industrial and logistics centres — Cluj-Napoca, Timișoara, Brașov, Constanța and the surrounding zones — with construction, manufacturing and warehousing employers hiring across the country.',
+      'We match candidates to the employer and region and coordinate sourcing and paperwork from our Pakistan offices.',
+    ],
+  },
+  {
+    heading: 'Work permit and visa',
+    body: [
+      'The route runs through the employer: the Romanian company obtains a work permit (aviz de muncă) from the immigration authority, after which the worker applies for a long-stay employment visa at the Romanian mission and receives a residence permit after arrival. Medical screening and Protector of Emigrants clearance are completed in Pakistan.',
+      'We coordinate each step with the employer so the permit, visa and travel line up without unnecessary delays.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'As an EU member, Romania sets a statutory minimum wage and requires written employment contracts, with social contributions and the labour protections that come with EU employment. Working in Romania also places candidates inside the wider EU labour market.',
+      'We place candidates only on clear, documented contracts and brief them before departure on their role, pay and conditions.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Romania you will usually need a valid passport, relevant trade or education certificates and experience letters, and a work permit obtained by your employer; many technical roles include a trade test before selection. We then handle the visa, Protector of Emigrants clearance and travel.',
+      'We guide you through the process and, in line with BEOE rules, never charge candidates unlawful fees. Romania is often a practical first step into the European labour market.',
+    ],
+  },
+]
+
+const POLAND_SECTIONS: CountrySection[] = [
+  {
+    heading: 'A major EU manufacturing and logistics hub',
+    body: [
+      'Poland is one of the EU’s largest manufacturing and logistics economies, and its demand for workers has made it a popular destination for Pakistani candidates. Construction, factories and production lines, warehousing and transport, and agriculture all hire steadily, supported by a clear work-permit route.',
+      'Falisha Manpower sources and screens candidates in Pakistan and mobilises them for Polish employers under the country’s work-permit and national visa system.',
+    ],
+  },
+  {
+    heading: 'Roles in demand',
+    body: [
+      'We supply construction and civil trades, welders and fabricators, factory and production workers, warehouse and logistics staff, forklift operators and drivers, and agricultural and food-processing workers. Hospitality and services add further openings.',
+      'Candidates are trade-tested and documented before travel so Polish employers get workers ready to perform from day one.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'Hiring is concentrated around Warsaw, Kraków, Wrocław, Poznań, Łódź and Gdańsk and the manufacturing and logistics parks that surround them, with construction demand across the country.',
+      'We match candidates to the employer and region and coordinate sourcing and documentation from Pakistan.',
+    ],
+  },
+  {
+    heading: 'Work permit and visa',
+    body: [
+      'The employer secures a work permit (typically a type-A permit) from the regional (voivodeship) office, after which the worker applies for a national long-stay visa at the Polish mission and completes residence formalities on arrival. Medical screening and Protector of Emigrants clearance are done in Pakistan first.',
+      'We coordinate the permit, visa and travel with the employer so mobilisation stays on schedule.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Poland sets a statutory minimum wage and requires written employment contracts, with social-security contributions (ZUS) and EU labour protections. A Polish placement also brings candidates into the EU labour market.',
+      'We place candidates only on documented contracts and brief them before departure on their role, pay and conditions.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Poland you will usually need a valid passport, trade or education certificates, experience letters, and a work permit obtained by your employer; technical roles may include a trade test. We then handle the national visa, Protector of Emigrants clearance and travel.',
+      'We guide you through each step and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+]
+
+const ITALY_SECTIONS: CountrySection[] = [
+  {
+    heading: 'The Decreto Flussi quota system',
+    body: [
+      'Italy admits non-EU workers mainly through the Decreto Flussi — annual quotas that set how many work authorisations are available by sector and region. An Italian employer applies for a nulla osta (work authorisation) within the quota, after which the worker applies for a work visa. Understanding and timing the Flussi is central to recruiting for Italy, and it is where our experience helps.',
+      'Demand concentrates in construction, agriculture and seasonal farm work, hospitality and tourism, domestic and care work (badanti), logistics and transport. Falisha Manpower sources and screens Pakistani candidates and coordinates the process with Italian employers.',
+    ],
+  },
+  {
+    heading: 'Roles in demand',
+    body: [
+      'We place construction and civil trades, agricultural and seasonal workers, hotel and restaurant staff, cooks and kitchen hands, domestic and care workers, and warehouse, logistics and driving staff. Each is matched to the sector quota and employer requirement.',
+      'Candidates are documented and prepared before travel so Italian employers receive workers who are ready to begin.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'Demand is strongest in the industrial north — Lombardy, Veneto and Emilia-Romagna — and in Lazio and the agricultural and tourism regions, with Milan, Rome, Turin and the farming and coastal areas hiring across seasons.',
+      'We match candidates to the employer, sector and region and coordinate sourcing and paperwork from Pakistan.',
+    ],
+  },
+  {
+    heading: 'Nulla osta, visa and quotas',
+    body: [
+      'The route is employer-led and quota-bound: the employer applies for the nulla osta within the Decreto Flussi, the worker then applies for the work visa at the Italian mission, and a residence permit (permesso di soggiorno) is issued after arrival. Medical screening and Protector of Emigrants clearance are completed in Pakistan.',
+      'Because places depend on the annual quota, timing matters — we align applications with the Flussi windows and keep employers and candidates informed.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Italian employment is governed by national collective contracts (CCNL) that set pay and conditions by sector, with social-security coverage through INPS and the full range of EU labour protections. Working in Italy places candidates inside the EU labour market.',
+      'We place candidates only on documented contracts and brief them before departure on their role, pay and conditions.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Italy you will usually need a valid passport, relevant certificates and experience, and a nulla osta from an Italian employer within the Decreto Flussi quota. The work visa follows at the Italian mission, with the residence permit issued on arrival.',
+      'The quota system takes patience; we guide you honestly through it and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+]
+
+const PORTUGAL_SECTIONS: CountrySection[] = [
+  {
+    heading: 'An accessible route into the EU',
+    body: [
+      'Portugal has become an increasingly popular European destination for Pakistani workers, with relatively accessible work and residence routes and strong demand in construction, agriculture, tourism and hospitality, and logistics. For many candidates it is a practical entry point to the EU labour market.',
+      'Falisha Manpower sources and screens candidates in Pakistan and mobilises them for Portuguese employers, coordinating the employment contract, visa and documentation end-to-end.',
+    ],
+  },
+  {
+    heading: 'Roles in demand',
+    body: [
+      'We place construction and civil trades, agricultural and farm workers, hotel, restaurant and tourism staff, cleaners and facilities workers, and warehouse, logistics and driving staff. Demand runs year-round, with tourism peaking in the Algarve and the cities.',
+      'Candidates are documented and prepared before travel so Portuguese employers receive workers ready to start.',
+    ],
+  },
+  {
+    heading: 'Where the work is',
+    body: [
+      'Hiring is concentrated around Lisbon and Porto, the Algarve for tourism and hospitality, and the agricultural regions such as the Alentejo, with construction demand across the country.',
+      'We match candidates to the employer, sector and region and coordinate sourcing and paperwork from Pakistan.',
+    ],
+  },
+  {
+    heading: 'Visa and residence',
+    body: [
+      'The route runs through an employment contract with a Portuguese employer and a work/residence visa applied for at the Portuguese mission, with the residence permit completed through the immigration authority (AIMA) after arrival. Medical screening and Protector of Emigrants clearance are done in Pakistan first.',
+      'We coordinate the contract, visa and travel with the employer so the process stays orderly from offer to arrival.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Portugal sets a national minimum wage and requires written employment contracts, with social-security coverage and the labour protections of an EU member state. A Portuguese placement also brings candidates into the wider EU labour market.',
+      'We place candidates only on documented contracts and brief them before departure on their role, pay and conditions.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Portugal you will usually need a valid passport, relevant certificates and experience, and a job offer and employment contract from a Portuguese employer. The work/residence visa follows at the mission, with residence completed on arrival.',
+      'We guide you through each step and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+]
+
 export const COUNTRY_CONTENT: Record<string, CountryContent> = {
   turkey: {
     name: 'Türkiye',
@@ -943,6 +1213,110 @@ export const COUNTRY_CONTENT: Record<string, CountryContent> = {
   ),
 }
 
+// Extra spotlight + outlook sections for the top European markets.
+const UK_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: construction, engineering and healthcare',
+    body: [
+      'The UK has a structural shortage of skilled labour across construction and engineering. Housing targets, infrastructure upgrades, energy and retrofit work all compete for trades, so sponsors recruit bricklayers, carpenters, steel fixers, welders, pipefitters, electricians, HVAC and mechanical technicians, and civil and structural engineers — often asking for CSCS cards and recognised qualifications.',
+      'Healthcare is the other major corridor. NHS trusts and private providers continue to recruit registered nurses from overseas where candidates meet NMC requirements, including an approved English test (IELTS or OET) and the OSCE clinical exam. We prepare nurses for each stage and only put forward those who can realistically complete registration.',
+      'Across both, we work only with genuinely licensed sponsors and assess every candidate against the role, salary threshold and English requirement before they apply — so employers interview people who qualify, and candidates do not travel on false hopes.',
+    ],
+  },
+  {
+    heading: 'What to weigh before you apply',
+    body: [
+      'The UK route is rewarding but rule-heavy, and it pays to go in informed. Roles must meet the Home Office skill and salary thresholds, English must be proven through an approved test, and the visa carries fees and an Immigration Health Surcharge the applicant budgets for. There is no shortcut around a genuine Certificate of Sponsorship from a licensed employer.',
+      'We set these expectations clearly from the first conversation, help candidates gather documents and sit the right English test, and manage the visa and Protector of Emigrants steps — which is why UK employers and candidates keep coming back to us.',
+    ],
+  },
+]
+const GERMANY_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: the skilled-trades and engineering shortage',
+    body: [
+      'Germany’s shortage of skilled workers runs deep through its Mittelstand — the mid-sized manufacturers that power its economy — and its large industrial groups. That creates sustained demand for welders and metal fabricators, CNC and machine operators, electricians, mechatronics and maintenance technicians, plumbers and HVAC fitters, and construction trades, alongside engineers and increasingly IT and healthcare professionals.',
+      'What sets Germany apart is its emphasis on formal qualifications. Employers want workers whose training is documented and, where required, recognised against the German standard — which is exactly where Pakistan’s technically trained, certificate-holding workforce fits well.',
+      'We match candidates to employers and the right route (work visa, EU Blue Card or Opportunity Card), and we are upfront about recognition and language so people target roles they can genuinely secure.',
+    ],
+  },
+  {
+    heading: 'Why Germany is worth the preparation',
+    body: [
+      'A German placement asks more at the front end — recognition of qualifications and some language — but it rewards that effort with strong pay, comprehensive social security and a clear path to long-term residence. For skilled Pakistani workers it is one of the most stable destinations in Europe.',
+      'We help candidates plan the recognition and language steps early, prepare documentation, and complete Protector of Emigrants clearance, so the process is orderly from offer to arrival.',
+    ],
+  },
+]
+const ROMANIA_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: construction, manufacturing and logistics',
+    body: [
+      'Romania’s growth — supported by EU investment and a tightening local labour market — has made construction, manufacturing and logistics its biggest sources of demand for overseas workers. Infrastructure and building projects need civil and MEP trades; automotive and general manufacturing need production and assembly workers; and expanding warehousing and distribution need logistics staff and drivers.',
+      'For Pakistani workers this is a practical, accessible European corridor with a well-established work-permit route, and it often serves as a first step into the wider EU labour market.',
+      'We source and trade-test candidates against what Romanian employers actually need, so people arrive matched to the role rather than hoping to find their feet.',
+    ],
+  },
+  {
+    heading: 'A practical route into the EU',
+    body: [
+      'Because the process is employer-led and relatively straightforward, Romania can move faster than some western-European routes: the employer secures the work permit, the worker obtains the long-stay visa, and residence is completed on arrival. That makes it attractive for candidates who want to start an EU career without a long wait.',
+      'We coordinate the permit, visa and travel end-to-end and keep both employer and candidate informed, so mobilisation stays predictable.',
+    ],
+  },
+]
+const POLAND_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: manufacturing, logistics and construction',
+    body: [
+      'Poland is one of Europe’s busiest manufacturing and logistics economies, and that is where most of its demand sits. Factories and production lines hire operators and assembly staff; the fast-growing warehousing, e-commerce and distribution sector needs forklift operators, pickers and drivers; and a strong construction market needs civil and MEP trades.',
+      'The country’s clear work-permit route and its position inside the EU make it a popular, accessible destination for Pakistani workers looking to build a European career.',
+      'We trade-test and document candidates against the employer’s requirement so Polish factories and sites get workers ready to perform from the first shift.',
+    ],
+  },
+  {
+    heading: 'An accessible EU corridor',
+    body: [
+      'Poland’s process is employer-led and well-trodden: the employer secures the work permit, the worker applies for the national visa, and residence formalities follow on arrival. For many candidates it is a dependable way into the EU labour market.',
+      'We coordinate the permit, visa and travel end-to-end and brief candidates fully before departure, so expectations are set and mobilisation stays on schedule.',
+    ],
+  },
+]
+const ITALY_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: agriculture, construction and care',
+    body: [
+      'Italy’s demand for overseas workers is concentrated in a few sectors the Decreto Flussi quotas are built around. Seasonal agriculture needs farm and harvest workers; construction needs civil trades; hospitality and tourism need hotel, restaurant and kitchen staff; and the ageing population drives steady demand for domestic and care workers (badanti).',
+      'Each of these is tied to the annual quota and to specific regions, so success depends on matching candidates to the right sector and employer and applying within the Flussi window — which is where our experience of the system matters.',
+      'We prepare and document candidates for these roles and align applications with the quotas, so employers and workers are not caught out by timing.',
+    ],
+  },
+  {
+    heading: 'Working within the quota system',
+    body: [
+      'The Decreto Flussi means patience: places are limited and released on a schedule, and the nulla osta must be secured within the quota before a visa can follow. We are honest with candidates about this up front rather than promising a fast track that does not exist.',
+      'We coordinate the nulla osta, visa and travel with the Italian employer and keep everyone informed, so when a place is available the candidate is ready to move.',
+    ],
+  },
+]
+const PORTUGAL_EXTRA: CountrySection[] = [
+  {
+    heading: 'Spotlight: tourism, construction and agriculture',
+    body: [
+      'Portugal’s demand is led by three sectors. Tourism and hospitality hire year-round and peak in the Algarve and the cities, needing hotel, restaurant and service staff; construction needs civil and MEP trades as building and renovation continue; and agriculture in regions such as the Alentejo needs farm and harvest workers.',
+      'With relatively accessible work and residence routes and a welcoming stance toward migrant labour, Portugal has become one of the more practical European entry points for Pakistani workers.',
+      'We match and document candidates against the employer’s requirement so they arrive ready for the role and the season.',
+    ],
+  },
+  {
+    heading: 'A pathway into Europe',
+    body: [
+      'A Portuguese placement starts with an employment contract and a work/residence visa, with residence completed through the immigration authority after arrival — and over time it can open a path to longer-term residence in the EU. That prospect is a big part of Portugal’s appeal.',
+      'We coordinate the contract, visa and travel end-to-end and brief candidates before departure, so the move is orderly and expectations are realistic.',
+    ],
+  },
+]
+
 // Attach the unique, per-country deep-dive sections to their markets.
 // (Famous markets first — Türkiye + the Gulf; more will be added over time.)
 COUNTRY_CONTENT['saudi-arabia'].sections = SAUDI_SECTIONS
@@ -952,3 +1326,9 @@ COUNTRY_CONTENT.kuwait.sections = KUWAIT_SECTIONS
 COUNTRY_CONTENT.oman.sections = OMAN_SECTIONS
 COUNTRY_CONTENT.bahrain.sections = BAHRAIN_SECTIONS
 COUNTRY_CONTENT.turkey.sections = TURKEY_SECTIONS
+COUNTRY_CONTENT['united-kingdom'].sections = [...UK_SECTIONS, ...UK_EXTRA]
+COUNTRY_CONTENT.germany.sections = [...GERMANY_SECTIONS, ...GERMANY_EXTRA]
+COUNTRY_CONTENT.romania.sections = [...ROMANIA_SECTIONS, ...ROMANIA_EXTRA]
+COUNTRY_CONTENT.poland.sections = [...POLAND_SECTIONS, ...POLAND_EXTRA]
+COUNTRY_CONTENT.italy.sections = [...ITALY_SECTIONS, ...ITALY_EXTRA]
+COUNTRY_CONTENT.portugal.sections = [...PORTUGAL_SECTIONS, ...PORTUGAL_EXTRA]
