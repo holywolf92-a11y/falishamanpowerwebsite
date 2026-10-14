@@ -27,8 +27,18 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* `clip` (not `hidden`) stops accidental horizontal overflow from zooming the
-     page to fit on mobile, while keeping the sticky header working. */
+  overflow-x: clip;
+}
+
+/* The real fix for the iOS "auto zoom in/out" report: decorative, absolutely-
+   positioned elements (the hero + About floating cards, award satellites and the
+   rotating seal) peek past the layout with negative offsets (-right-4, -left-6…).
+   On a phone they push the page ~28px wider than the screen, so mobile Safari
+   zooms out to fit. Clipping on `html` alone does NOT shrink the layout viewport
+   (root-element overflow is special-cased); clipping on `body` does. `clip`
+   (unlike `hidden`) does not turn `body` into a scroll container, so `overflow-y`
+   stays `visible` and the sticky header keeps working. */
+body {
   overflow-x: clip;
 }
 
