@@ -2,6 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
+import { canonicalPath } from '@/data/legacyUrlMap'
 
 // Canonical production URL (matches next-sitemap.config.cjs). NEXT_PUBLIC_SERVER_URL
 // overrides it at runtime/build.
@@ -33,7 +34,7 @@ export function collectionSitemap(collection: string, pathPrefix: string) {
         return (results.docs as Array<{ slug?: string; updatedAt?: string }>)
           .filter((d) => Boolean(d?.slug))
           .map((d) => ({
-            loc: `${SITE_URL}${pathPrefix}/${d.slug}`,
+            loc: `${SITE_URL}${canonicalPath(`${pathPrefix}/${d.slug}`)}`,
             lastmod: d.updatedAt || fallback,
           }))
       } catch {

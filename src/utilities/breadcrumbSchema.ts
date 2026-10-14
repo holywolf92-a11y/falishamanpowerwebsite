@@ -1,4 +1,5 @@
 import { getServerSideURL } from './getURL'
+import { canonicalPath } from '@/data/legacyUrlMap'
 
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
   const base = getServerSideURL()
@@ -9,7 +10,8 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: it.name,
-      item: `${base}${it.path}`,
+      // Use the preserved old URL for any leaf page that has one (no-op otherwise).
+      item: `${base}${canonicalPath(it.path)}`,
     })),
   }
 }

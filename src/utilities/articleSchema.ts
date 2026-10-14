@@ -1,6 +1,7 @@
 import type { Post, Media } from '@/payload-types'
 import { getServerSideURL } from './getURL'
 import { postImageSrc } from './postImageSrc'
+import { canonicalPath } from '@/data/legacyUrlMap'
 
 // Best-available absolute image URL for a post: uploaded meta image (OG size) →
 // hero image → hotlinked externalImage → site OG fallback.
@@ -49,6 +50,6 @@ export function articleSchema(post: Post, path: string) {
       name: 'Falisha Manpower',
       logo: { '@type': 'ImageObject', url: `${base}/icon.png` },
     },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${base}${path}` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${base}${canonicalPath(path)}` },
   }
 }

@@ -12,6 +12,7 @@ import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
 import { INDUSTRY_DETAIL } from '@/data/industryDetail'
+import { canonicalPath } from '@/data/legacyUrlMap'
 import { industryImage } from '@/utilities/sectionImages'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
@@ -440,7 +441,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { industry } = await getData(slug)
   if (!industry) return { title: 'Industry not found | Falisha Manpower' }
   return {
-    alternates: { canonical: `/industries/${slug}` },
+    alternates: { canonical: canonicalPath(`/industries/${slug}`) },
     title: industry.meta?.title || `${industry.title} Recruitment from Pakistan | Falisha Manpower`,
     description:
       industry.meta?.description ||

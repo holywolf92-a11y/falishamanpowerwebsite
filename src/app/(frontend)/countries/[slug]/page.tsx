@@ -12,6 +12,7 @@ import Reveal from '@/components/visual/Reveal'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { COUNTRY_SEO } from '@/data/countrySeo'
+import { canonicalPath } from '@/data/legacyUrlMap'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
 
 export const dynamic = 'force-dynamic'
@@ -475,7 +476,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = resolveCountry(slug, cms)
   if (!c) return { title: 'Country not found | Falisha Manpower' }
   return {
-    alternates: { canonical: `/countries/${slug}` },
+    alternates: { canonical: canonicalPath(`/countries/${slug}`) },
     title: c.meta?.title || `Recruitment Agency in Pakistan for ${c.name} | Falisha Manpower`,
     description:
       c.meta?.description ||

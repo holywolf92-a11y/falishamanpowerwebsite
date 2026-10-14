@@ -1,5 +1,6 @@
 import { getServerSideSitemap } from 'next-sitemap'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
+import { canonicalPath } from '@/data/legacyUrlMap'
 
 // Every /countries/{slug} page renders from COUNTRY_CONTENT (code) even without a
 // CMS record, so the sitemap lists every code-defined slug — not just the smaller
@@ -17,7 +18,7 @@ export async function GET() {
     Object.keys(COUNTRY_CONTENT)
       .filter((slug) => slug !== 'england' && slug !== 'scotland')
       .map((slug) => ({
-      loc: `${SITE_URL}/countries/${slug}`,
+      loc: `${SITE_URL}${canonicalPath(`/countries/${slug}`)}`,
       lastmod,
       changefreq: 'weekly' as const,
       priority: 0.8,

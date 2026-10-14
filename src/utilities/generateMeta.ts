@@ -4,6 +4,7 @@ import type { Media, Page, Post, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
+import { canonicalPath } from '@/data/legacyUrlMap'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
@@ -34,12 +35,15 @@ export const generateMeta = async (args: {
   const title = cleanTitle ? `${cleanTitle} | Falisha Manpower` : 'Falisha Manpower'
 
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : (doc?.slug ?? '')
-  const path =
+  const rawPath =
     collection === 'posts'
       ? `/posts/${slug}`
       : !slug || slug === 'home'
         ? '/'
         : `/${slug}`
+  // Preserved old WordPress URLs stay canonical (e.g. a post keeps its original
+  // root slug instead of /posts/<slug>). No-op for paths without an old URL.
+  const path = canonicalPath(rawPath)
 
   return {
     description: doc?.meta?.description,
