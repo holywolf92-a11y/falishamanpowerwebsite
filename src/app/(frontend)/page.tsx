@@ -359,8 +359,8 @@ export default async function HomePage() {
                 About us
               </span>
               <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
-                One of the most trusted recruitment agencies{' '}
-                <span className="text-primary">for Pakistani manpower</span>
+                Award-winning recruitment agency{' '}
+                <span className="text-primary">in Pakistan</span>
               </h2>
               <p className="mt-5 text-muted-foreground">
                 As industries worldwide shift toward sustainable, long-term growth, companies increasingly
