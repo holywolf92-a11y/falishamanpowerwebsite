@@ -122,6 +122,18 @@ const REGION_HEADINGS: Record<string, string> = {
   'east-asia': 'Recruitment Agency in Pakistan for East Asia',
   sea: 'Recruitment Agency in Pakistan for Southeast Asia',
 }
+// A short, distinct editorial line under each region heading.
+const REGION_INTRO: Record<string, string> = {
+  gulf: 'The Gulf is our heartland. For more than 15 years we have deployed skilled and semi-skilled Pakistani workers across Saudi Arabia, the UAE, Qatar, Kuwait, Oman and Bahrain — for construction, oil and gas, hospitality, healthcare and facilities management.',
+  europe:
+    'Our fastest-growing corridor. As Europe’s workforce ages, employers from the UK and Germany to Romania, Poland, Portugal and the Balkans hire Pakistani trades, drivers and factory staff on regulated, EU-protected contracts.',
+  mena: 'Across the wider Middle East and North Africa — Iraq, Jordan and beyond — we supply construction crews, oilfield labour and industrial workers for major projects and long-established employers.',
+  'central-asia':
+    'From Azerbaijan to the Caspian and the Caucasus, expanding energy, construction and infrastructure projects draw skilled Pakistani manpower through structured, employer-led recruitment.',
+  'east-asia':
+    'Japan and South Korea offer some of the most sought-after overseas opportunities, with government-backed skilled-worker routes we prepare candidates for carefully, patiently and ethically.',
+  sea: 'Malaysia and the wider region recruit Pakistani factory, plantation, construction and service workers at scale, on documented contracts we manage end-to-end from Pakistan.',
+}
 // Float the biggest markets to the front of each region's preview.
 const HOME_FEATURED_FIRST = new Set(['united-kingdom', 'germany', 'romania', 'poland', 'portugal', 'italy'])
 const HOME_CARDS_PER_REGION = 6
@@ -808,6 +820,11 @@ export default async function HomePage() {
                       <h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight md:text-[2rem]">
                         {REGION_HEADINGS[region.key] ?? `Recruitment Agency in Pakistan for ${region.label}`}
                       </h3>
+                      {REGION_INTRO[region.key] && (
+                        <p className="mx-auto mt-4 max-w-2xl text-balance leading-relaxed text-muted-foreground">
+                          {REGION_INTRO[region.key]}
+                        </p>
+                      )}
                     </div>
                     <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                       {shown.map((cc) => (
