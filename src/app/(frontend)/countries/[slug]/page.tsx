@@ -82,6 +82,7 @@ function resolveCountry(slug: string, cms: Record<string, any> | undefined) {
     categoriesTitle: extra?.categoriesTitle ?? null,
     categories: extra?.categories ?? null,
     partnership: extra?.partnership ?? null,
+    sections: extra?.sections ?? null,
   }
 }
 
@@ -255,6 +256,26 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             </div>
           </Reveal>
         </section>
+
+        {/* In-depth: unique per-country market, roles & deployment */}
+        {c.sections && c.sections.length > 0 && (
+          <section className="mt-14 md:mt-16">
+            <div className="grid gap-x-12 gap-y-10 lg:grid-cols-2">
+              {c.sections.map((s, i) => (
+                <Reveal key={s.heading} delay={(i % 2) * 0.05}>
+                  <div>
+                    <h2 className="text-xl font-bold tracking-tight md:text-2xl">{s.heading}</h2>
+                    <div className="mt-3 space-y-3 leading-relaxed text-muted-foreground">
+                      {s.body.map((p, j) => (
+                        <p key={j}>{p}</p>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Manpower categories */}
         {c.categories && c.categories.length > 0 && (

@@ -4,6 +4,9 @@
 // write — a country present here renders even when no CMS record exists yet.
 // Extend this map to enrich or add more markets over time.
 
+/** A unique, per-country prose block rendered on the country page. */
+export type CountrySection = { heading: string; body: string[] }
+
 export type CountryContent = {
   /** Display name, e.g. "United Kingdom" (used when there is no CMS record). */
   name?: string
@@ -23,6 +26,8 @@ export type CountryContent = {
   categories?: string[]
   /** Short partnership line shown in the CTA band. */
   partnership?: string
+  /** Unique, per-country deep-dive sections (market, roles, cities, process). */
+  sections?: CountrySection[]
 }
 
 // ---- Regions ----------------------------------------------------------------
@@ -193,6 +198,369 @@ const UK_CATEGORIES = [
 ]
 
 // ---- Per-country content ----------------------------------------------------
+
+// ---- Unique per-country deep-dive content (famous markets first) -----------
+// Each block is written specifically for that market — no templated/duplicated
+// text — to give the page real depth for readers and search engines.
+
+const SAUDI_SECTIONS: CountrySection[] = [
+  {
+    heading: 'Why Saudi Arabia is our largest Gulf market',
+    body: [
+      'Saudi Arabia runs one of the biggest construction and infrastructure pipelines in the world, and Pakistani workers have helped build it for decades. Under Vision 2030 the Kingdom is delivering a wave of giga-projects — NEOM and its linear city THE LINE, the Red Sea tourism developments, Qiddiya, Diriyah Gate and the ROSHN housing programme — alongside the continuous expansion of Riyadh, Jeddah and the industrial Eastern Province. Each of these needs tens of thousands of trades, technicians and support staff on multi-year contracts, which is exactly the manpower Falisha Manpower mobilises from Pakistan.',
+      'Demand is broad-based rather than tied to a single sector. Construction and MEP lead the way, but the Kingdom is also hiring hard in oil & gas and petrochemicals across the Aramco and SABIC supply chains, in healthcare as new hospitals and clinics open, and in hospitality and facilities management as religious tourism around Makkah and Madinah and the new leisure destinations scale up. Saudi employers value Pakistani candidates for their skills, discipline and familiarity with Gulf sites, and the long-standing Pakistan–Saudi labour relationship keeps the visa and deployment process well understood on both sides.',
+    ],
+  },
+  {
+    heading: 'Trades and professions in demand',
+    body: [
+      'On the technical side we regularly deploy civil and MEP teams — masons, steel fixers, shuttering carpenters, scaffolders, electricians, plumbers, HVAC technicians, pipe fitters and welders (SMAW, GTAW and structural). Heavy-equipment and crane operators, light- and heavy-vehicle drivers who convert to a Saudi licence, and warehouse and logistics staff see steady demand across projects and long-term facilities contracts.',
+      'Beyond the trades we recruit healthcare professionals such as nurses and technicians who clear SCFHS and Prometric requirements, hospitality and catering staff — chefs, cooks, waiters and housekeeping — for hotels, worker camps and the growing tourism sector, and general labour and helpers for site and facilities work. For employers hiring at volume we run bulk mobilisation; for specialist, technical or supervisory roles we shortlist candidates and arrange interviews by video or in person.',
+    ],
+  },
+  {
+    heading: 'From Riyadh to the Red Sea — where we deploy',
+    body: [
+      'We place candidates right across the Kingdom: Riyadh and the Central Region; Jeddah, Makkah and Madinah in the west; Dammam, Khobar and Jubail in the oil-rich Eastern Province; and the emerging NEOM, Tabuk and Red Sea sites in the north-west. Wherever the project is, our team coordinates sourcing, trade testing and documentation from our Rawalpindi head office and branches in Lahore, Karachi, Peshawar and AJK.',
+      'The deployment route is well established: offer and demand letter, GAMCA medical-fitness screening, Protector of Emigrants clearance in Pakistan, and the Enjaz work visa processed through the Saudi embassy and consulates — with attestation and travel handled end-to-end. We keep employers updated at every stage so mobilisation stays on schedule and candidates arrive ready to work.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Saudi labour law requires written employment contracts, and salaries are paid through the Wage Protection System (WPS), with employers managing visas, contracts and payroll on the government Qiwa and Mudad platforms and enrolling workers in GOSI. Wages, working hours and end-of-service entitlements are therefore documented and traceable.',
+      'We make sure every placement is on a clear contract that states the role, salary, hours and benefits before travel, and we brief candidates on what to expect on site. Employers get workers who understand their terms, which reduces disputes and turnover during the contract.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'If you are applying for work in Saudi Arabia, you will typically need a valid passport, relevant trade or education certificates, experience letters and a clear GAMCA medical. Many technical roles involve a short trade test to confirm your skills before selection; once selected, we guide you through the Enjaz visa, Protector of Emigrants clearance and travel.',
+      'On arrival your employer sponsors your Iqama (residence permit) and arranges accommodation and transport in line with your contract. We brief every candidate on the role, salary and conditions before departure so you travel fully informed — and in keeping with BEOE and Protector rules, we never charge candidates unlawful fees.',
+    ],
+  },
+]
+
+const UAE_SECTIONS: CountrySection[] = [
+  {
+    heading: 'A diversified economy hiring at scale',
+    body: [
+      'The United Arab Emirates is one of the most sought-after destinations for Pakistani workers because its economy is diversified and always building. Dubai, Abu Dhabi and Sharjah run parallel pipelines in construction and real estate, hospitality and tourism, aviation and logistics, healthcare, retail and facilities management — so hiring rarely depends on a single industry. Mega-developments, airport and port expansions, and a constant flow of events and tourism keep demand for skilled and semi-skilled manpower high throughout the year.',
+      'Pakistani workers form one of the largest expatriate communities in the UAE, and employers there know the quality and reliability they bring. Falisha Manpower supplies vetted candidates for Emirati main contractors, subcontractors, hospitality groups, logistics operators and manpower-supply companies, handling everything from a handful of specialists to large project mobilisations.',
+    ],
+  },
+  {
+    heading: 'Roles we place across the Emirates',
+    body: [
+      'In construction and MEP we supply masons, carpenters, steel fixers, scaffolders, electricians, plumbers, AC technicians and welders, plus foremen and site supervisors. Logistics and transport employers hire drivers, forklift and crane operators, storekeepers and warehouse staff for Jebel Ali, the airports and distribution hubs.',
+      'Hospitality and services is a major corridor too — hotel and restaurant staff, chefs and cooks, waiters, housekeeping, cleaners and security guards for hotels, malls, facilities-management firms and camps. We also place retail staff, salon and spa workers, and general helpers, and for technical and supervisory positions we arrange video or in-person interviews before deployment.',
+    ],
+  },
+  {
+    heading: 'Where we deploy and how the visa works',
+    body: [
+      'We deploy across all seven emirates, with the heaviest demand in Dubai, Abu Dhabi, Sharjah and Ras Al Khaimah. Our team manages sourcing, trade testing and paperwork from Pakistan and coordinates closely with the sponsoring employer in the UAE.',
+      'The standard route runs through an employment entry permit and work visa under MOHRE, a medical-fitness test and Emirates ID on arrival, and a labour contract — with GAMCA medical screening and Protector clearance completed in Pakistan first. We handle attestation, ticketing and onboarding so candidates reach site without delays.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Salaries in the UAE are paid through the Wage Protection System, so wages are transferred on time and on record, and every worker is on a standard labour contract that fixes salary, working hours, annual leave and end-of-service gratuity. These protections are a big part of why the UAE remains such a popular destination for Pakistani workers.',
+      'We place candidates only on clear, documented contracts and brief them on the terms before travel. For employers that means fewer disputes and a workforce that understands exactly what it signed up for.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in the UAE you will usually need a valid passport, trade or education certificates, experience letters and a clear medical; many technical roles include a short trade test before selection. Once you are selected we arrange the entry permit and work visa, GAMCA medical and Protector of Emigrants clearance, then book travel.',
+      'Your employer completes your residence visa, Emirates ID and medical on arrival and provides accommodation and transport as per contract. We brief you fully before you leave Pakistan and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'The UAE hires steadily because several sectors move at once. Construction and fit-out follow a continuous pipeline of towers, infrastructure and the Etihad Rail network; logistics expands with Jebel Ali, the airports and e-commerce; and hospitality, retail and facilities management grow with tourism and a packed events calendar. For Pakistani workers that breadth means openings across skill levels throughout the year.',
+      'We help employers stay ahead of it by holding a pre-screened candidate pool, so repeat requirements are filled fast, and we help candidates target the trades and sectors where demand is strongest.',
+    ],
+  },
+  {
+    heading: 'Spotlight: construction, logistics and hospitality',
+    body: [
+      'The UAE’s demand is broad because its biggest sectors all hire at once. Construction and fit-out follow a continuous pipeline of towers, infrastructure and the Etihad Rail network, needing civil and MEP trades — masons, steel fixers, carpenters, scaffolders, electricians, plumbers, AC technicians and welders — with foremen and supervisors to lead them.',
+      'Logistics is a second engine: Jebel Ali, the airports and a fast-growing e-commerce sector hire drivers, forklift and crane operators, storekeepers and warehouse staff at scale. We trade-test technical candidates and can mobilise individuals or full teams.',
+      'Hospitality, retail and facilities management form the third pillar, driven by tourism and a packed events calendar — hotel and restaurant staff, chefs, housekeeping, cleaners, security guards and maintenance teams. Across all three we source, screen and deploy Pakistani workers to UAE standards on a dependable timeline.',
+    ],
+  },
+]
+
+const QATAR_SECTIONS: CountrySection[] = [
+  {
+    heading: 'Beyond the World Cup — LNG and lasting infrastructure',
+    body: [
+      'Qatar invested heavily in infrastructure for the 2022 World Cup, and that momentum has continued well beyond it. The country is now expanding the North Field — the world’s largest liquefied-natural-gas project — and continuing to build roads, metro links, hotels, hospitals and mixed-use districts such as Lusail. For Pakistani workers that means sustained demand in oil & gas, construction, engineering, transport and hospitality rather than a one-off spike.',
+      'Qatari main contractors, EPC companies and service providers hire Pakistani candidates for their technical skills and reliability. Falisha Manpower sources and screens trades, technicians, drivers and support staff and mobilises them under Qatar’s work-visa framework, handling the documentation from our offices in Pakistan.',
+    ],
+  },
+  {
+    heading: 'Skilled trades, drivers and technicians',
+    body: [
+      'We regularly place skilled engineers, technicians and tradespeople — electricians, plumbers, HVAC and mechanical technicians, welders and fabricators, steel fixers, shuttering carpenters and masons — along with the foremen and supervisors who lead them. Light- and heavy-vehicle drivers, bus drivers and equipment operators are in steady demand across projects and logistics.',
+      'In services and hospitality we supply hotel and restaurant staff, cooks, housekeeping, cleaners, security guards and facilities-maintenance workers, plus general labour and helpers for site work. For niche or senior roles we arrange interviews and trade tests before selection.',
+    ],
+  },
+  {
+    heading: 'Doha, Lusail and Ras Laffan — deployment and process',
+    body: [
+      'Most placements are in and around Doha and Lusail, with industrial and energy roles concentrated at Ras Laffan and Mesaieed and infrastructure work spread across the country. Our team manages sourcing and documentation from Rawalpindi and our branch network.',
+      'Candidates complete GAMCA medical screening and Protector of Emigrants clearance in Pakistan, and many roles require the Qatar Visa Centre (QVC) biometric and medical step before travel. We coordinate the work visa, attestation and travel so employers get candidates on site on time.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Qatar operates a non-discriminatory minimum wage and pays salaries through its Wage Protection System, transferring wages directly to bank accounts. Recent labour reforms let workers change jobs more freely and set clear rules on contracts and end-of-service benefits, so employment terms are transparent for Pakistani workers.',
+      'We place candidates only on documented contracts that state salary, hours and benefits, and we brief them before departure. Employers get a workforce that understands its terms, and workers travel knowing exactly what to expect on arrival.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'If you are applying for work in Qatar, you will usually need a valid passport, trade or education certificates, experience letters and a clear medical; technical roles often include a trade test. After selection we arrange the work visa, complete GAMCA and the Qatar Visa Centre (QVC) biometric and medical step, and handle Protector of Emigrants clearance and travel.',
+      'On arrival your employer completes your residence permit and health card and provides accommodation and transport per contract. We brief every candidate before departure and, in line with BEOE and Protector rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'Qatar’s demand is anchored by two long-run drivers: the North Field LNG expansion, which runs for years and pulls in oil & gas, construction and technical trades, and the continued build-out and operation of Lusail, hotels and infrastructure from the World Cup era. The result is steady, multi-year hiring rather than short bursts.',
+      'We help employers plan against that pipeline with pre-screened candidates ready to mobilise, and help Pakistani workers target the energy, construction and hospitality roles where Qatar is hiring most.',
+    ],
+  },
+  {
+    heading: 'Spotlight: LNG, energy and infrastructure',
+    body: [
+      'Qatar’s flagship driver is energy. The North Field expansion — the world’s largest LNG project — and the facilities at Ras Laffan and Mesaieed need a deep pool of technical manpower on long contracts: coded and pipeline welders, pipe fitters, riggers, scaffolders, instrument and electrical technicians, mechanical fitters and plant operators, plus HSE and QA/QC support.',
+      'We trade-test these candidates before selection and supply certified welders and technicians to the standards EPC and energy contractors require, including experienced Gulf hands ready for shutdowns and turnarounds. It is exactly the manpower Qatar’s energy sector depends on.',
+      'Alongside energy, Qatar continues to build and operate infrastructure, hotels and mixed-use districts, so we also place civil trades, drivers, and hospitality and facilities staff. Whether the requirement is a handful of specialists or a full project crew, we source, screen and mobilise on a predictable timeline.',
+    ],
+  },
+]
+
+const KUWAIT_SECTIONS: CountrySection[] = [
+  {
+    heading: 'An oil economy with steady manpower demand',
+    body: [
+      'Kuwait’s economy is built on oil, and the projects of Kuwait Oil Company (KOC), KNPC and the wider energy sector drive consistent demand for skilled and semi-skilled Pakistani workers. Alongside oil & gas, construction, maintenance, transport and services keep hiring across Kuwait City and the industrial areas, supported by long-standing bilateral labour ties between Pakistan and Kuwait.',
+      'Employers and manpower-supply companies in Kuwait turn to Falisha Manpower for trades, technicians, drivers and support staff who can start quickly and work to Gulf standards. We source, trade-test and document candidates in Pakistan and mobilise them under Kuwait’s work-visa system.',
+    ],
+  },
+  {
+    heading: 'Trades, operators and support staff',
+    body: [
+      'We place construction and MEP trades — masons, steel fixers, carpenters, electricians, plumbers, HVAC and mechanical technicians, welders and pipe fitters — together with foremen and supervisors. Oil & gas and maintenance contracts also hire fabricators, riggers, scaffolders and plant operators.',
+      'Transport and logistics employers need light- and heavy-vehicle drivers and equipment operators, while services and facilities contracts take cleaners, housekeeping, security guards, catering staff and general labour. We match candidates to each employer’s requirements and arrange interviews where needed.',
+    ],
+  },
+  {
+    heading: 'Deployment across Kuwait',
+    body: [
+      'Placements centre on Kuwait City and the surrounding governorates, with energy and industrial roles around Ahmadi and the oil belt. Sourcing, screening and paperwork are coordinated from our Pakistan offices.',
+      'The process covers the work visa (Article 18 private-sector and related categories), GAMCA medical-fitness screening and Protector of Emigrants clearance in Pakistan, followed by attestation and travel — all managed end-to-end so mobilisation stays on track.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Kuwait routes private-sector salaries through its Wage Protection System and requires registered employment contracts that define salary, hours and benefits, with the Public Authority for Manpower overseeing the labour market. End-of-service indemnity and other entitlements are set by Kuwaiti labour law.',
+      'Every candidate we deploy travels on a confirmed, documented contract, and we brief them on the role, pay and conditions beforehand so there are no surprises on arrival.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Kuwait you will usually need a valid passport, trade or education certificates, experience letters and a clear GAMCA medical; many technical roles include a trade test before selection. After selection we arrange the work visa (Article 18 and related categories), complete Protector of Emigrants clearance, and handle attestation and travel.',
+      'On arrival your employer completes your Civil ID and residence formalities and provides accommodation and transport as per contract. We brief you fully before departure and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'Kuwait’s hiring is driven above all by its energy sector — Kuwait Oil Company, KNPC and the refineries and petrochemical complexes along the coast — supported by construction, maintenance and services contracts in and around Kuwait City. These are long programmes that need skilled trades, technicians and operators on a continuous basis.',
+      'We help employers meet that demand with pre-screened, trade-tested candidates ready to mobilise, and help Pakistani workers aim for the oil & gas, construction and technical roles where Kuwait is hiring most.',
+    ],
+  },
+  {
+    heading: 'Spotlight: oil, gas and petrochemicals',
+    body: [
+      'Energy is the engine of Kuwait’s demand for Pakistani workers. Projects, turnarounds and maintenance contracts for Kuwait Oil Company, KNPC and the Al-Zour refinery and petrochemical complexes need a deep bench of technical trades — coded and pipeline welders, pipe fitters, riggers, scaffolders, instrument and electrical technicians, mechanical fitters and plant operators — plus the HSE and QA/QC staff that keep sites compliant.',
+      'We trade-test these candidates before selection and can supply certified welders and technicians to the standards energy contractors require. Many are repeat deployments — experienced Gulf hands who already understand site discipline, permit-to-work systems and shutdown schedules — which is exactly what employers want on live plants.',
+      'Beyond energy, Kuwait keeps hiring for building construction, roads and infrastructure and facilities contracts, so we also place civil trades, drivers, storekeepers and support staff. Whether you need two specialists or a full project crew, we source, screen and mobilise them on a predictable timeline.',
+      'Kuwait’s energy projects run on tight schedules and strict standards, so employers prize manpower that can pass trade tests and start without a long learning curve. We maintain a standing pool of welders, fitters and technicians with Gulf experience, which lets us respond quickly when a turnaround, shutdown or new package is awarded. For larger mobilisations we coordinate phased intakes so the workforce arrives in step with the project plan, and we keep the sponsoring employer updated at every stage from selection through to boarding.',
+    ],
+  },
+]
+
+const OMAN_SECTIONS: CountrySection[] = [
+  {
+    heading: 'Ports, energy and tourism driving demand',
+    body: [
+      'Oman is investing steadily in logistics, energy, tourism and construction, and much of that growth is concentrated around its ports and free zones — Sohar, Salalah and the fast-developing Duqm Special Economic Zone. Oil & gas, petrochemicals, infrastructure and a growing hospitality sector create ongoing demand for skilled and semi-skilled Pakistani workers across the Sultanate.',
+      'While Omanisation prioritises nationals for certain roles, there is continued demand for trades, technicians and specialists that local supply cannot fully meet. Falisha Manpower sources and screens those candidates in Pakistan and mobilises them for Omani employers, contractors and manpower-supply companies.',
+    ],
+  },
+  {
+    heading: 'Skilled and semi-skilled roles we supply',
+    body: [
+      'We deploy construction and MEP trades — masons, carpenters, steel fixers, electricians, plumbers, HVAC technicians, welders and fabricators — plus foremen and supervisors. Oil & gas, ports and industry hire riggers, scaffolders, plant and crane operators, fitters and maintenance technicians.',
+      'In transport we place light- and heavy-vehicle drivers and equipment operators, and in services and hospitality we supply hotel and restaurant staff, cooks, housekeeping, cleaners, security guards and general labour. Candidates are trade-tested and documented before travel.',
+    ],
+  },
+  {
+    heading: 'Muscat, Sohar, Salalah and Duqm',
+    body: [
+      'Our placements span Muscat and the capital region, the industrial port cities of Sohar and Salalah, and the Duqm SEZ, with roles following each project and contract. Sourcing and documentation are handled from our Rawalpindi head office and branches.',
+      'The route runs through an Omani employment visa and labour clearance, GAMCA medical-fitness screening and Protector of Emigrants clearance in Pakistan, with attestation and travel coordinated end-to-end so candidates arrive ready to start.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Oman’s labour law requires written employment contracts and routes wages through its Wage Protection System, with the employer responsible for the work visa, labour clearance and renewals. Salary, hours, leave and end-of-service benefits are set out in the contract and protected under Omani law.',
+      'We confirm those terms before travel and brief each candidate, so workers arrive informed and employers onboard them without friction.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Oman you will usually need a valid passport, trade or education certificates, experience letters and a clear GAMCA medical; technical roles may include a trade test before selection. After selection we arrange the employment visa and labour clearance, complete Protector of Emigrants clearance, and handle attestation and travel.',
+      'On arrival the Royal Oman Police issue your residence card and your employer provides accommodation and transport per contract. We brief you fully before departure and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'Oman’s growth is concentrated around its ports and free zones — Sohar, Salalah and the fast-developing Duqm Special Economic Zone — along with oil & gas, logistics, tourism and construction. These projects create ongoing demand for skilled trades, operators and technicians that the local workforce cannot fully meet.',
+      'We help employers fill that gap with pre-screened candidates ready to deploy, and help Pakistani workers target the energy, ports, construction and hospitality roles where Oman is hiring most.',
+    ],
+  },
+  {
+    heading: 'Spotlight: ports, energy and logistics',
+    body: [
+      'Oman’s ports and free zones are reshaping its labour market. Sohar, Salalah and the Duqm Special Economic Zone are drawing refining, petrochemical, logistics and industrial investment, while established oil & gas fields continue to need maintenance and project manpower. For Pakistani workers that means sustained demand for technical trades and operators.',
+      'We supply welders, pipe fitters, riggers, scaffolders, mechanical and electrical technicians, plant and crane operators and HSE staff for energy and industrial contracts, trade-testing candidates against the standards Omani contractors expect. Ports and logistics add forklift and equipment operators, drivers, storekeepers and warehouse staff.',
+      'Construction, tourism and services create further demand across Muscat and the regions. We handle sourcing, screening, documentation and mobilisation end-to-end, supplying individual specialists or complete teams as each project requires.',
+      'Oman balances Omanisation — reserving some roles for nationals — with a continued need for expatriate skills the local market cannot yet supply, particularly technical trades, operators and specialists on energy and port projects. We focus on exactly those categories, so the candidates we put forward fit where Omani employers are permitted and keen to hire, which keeps approvals and visas moving smoothly. We also track the growth of Duqm and the port cities, where new industrial tenants regularly open requirements, so employers scaling up there can source trained manpower at short notice rather than waiting on a slow pipeline.',
+    ],
+  },
+]
+
+const BAHRAIN_SECTIONS: CountrySection[] = [
+  {
+    heading: 'A compact Gulf hub for finance and industry',
+    body: [
+      'Bahrain is a regional financial and industrial hub with a long history of hiring Pakistani talent. Its economy spans banking and financial services, heavy industry led by Aluminium Bahrain (Alba), construction and real estate, logistics and a lively hospitality sector — a diverse base that keeps demand for skilled and semi-skilled manpower steady across the Kingdom.',
+      'Bahraini contractors, industrial firms, hotels and facilities-management companies work with Falisha Manpower for reliable trades, technicians and support staff. We source, trade-test and document candidates in Pakistan and mobilise them under Bahrain’s work-permit system.',
+    ],
+  },
+  {
+    heading: 'Roles in demand across Bahrain',
+    body: [
+      'In construction and MEP we supply masons, carpenters, steel fixers, scaffolders, electricians, plumbers, HVAC technicians and welders, with foremen and supervisors to match. Industry and maintenance — including the aluminium and downstream sector — hire fabricators, riggers, operators and technicians.',
+      'Services, hospitality and facilities contracts take hotel and restaurant staff, cooks, housekeeping, cleaners, security guards and drivers, along with general labour and helpers. We also support office and banking-operations roles, and arrange interviews for specialist or supervisory positions.',
+    ],
+  },
+  {
+    heading: 'Manama, Riffa and the industrial areas',
+    body: [
+      'Placements are concentrated in Manama and Riffa and the industrial zones around Sitra and Hidd, with project work across the island. Sourcing and paperwork are coordinated from our offices in Pakistan.',
+      'The process runs through an LMRA work permit and employment visa, GAMCA medical-fitness screening and Protector of Emigrants clearance in Pakistan, followed by attestation and travel — managed end-to-end so employers get candidates on site without delay.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'Bahrain administers expatriate employment through the Labour Market Regulatory Authority (LMRA) and pays wages via its Wage Protection System, with registered contracts setting salary, hours and benefits and end-of-service entitlements protected under Bahraini labour law.',
+      'Candidates we place travel on clear, documented terms, and we brief them before departure so both employer and worker know exactly what to expect.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Bahrain you will usually need a valid passport, trade or education certificates, experience letters and a clear GAMCA medical; technical roles may include a trade test before selection. After selection we arrange the LMRA work permit and employment visa, complete Protector of Emigrants clearance, and handle attestation and travel.',
+      'On arrival you receive your CPR (identity card) and residence permit, and your employer provides accommodation and transport per contract. We brief you fully before departure and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'Bahrain’s demand comes from a compact but diverse base: heavy industry led by Aluminium Bahrain (Alba) and the downstream sector, the Bapco refinery and its modernisation programme, construction and real estate, logistics, banking operations and a busy hospitality scene. That mix keeps hiring steady across skilled and semi-skilled roles.',
+      'We help employers meet it with pre-screened, trade-tested candidates ready to mobilise, and help Pakistani workers target the industrial, construction, services and office roles where Bahrain is hiring most.',
+    ],
+  },
+  {
+    heading: 'Spotlight: industry, construction and services',
+    body: [
+      'Bahrain’s industrial base gives it steady, year-round demand. Aluminium Bahrain (Alba) and the downstream metals sector, the Bapco refinery and its modernisation programme, and a continuous flow of construction and real-estate work all need skilled trades and technicians that the local workforce cannot fully supply.',
+      'We place welders, fabricators, riggers, scaffolders, mechanical and electrical technicians, plant operators and HSE staff for industrial and construction contracts, along with the civil trades — masons, carpenters, steel fixers and finishers — that building projects rely on. Candidates are trade-tested before selection.',
+      'Bahrain’s services economy adds further demand: hospitality and facilities-management staff, drivers, security guards, and office and banking-operations support. We source, screen and mobilise for all of it, supplying anything from a single specialist to a full crew on a dependable timeline.',
+      'Because Bahrain is compact, employers often need a reliable partner who can turn requirements around quickly rather than a large in-house hiring team. We fill that role — sourcing, trade-testing and documenting candidates in Pakistan and coordinating directly with the sponsoring company and the LMRA so permits and visas progress without delay. For industrial clients we can supply certified trades and technicians for shutdowns and expansions, and for hospitality and services employers we mobilise teams ahead of new openings, keeping the sponsoring employer updated from selection through to arrival.',
+    ],
+  },
+]
+
+const TURKEY_SECTIONS: CountrySection[] = [
+  {
+    heading: 'One of our strongest corridors',
+    body: [
+      'Türkiye is a key specialty market for Falisha Manpower, and one where we have deployed thousands of Pakistani workers. Turkish construction and EPC companies are among the most active in the world, running projects at home and across the region, while the country’s large manufacturing and textile base — from Istanbul and Bursa to the mills of Denizli and Gaziantep — hires continuously. That combination of contracting, industry and manufacturing creates sustained demand for skilled and semi-skilled Pakistani manpower.',
+      'We work directly with employers, factories and recruitment agencies across Türkiye, sourcing and screening candidates in Pakistan and mobilising them in line with Turkish employment and work-permit regulations. Our long experience in this corridor means we understand what Turkish employers expect and how to move candidates efficiently from selection to arrival.',
+    ],
+  },
+  {
+    heading: 'Manufacturing, trades and textiles',
+    body: [
+      'Manufacturing and industry are the backbone of our Turkish placements — factory and production workers, machine and CNC operators, welders and metal fabricators, electricians, mechanical and HVAC technicians, and packaging and material-handling staff. Construction and EPC contracts add masons, steel fixers, carpenters, scaffolders and site trades, with foremen and supervisors to lead them.',
+      'The textile and garment sector is a particular strength: we supply sewing-machine operators, tailors, cutters and finishing staff for garment units. We also place warehouse and logistics workers, forklift operators and drivers, hospitality and kitchen staff, and general labour — matching candidates to each employer’s exact requirement and trade-testing them beforehand.',
+    ],
+  },
+  {
+    heading: 'Istanbul, Bursa, Denizli and beyond',
+    body: [
+      'Our deployments span Türkiye’s main industrial centres — Istanbul, Bursa, Izmir, Ankara, Gaziantep and the textile hub of Denizli — following where factories and projects are hiring. Sourcing, screening and documentation are coordinated from our Rawalpindi head office and branches in Lahore, Karachi, Peshawar and AJK.',
+      'The route runs through a Turkish work permit and work visa arranged with the sponsoring employer, with medical screening and Protector of Emigrants clearance completed in Pakistan, and attestation and travel handled end-to-end so candidates arrive ready to start.',
+    ],
+  },
+  {
+    heading: 'Pay, contracts and worker protection',
+    body: [
+      'In Türkiye employment is formalised through a work permit tied to the employer and registration with the SGK social-security system, with contracts setting out salary, working hours and benefits under Turkish labour law. That framework gives Pakistani workers documented terms and social-security cover.',
+      'We place candidates on clear contracts and brief them before travel, so workers understand their terms and Turkish employers get a workforce that integrates quickly.',
+    ],
+  },
+  {
+    heading: 'For Pakistani candidates — what to expect',
+    body: [
+      'To work in Türkiye you will usually need a valid passport, trade or education certificates and experience letters; manufacturing and trade roles often include a skills or trade test before selection. After selection we coordinate the work permit and work visa with the sponsoring employer, complete medical screening and Protector of Emigrants clearance, and handle travel.',
+      'On arrival you complete your residence permit (ikamet) and SGK registration, and your employer arranges accommodation and transport per contract. We brief you fully before departure and, in line with BEOE rules, never charge candidates unlawful fees.',
+    ],
+  },
+  {
+    heading: 'Where the demand is heading',
+    body: [
+      'Türkiye’s demand is unusual in the strength of its manufacturing and contracting base. Turkish construction and EPC firms win projects at home and across the region, while factories in Istanbul, Bursa, Izmir and the textile hub of Denizli hire continuously for production, machine operation and finishing work. For Pakistani workers that means openings in industry and trades through the year.',
+      'We help employers source and trade-test at volume for factories and projects, and help Pakistani workers target the manufacturing, welding, textile and construction roles where Türkiye is hiring most.',
+    ],
+  },
+  {
+    heading: 'Spotlight: manufacturing, textiles and contracting',
+    body: [
+      'Türkiye’s strength is the breadth of its industrial base. Factories across Istanbul, Bursa, Izmir, Gaziantep and the textile hub of Denizli hire continuously for production, machine operation, assembly and finishing, while Turkish construction and EPC firms — among the most active contractors in the world — need site trades for projects at home and across the region.',
+      'We supply factory and production workers, CNC and machine operators, welders and metal fabricators, electricians and mechanical technicians, and the sewing-machine operators, cutters and finishing staff that garment units rely on. Construction contracts add masons, steel fixers, carpenters, scaffolders and MEP trades. Candidates are trade-tested before selection.',
+      'Warehouse and logistics workers, forklift operators, drivers and hospitality staff round out the demand. With long experience in this corridor, we source and screen at volume for factories and projects and mobilise candidates efficiently from selection to arrival.',
+    ],
+  },
+]
 
 export const COUNTRY_CONTENT: Record<string, CountryContent> = {
   turkey: {
@@ -574,3 +942,13 @@ export const COUNTRY_CONTENT: Record<string, CountryContent> = {
     R_MENA,
   ),
 }
+
+// Attach the unique, per-country deep-dive sections to their markets.
+// (Famous markets first — Türkiye + the Gulf; more will be added over time.)
+COUNTRY_CONTENT['saudi-arabia'].sections = SAUDI_SECTIONS
+COUNTRY_CONTENT['united-arab-emirates'].sections = UAE_SECTIONS
+COUNTRY_CONTENT.qatar.sections = QATAR_SECTIONS
+COUNTRY_CONTENT.kuwait.sections = KUWAIT_SECTIONS
+COUNTRY_CONTENT.oman.sections = OMAN_SECTIONS
+COUNTRY_CONTENT.bahrain.sections = BAHRAIN_SECTIONS
+COUNTRY_CONTENT.turkey.sections = TURKEY_SECTIONS
