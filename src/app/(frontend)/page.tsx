@@ -2,7 +2,7 @@ import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ArrowRight, ClipboardCheck, Plane, UsersRound, Layers, CheckCircle2, Sparkles } from 'lucide-react'
+import { ArrowRight, ClipboardCheck, Plane, UsersRound, Layers, CheckCircle2, Sparkles, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -706,92 +706,129 @@ export default async function HomePage() {
       </section>
 
       {/* Destinations — featured GCC blocks + breadth, full list on /countries */}
-      <section className="container py-20">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Where we place</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-                Recruitment across {MARKET_COUNT}+ markets
+      <section className="relative overflow-hidden border-y border-border bg-gradient-to-b from-secondary/50 via-background to-background py-20 md:py-24">
+        {/* grid pattern */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px)',
+            backgroundSize: '46px 46px',
+            maskImage: 'radial-gradient(120% 70% at 50% 0%, black, transparent 72%)',
+            WebkitMaskImage: 'radial-gradient(120% 70% at 50% 0%, black, transparent 72%)',
+          }}
+        />
+        {/* brand glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[760px] -translate-x-1/2 rounded-full blur-3xl"
+          style={{
+            background:
+              'radial-gradient(circle, color-mix(in oklch, var(--primary) 13%, transparent), transparent 70%)',
+          }}
+        />
+
+        <div className="container relative">
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                <Globe className="h-4 w-4" /> Where we place
+              </p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
+                Recruitment across <span className="text-primary">{MARKET_COUNT}+ markets</span>
               </h2>
-              <p className="mt-3 text-muted-foreground">
+              <p className="mt-4 text-muted-foreground">
                 We source, screen and deploy skilled Pakistani talent across the Gulf, Europe, Asia and beyond —
                 tailored to each market&apos;s labour rules and sector demand.
               </p>
             </div>
-            <Link href="/countries" className="text-sm font-medium text-primary hover:underline">
-              All destinations →
-            </Link>
-          </div>
-        </Reveal>
+          </Reveal>
 
-        {(() => {
-          const gcc = DESTINATIONS_BY_REGION.find((r) => r.key === 'gulf')
-          const others = DESTINATIONS_BY_REGION.filter((r) => r.key !== 'gulf')
-          return (
-            <>
-              {gcc && (
-                <Reveal>
-                  <div className="mt-12">
-                    <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                      {gcc.label}
-                      <span className="text-xs font-normal text-muted-foreground/60">· {gcc.countries.length} countries</span>
-                    </h3>
-                    <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                      {gcc.countries.map((cc) => (
-                        <Link
-                          key={cc.slug}
-                          href={`/countries/${cc.slug}`}
-                          className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
-                        >
-                          <Flag name={cc.name} className="h-10 w-[3.7rem] shrink-0 rounded-md shadow ring-1 ring-black/5" />
-                          <h4 className="mt-4 text-lg font-bold leading-snug tracking-tight">
-                            Recruitment Agency for <span className="text-primary">{cc.name}</span> in Pakistan
-                          </h4>
-                          {cc.intro && (
-                            <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                              {cc.intro}
-                            </p>
-                          )}
-                          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                            View {cc.name} roles
-                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                          </span>
-                        </Link>
-                      ))}
+          {(() => {
+            const gcc = DESTINATIONS_BY_REGION.find((r) => r.key === 'gulf')
+            const others = DESTINATIONS_BY_REGION.filter((r) => r.key !== 'gulf')
+            return (
+              <>
+                {gcc && (
+                  <Reveal>
+                    <div className="mt-12">
+                      <div className="mb-6 flex items-center justify-center gap-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                        <span className="h-px w-8 bg-border" />
+                        {gcc.label}
+                        <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
+                          {gcc.countries.length}
+                        </span>
+                        <span className="h-px w-8 bg-border" />
+                      </div>
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        {gcc.countries.map((cc) => (
+                          <Link
+                            key={cc.slug}
+                            href={`/countries/${cc.slug}`}
+                            className="group relative flex overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+                          >
+                            {/* corner flag watermark for depth */}
+                            <div
+                              aria-hidden
+                              className="pointer-events-none absolute -right-7 -top-7 rotate-6 opacity-[0.07] transition-all duration-500 group-hover:-rotate-3 group-hover:opacity-[0.14]"
+                            >
+                              <Flag name={cc.name} className="h-32 w-44 rounded-lg" />
+                            </div>
+                            <div className="relative flex h-full w-full flex-col">
+                              <Flag
+                                name={cc.name}
+                                className="h-10 w-[3.7rem] shrink-0 rounded-md shadow-md ring-1 ring-black/5"
+                              />
+                              <h4 className="mt-4 text-lg font-bold leading-snug tracking-tight">
+                                Recruitment Agency for <span className="text-primary">{cc.name}</span> in Pakistan
+                              </h4>
+                              {cc.intro && (
+                                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                                  {cc.intro}
+                                </p>
+                              )}
+                              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                                View {cc.name} roles
+                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
+                  </Reveal>
+                )}
+
+                <Reveal delay={0.05}>
+                  <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
+                    <span className="text-sm font-medium text-muted-foreground">Also recruiting across:</span>
+                    {others.map((r) => (
+                      <Link
+                        key={r.key}
+                        href={`/countries#${r.key}`}
+                        className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-md"
+                      >
+                        {r.label}
+                        <span className="text-xs text-muted-foreground group-hover:text-primary">{r.countries.length}</span>
+                      </Link>
+                    ))}
                   </div>
                 </Reveal>
-              )}
 
-              <Reveal delay={0.05}>
-                <div className="mt-10 flex flex-wrap items-center gap-2.5">
-                  <span className="text-sm font-medium text-muted-foreground">Also recruiting across:</span>
-                  {others.map((r) => (
-                    <Link
-                      key={r.key}
-                      href={`/countries#${r.key}`}
-                      className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium transition hover:border-primary/40 hover:text-primary"
-                    >
-                      {r.label}
-                      <span className="text-xs text-muted-foreground group-hover:text-primary">{r.countries.length}</span>
-                    </Link>
-                  ))}
+                <div className="mt-10 flex justify-center">
+                  <Link
+                    href="/countries"
+                    className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+                  >
+                    View all {MARKET_COUNT} destinations
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </div>
-              </Reveal>
-
-              <div className="mt-10 flex justify-center">
-                <Link
-                  href="/countries"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
-                >
-                  View all {MARKET_COUNT} destinations
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </>
-          )
-        })()}
+              </>
+            )
+          })()}
+        </div>
       </section>
 
       {/* Testimonials */}
