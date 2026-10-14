@@ -99,13 +99,14 @@ const REGION_ORDER: { key: string; label: string }[] = [
 const DESTINATIONS_BY_REGION = REGION_ORDER.map((r) => ({
   ...r,
   countries: Object.entries(COUNTRY_CONTENT)
-    .filter(([, c]) => c.name && c.region === r.key)
-    .map(([slug, c]) => ({ slug, name: c.name as string }))
+    // england & scotland 301-redirect to /countries/united-kingdom — don't count or link them.
+    .filter(([slug, c]) => c.name && c.region === r.key && slug !== 'england' && slug !== 'scotland')
+    .map(([slug, c]) => ({ slug, name: c.name as string, intro: c.intro }))
     .sort((a, b) => a.name.localeCompare(b.name)),
 })).filter((r) => r.countries.length > 0)
 
 const ALL_DESTINATIONS = Object.entries(COUNTRY_CONTENT)
-  .filter(([, c]) => c.name)
+  .filter(([slug, c]) => c.name && slug !== 'england' && slug !== 'scotland')
   .map(([slug, c]) => ({ name: c.name as string, href: `/countries/${slug}` }))
   .sort((a, b) => a.name.localeCompare(b.name))
 
@@ -704,7 +705,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Destinations by region */}
+      {/* Destinations — featured GCC blocks + breadth, full list on /countries */}
       <section className="container py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -714,43 +715,83 @@ export default async function HomePage() {
                 Recruitment across {MARKET_COUNT}+ markets
               </h2>
               <p className="mt-3 text-muted-foreground">
-                We source, screen and deploy skilled Pakistani talent across the Gulf, Europe, Asia and beyond. Explore
-                recruitment by country.
+                We source, screen and deploy skilled Pakistani talent across the Gulf, Europe, Asia and beyond —
+                tailored to each market&apos;s labour rules and sector demand.
               </p>
             </div>
             <Link href="/countries" className="text-sm font-medium text-primary hover:underline">
-              All countries →
+              All destinations →
             </Link>
           </div>
         </Reveal>
 
-        <div className="mt-12 space-y-10">
-          {DESTINATIONS_BY_REGION.map((region, ri) => (
-            <Reveal key={region.key} delay={ri * 0.05}>
-              <div>
-                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  {region.label}
-                  <span className="text-xs font-normal text-muted-foreground/60">({region.countries.length})</span>
-                </h3>
-                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {region.countries.map((cc) => (
+        {(() => {
+          const gcc = DESTINATIONS_BY_REGION.find((r) => r.key === 'gulf')
+          const others = DESTINATIONS_BY_REGION.filter((r) => r.key !== 'gulf')
+          return (
+            <>
+              {gcc && (
+                <Reveal>
+                  <div className="mt-12">
+                    <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                      {gcc.label}
+                      <span className="text-xs font-normal text-muted-foreground/60">· {gcc.countries.length} countries</span>
+                    </h3>
+                    <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                      {gcc.countries.map((cc) => (
+                        <Link
+                          key={cc.slug}
+                          href={`/countries/${cc.slug}`}
+                          className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+                        >
+                          <Flag name={cc.name} className="h-10 w-[3.7rem] shrink-0 rounded-md shadow ring-1 ring-black/5" />
+                          <h4 className="mt-4 text-lg font-bold leading-snug tracking-tight">
+                            Recruitment Agency for <span className="text-primary">{cc.name}</span> in Pakistan
+                          </h4>
+                          {cc.intro && (
+                            <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                              {cc.intro}
+                            </p>
+                          )}
+                          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                            View {cc.name} roles
+                            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              )}
+
+              <Reveal delay={0.05}>
+                <div className="mt-10 flex flex-wrap items-center gap-2.5">
+                  <span className="text-sm font-medium text-muted-foreground">Also recruiting across:</span>
+                  {others.map((r) => (
                     <Link
-                      key={cc.slug}
-                      href={`/countries/${cc.slug}`}
-                      className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                      key={r.key}
+                      href={`/countries#${r.key}`}
+                      className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium transition hover:border-primary/40 hover:text-primary"
                     >
-                      <Flag name={cc.name} className="h-[2.45rem] w-[3.65rem] shrink-0 rounded shadow-sm ring-1 ring-black/5" />
-                      <span className="text-base leading-snug text-muted-foreground">
-                        Recruitment Agency for{' '}
-                        <span className="font-semibold text-foreground group-hover:text-primary">{cc.name}</span> in Pakistan
-                      </span>
+                      {r.label}
+                      <span className="text-xs text-muted-foreground group-hover:text-primary">{r.countries.length}</span>
                     </Link>
                   ))}
                 </div>
+              </Reveal>
+
+              <div className="mt-10 flex justify-center">
+                <Link
+                  href="/countries"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+                >
+                  View all {MARKET_COUNT} destinations
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            </>
+          )
+        })()}
       </section>
 
       {/* Testimonials */}
