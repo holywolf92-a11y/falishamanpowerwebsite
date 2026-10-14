@@ -12,7 +12,7 @@ function Tile({ src }: { src: string }) {
         src={src}
         alt=""
         aria-hidden
-        className="max-h-10 max-w-[7rem] object-contain"
+        className="max-h-10 w-full max-w-[7rem] object-contain"
         loading="lazy"
       />
     </div>

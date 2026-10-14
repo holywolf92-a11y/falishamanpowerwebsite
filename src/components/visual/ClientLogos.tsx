@@ -50,9 +50,9 @@ export function ClientLogos({ logos, className }: { logos: string[]; className?:
       {showAll ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {logos.map((src) => (
-            <div key={src} className="grid h-24 place-items-center rounded-2xl bg-white px-5 shadow-sm ring-1 ring-black/5">
+            <div key={src} className="grid h-24 place-items-center rounded-2xl bg-white px-3 shadow-sm ring-1 ring-black/5 sm:px-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" aria-hidden className="max-h-12 max-w-[8rem] object-contain" loading="lazy" />
+              <img src={src} alt="" aria-hidden className="max-h-12 w-full max-w-[8rem] object-contain" loading="lazy" />
             </div>
           ))}
         </div>

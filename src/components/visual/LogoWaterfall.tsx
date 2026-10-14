@@ -6,9 +6,11 @@ import { cn } from '@/utilities/ui'
 
 function Tile({ src }: { src: string }) {
   return (
-    <div className="grid h-24 shrink-0 place-items-center rounded-2xl bg-white px-5 shadow-sm ring-1 ring-black/5">
+    <div className="grid h-24 shrink-0 place-items-center rounded-2xl bg-white px-3 shadow-sm ring-1 ring-black/5 sm:px-5">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" aria-hidden className="max-h-12 max-w-[8rem] object-contain" loading="lazy" />
+      {/* w-full caps the logo to the CARD width (cards are fluid in the grid); the
+          fixed max-w alone (8rem) is wider than a narrow mobile column and spilled out. */}
+      <img src={src} alt="" aria-hidden className="max-h-12 w-full max-w-[8rem] object-contain" loading="lazy" />
     </div>
   )
 }
