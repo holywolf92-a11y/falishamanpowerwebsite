@@ -4,6 +4,26 @@
 // write — a country present here renders even when no CMS record exists yet.
 // Extend this map to enrich or add more markets over time.
 
+// Per-country deep-dive sections for additional markets live in sibling files
+// (kept separate so each region can be enriched independently).
+import {
+  IRAQ_SECTIONS,
+  JORDAN_SECTIONS,
+  AZERBAIJAN_SECTIONS,
+  MALAYSIA_SECTIONS,
+  SOUTH_KOREA_SECTIONS,
+  JAPAN_SECTIONS,
+} from './sectionsIntl'
+import {
+  CROATIA_SECTIONS,
+  SERBIA_SECTIONS,
+  GREECE_SECTIONS,
+  CZECH_REPUBLIC_SECTIONS,
+  HUNGARY_SECTIONS,
+  CYPRUS_SECTIONS,
+  LITHUANIA_SECTIONS,
+} from './sectionsEu2'
+
 /** A unique, per-country prose block rendered on the country page. */
 export type CountrySection = { heading: string; body: string[] }
 
@@ -1350,3 +1370,18 @@ COUNTRY_CONTENT.romania.sections = [...ROMANIA_SECTIONS, ...ROMANIA_EXTRA]
 COUNTRY_CONTENT.poland.sections = [...POLAND_SECTIONS, ...POLAND_EXTRA]
 COUNTRY_CONTENT.italy.sections = [...ITALY_SECTIONS, ...ITALY_EXTRA]
 COUNTRY_CONTENT.portugal.sections = [...PORTUGAL_SECTIONS, ...PORTUGAL_EXTRA]
+// Non-European markets (drafted in sectionsIntl.ts, reviewed for accuracy).
+COUNTRY_CONTENT.iraq.sections = IRAQ_SECTIONS
+COUNTRY_CONTENT.jordan.sections = JORDAN_SECTIONS
+COUNTRY_CONTENT.azerbaijan.sections = AZERBAIJAN_SECTIONS
+COUNTRY_CONTENT.malaysia.sections = MALAYSIA_SECTIONS
+COUNTRY_CONTENT['south-korea'].sections = SOUTH_KOREA_SECTIONS
+COUNTRY_CONTENT.japan.sections = JAPAN_SECTIONS
+// Second-wave European corridors (drafted in sectionsEu2.ts, reviewed for accuracy).
+COUNTRY_CONTENT.croatia.sections = CROATIA_SECTIONS
+COUNTRY_CONTENT.serbia.sections = SERBIA_SECTIONS
+COUNTRY_CONTENT.greece.sections = GREECE_SECTIONS
+COUNTRY_CONTENT['czech-republic'].sections = CZECH_REPUBLIC_SECTIONS
+COUNTRY_CONTENT.hungary.sections = HUNGARY_SECTIONS
+COUNTRY_CONTENT.cyprus.sections = CYPRUS_SECTIONS
+COUNTRY_CONTENT.lithuania.sections = LITHUANIA_SECTIONS
