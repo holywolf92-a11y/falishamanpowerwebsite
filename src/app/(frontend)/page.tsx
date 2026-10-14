@@ -112,6 +112,48 @@ const ALL_DESTINATIONS = Object.entries(COUNTRY_CONTENT)
 
 const MARKET_COUNT = ALL_DESTINATIONS.length
 
+// Home destinations: a block per region, each with a large keyword heading + a
+// few country cards. These headings mirror the /countries region sections.
+const REGION_HEADINGS: Record<string, string> = {
+  gulf: 'Recruitment Agency in Pakistan for the GCC',
+  europe: 'Recruitment Agency in Pakistan for Europe',
+  mena: 'Recruitment Agency in Pakistan for the Middle East & North Africa',
+  'central-asia': 'Recruitment Agency in Pakistan for Central Asia & the Caucasus',
+  'east-asia': 'Recruitment Agency in Pakistan for East Asia',
+  sea: 'Recruitment Agency in Pakistan for Southeast Asia',
+}
+// Float the biggest markets to the front of each region's preview.
+const HOME_FEATURED_FIRST = new Set(['united-kingdom', 'germany', 'romania', 'poland', 'portugal', 'italy'])
+const HOME_CARDS_PER_REGION = 6
+
+function DestinationCard({ slug, name, intro }: { slug: string; name: string; intro?: string }) {
+  return (
+    <Link
+      href={`/countries/${slug}`}
+      className="group relative flex overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+    >
+      {/* corner flag watermark for depth */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-7 -top-7 rotate-6 opacity-[0.07] transition-all duration-500 group-hover:-rotate-3 group-hover:opacity-[0.14]"
+      >
+        <Flag name={name} className="h-32 w-44 rounded-lg" />
+      </div>
+      <div className="relative flex h-full w-full flex-col">
+        <Flag name={name} className="h-10 w-[3.7rem] shrink-0 rounded-md shadow-md ring-1 ring-black/5" />
+        <h4 className="mt-4 text-lg font-bold leading-snug tracking-tight">
+          Recruitment Agency for <span className="text-primary">{name}</span> in Pakistan
+        </h4>
+        {intro && <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">{intro}</p>}
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+          View {name} roles
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </span>
+      </div>
+    </Link>
+  )
+}
+
 const TURKEY_LOGOS = ['enka', 'ronesans', 'limak', 'tav', 'tekfen', 'nurol', 'gama', 'cengiz'].map(
   (n) => `/logos/turkey/${n}.webp`,
 )
@@ -745,89 +787,59 @@ export default async function HomePage() {
             </div>
           </Reveal>
 
-          {(() => {
-            const gcc = DESTINATIONS_BY_REGION.find((r) => r.key === 'gulf')
-            const others = DESTINATIONS_BY_REGION.filter((r) => r.key !== 'gulf')
-            return (
-              <>
-                {gcc && (
-                  <Reveal>
-                    <div className="mt-12">
-                      <div className="mb-8 text-center">
-                        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
-                          {gcc.label} · {gcc.countries.length} countries
-                        </p>
-                        <h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight md:text-[2rem]">
-                          Recruitment Agency in Pakistan for the GCC
-                        </h3>
-                      </div>
-                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        {gcc.countries.map((cc) => (
-                          <Link
-                            key={cc.slug}
-                            href={`/countries/${cc.slug}`}
-                            className="group relative flex overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
-                          >
-                            {/* corner flag watermark for depth */}
-                            <div
-                              aria-hidden
-                              className="pointer-events-none absolute -right-7 -top-7 rotate-6 opacity-[0.07] transition-all duration-500 group-hover:-rotate-3 group-hover:opacity-[0.14]"
-                            >
-                              <Flag name={cc.name} className="h-32 w-44 rounded-lg" />
-                            </div>
-                            <div className="relative flex h-full w-full flex-col">
-                              <Flag
-                                name={cc.name}
-                                className="h-10 w-[3.7rem] shrink-0 rounded-md shadow-md ring-1 ring-black/5"
-                              />
-                              <h4 className="mt-4 text-lg font-bold leading-snug tracking-tight">
-                                Recruitment Agency for <span className="text-primary">{cc.name}</span> in Pakistan
-                              </h4>
-                              {cc.intro && (
-                                <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                                  {cc.intro}
-                                </p>
-                              )}
-                              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                                View {cc.name} roles
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                              </span>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+          <div className="mt-14 space-y-14 md:space-y-16">
+            {DESTINATIONS_BY_REGION.map((region) => {
+              const shown = [...region.countries]
+                .sort((a, b) => {
+                  const fa = HOME_FEATURED_FIRST.has(a.slug) ? 0 : 1
+                  const fb = HOME_FEATURED_FIRST.has(b.slug) ? 0 : 1
+                  return fa - fb || a.name.localeCompare(b.name)
+                })
+                .slice(0, HOME_CARDS_PER_REGION)
+              const hasMore = region.countries.length > shown.length
+              return (
+                <Reveal key={region.key}>
+                  <div>
+                    <div className="text-center">
+                      <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                        {region.label} · {region.countries.length}{' '}
+                        {region.countries.length === 1 ? 'country' : 'countries'}
+                      </p>
+                      <h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight md:text-[2rem]">
+                        {REGION_HEADINGS[region.key] ?? `Recruitment Agency in Pakistan for ${region.label}`}
+                      </h3>
                     </div>
-                  </Reveal>
-                )}
-
-                <Reveal delay={0.05}>
-                  <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
-                    <span className="text-sm font-medium text-muted-foreground">Also recruiting across:</span>
-                    {others.map((r) => (
-                      <Link
-                        key={r.key}
-                        href={`/countries#${r.key}`}
-                        className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-md"
-                      >
-                        {r.label}
-                        <span className="text-xs text-muted-foreground group-hover:text-primary">{r.countries.length}</span>
-                      </Link>
-                    ))}
+                    <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                      {shown.map((cc) => (
+                        <DestinationCard key={cc.slug} slug={cc.slug} name={cc.name} intro={cc.intro} />
+                      ))}
+                    </div>
+                    {hasMore && (
+                      <div className="mt-6 text-center">
+                        <Link
+                          href={`/countries#${region.key}`}
+                          className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+                        >
+                          View all {region.countries.length} {region.label} destinations
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </Reveal>
+              )
+            })}
+          </div>
 
-                <div className="mt-10 flex justify-center">
-                  <Link
-                    href="/countries"
-                    className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
-                  >
-                    View all {MARKET_COUNT} destinations
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
-              </>
-            )
-          })()}
+          <div className="mt-14 flex justify-center">
+            <Link
+              href="/countries"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+            >
+              View all {MARKET_COUNT} destinations
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
       </section>
 
