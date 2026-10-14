@@ -7,6 +7,7 @@ import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } fro
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { Logo } from '@/components/Logo/Logo'
 import { Flag } from '@/components/visual/Flag'
+import { COUNTRY_CONTENT } from '@/data/countryContent'
 
 const CANDIDATE_LINKS = [
   { label: 'Latest job openings', href: '/jobs' },
@@ -27,19 +28,25 @@ const SOCIALS = [
 
 const EMPTY: { docs: Record<string, any>[] } = { docs: [] }
 
+// Footer destinations — the markets we're known for (Türkiye + the Gulf).
+const FOOTER_DESTINATIONS = ['turkey', 'saudi-arabia', 'united-arab-emirates', 'qatar', 'kuwait', 'oman']
+  .filter((slug) => COUNTRY_CONTENT[slug]?.name)
+  .map((slug) => ({ slug, name: COUNTRY_CONTENT[slug]!.name as string }))
+
 export async function Footer() {
   let services: { docs: Record<string, any>[] } = EMPTY
-  let countries: { docs: Record<string, any>[] } = EMPTY
   try {
     const payload = await getPayload({ config: configPromise })
-    const [s, c] = (await Promise.all([
-      payload.find({ collection: 'services', overrideAccess: false, limit: 6, depth: 0, sort: 'title', select: { title: true, slug: true } as never }),
-      payload.find({ collection: 'countries', overrideAccess: false, limit: 6, depth: 0, sort: 'name', select: { name: true, slug: true } as never }),
-    ])) as any[]
-    services = s
-    countries = c
+    services = (await payload.find({
+      collection: 'services',
+      overrideAccess: false,
+      limit: 6,
+      depth: 0,
+      sort: 'title',
+      select: { title: true, slug: true } as never,
+    })) as any
   } catch {
-    // DB unavailable (e.g. during build) — render the footer without dynamic columns.
+    // DB unavailable (e.g. during build) — render the footer without the services column.
   }
 
   const year = new Date().getFullYear()
@@ -113,8 +120,8 @@ export async function Footer() {
         <nav aria-label="Destinations">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Destinations</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            {(countries.docs as Record<string, any>[]).map((c) => (
-              <li key={c.id}>
+            {FOOTER_DESTINATIONS.map((c) => (
+              <li key={c.slug}>
                 <Link
                   href={`/countries/${c.slug}`}
                   className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
