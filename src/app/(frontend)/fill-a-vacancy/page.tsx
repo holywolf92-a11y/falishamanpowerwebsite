@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 const EMPLOYER_EMAIL = 'info@falishamanpower.com'
 const WHATSAPP = 'https://wa.me/923005547806'
 
-const TRUST = ['BEOE-licensed · OEP No. 4035', '22+ years · since 2004', 'End-to-end service']
+const TRUST = ['BEOE-licensed · OEP No. 4035', '15+ years · since 2011', 'End-to-end service']
 
 const STEPS = [
   {

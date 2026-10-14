@@ -35,7 +35,7 @@ export const dynamic = 'force-dynamic'
 const PDF_HREF = '/profile/falisha-company-profile.pdf'
 
 const STATS: { num?: number; suffix?: string; unit?: string; text?: string; sub: string }[] = [
-  { num: 22, suffix: '+', unit: 'Years', sub: 'Recruitment experience' },
+  { num: 15, suffix: '+', unit: 'Years', sub: 'Recruitment experience' },
   { num: 50, suffix: '+', unit: 'Countries', sub: 'Global reach' },
   { num: 28, unit: 'Markets', sub: 'Core destinations' },
   { text: 'End-to-End', sub: 'Recruitment & deployment' },
@@ -114,7 +114,7 @@ const STEPS = [
 
 const WHY = [
   { Icon: ShieldCheck, t: 'Licensed & Compliant', d: 'BEOE-licensed OEP (4035/RWP) and ISO 9001:2015 certified — legal and ethical at every step.' },
-  { Icon: Clock, t: '22+ Years Experience', d: 'A trusted overseas recruitment partner since 2004.' },
+  { Icon: Clock, t: '15+ Years Experience', d: 'A trusted overseas recruitment partner since 2011.' },
   { Icon: Globe2, t: 'Global Recruitment Network', d: 'Employer relationships across the Gulf, Europe, Africa and Asia.' },
   { Icon: Users, t: 'Nationwide Talent Sourcing', d: 'Professional, technical, skilled and general manpower from across Pakistan.' },
   { Icon: Route, t: 'End-to-End Deployment', d: 'Sourcing, screening, visas, attestation and mobilisation — all in one place.' },
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                 {[
                   { Icon: ShieldCheck, t: 'BEOE Licensed · OEP 4035' },
                   { Icon: BadgeCheck, t: 'ISO 9001:2015' },
-                  { Icon: Clock, t: 'Established 2004' },
+                  { Icon: Clock, t: 'Established 2011' },
                 ].map((b) => (
                   <span key={b.t} className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 font-semibold text-white/80 ring-1 ring-white/15">
                     <b.Icon className="h-3.5 w-3.5 text-[var(--gold)]" /> {b.t}
@@ -239,11 +239,11 @@ export default function ProfilePage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Who we are</p>
               <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
-                Two decades of trusted overseas recruitment
+                15+ years of trusted overseas recruitment
               </h2>
               <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
                 <p>
-                  Founded in 2004 and headquartered in Rawalpindi, Falisha Manpower has grown into a
+                  Founded in 2011 and headquartered in Rawalpindi, Falisha Manpower has grown into a
                   recognised international recruitment group. We specialise in sourcing skilled and
                   unskilled workforce for employers across the Gulf, Europe, Africa and Asia.
                 </p>
@@ -282,7 +282,7 @@ export default function ProfilePage() {
                 ))}
               </div>
               <div className="absolute -bottom-5 -left-5 rounded-2xl bg-primary px-5 py-4 text-primary-foreground shadow-xl shadow-primary/25">
-                <p className="text-2xl font-bold leading-none">Since 2004</p>
+                <p className="text-2xl font-bold leading-none">Since 2011</p>
                 <p className="mt-1 text-xs text-primary-foreground/80">Building global careers from Pakistan.</p>
               </div>
             </div>
@@ -454,7 +454,7 @@ export default function ProfilePage() {
               </blockquote>
               <div className="mt-6 space-y-3 text-[15px] leading-relaxed text-white/65">
                 <p>
-                  With a background in law and more than two decades in international recruitment, our
+                  With a background in law and over 15 years in international recruitment, our
                   founder built Falisha Manpower on professionalism, integrity and customer satisfaction —
                   travelling extensively across Europe and the Gulf to build lasting employer relationships.
                 </p>
@@ -578,6 +578,6 @@ export function generateMetadata(): Metadata {
     robots: { index: false, follow: true },
     title: 'Company Profile | Falisha Manpower',
     description:
-      'Falisha Manpower — a licensed (OEP 4035), ISO 9001:2015 certified international recruitment group connecting Pakistan’s skilled, professional and technical talent with employers across the Gulf, Europe, Africa and Asia since 2004.',
+      'Falisha Manpower — a licensed (OEP 4035), ISO 9001:2015 certified international recruitment group connecting Pakistan’s skilled, professional and technical talent with employers across the Gulf, Europe, Africa and Asia since 2011.',
   }
 }

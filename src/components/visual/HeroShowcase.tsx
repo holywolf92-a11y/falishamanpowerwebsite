@@ -178,7 +178,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               <Award className="h-5 w-5" />
             </span>
             <p className="mt-3 text-xs text-muted-foreground">Experience</p>
-            <p className="text-2xl font-bold">20+ Years</p>
+            <p className="text-2xl font-bold">15+ Years</p>
             <p className="text-[11px] text-muted-foreground">of ethical recruitment</p>
           </FloatCard>
           </div>

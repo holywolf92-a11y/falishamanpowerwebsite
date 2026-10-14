@@ -50,7 +50,7 @@ const HERO_SLIDES = [
     titleAccent: 'Manpower Recruitment',
     titleRest: ' Agency in Pakistan.',
     subtitle:
-      'Two decades of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
+      '15+ years of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
   },
   {
     eyebrow: 'No.1 recruitment agency in Pakistan',
