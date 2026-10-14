@@ -753,13 +753,13 @@ export default async function HomePage() {
                 {gcc && (
                   <Reveal>
                     <div className="mt-12">
-                      <div className="mb-6 flex items-center justify-center gap-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                        <span className="h-px w-8 bg-border" />
-                        {gcc.label}
-                        <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
-                          {gcc.countries.length}
-                        </span>
-                        <span className="h-px w-8 bg-border" />
+                      <div className="mb-8 text-center">
+                        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                          {gcc.label} · {gcc.countries.length} countries
+                        </p>
+                        <h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight md:text-[2rem]">
+                          Recruitment Agency in Pakistan for the GCC
+                        </h3>
                       </div>
                       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         {gcc.countries.map((cc) => (
