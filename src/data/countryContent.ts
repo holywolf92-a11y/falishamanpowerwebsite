@@ -23,6 +23,7 @@ import {
   CYPRUS_SECTIONS,
   LITHUANIA_SECTIONS,
 } from './sectionsEu2'
+import { AUSTRIA_SECTIONS, NETHERLANDS_SECTIONS, SPAIN_SECTIONS } from './sectionsEu3'
 
 /** A unique, per-country prose block rendered on the country page. */
 export type CountrySection = { heading: string; body: string[] }
@@ -1385,3 +1386,7 @@ COUNTRY_CONTENT['czech-republic'].sections = CZECH_REPUBLIC_SECTIONS
 COUNTRY_CONTENT.hungary.sections = HUNGARY_SECTIONS
 COUNTRY_CONTENT.cyprus.sections = CYPRUS_SECTIONS
 COUNTRY_CONTENT.lithuania.sections = LITHUANIA_SECTIONS
+
+COUNTRY_CONTENT.austria.sections = AUSTRIA_SECTIONS
+COUNTRY_CONTENT.netherlands.sections = NETHERLANDS_SECTIONS
+COUNTRY_CONTENT.spain.sections = SPAIN_SECTIONS
