@@ -41,9 +41,17 @@ const NEIGHBORS: { name: string; x: number; y: number }[] = [
 const LABEL_FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif'
 
 // "Flights from Pakistan": Pakistan lies east of Türkiye, just past this globe's
-// ESE edge, so routes are anchored there and sweep in to the main airport cities.
-const PAK = { x: 462, y: 360 }
+// ESE edge, so its silhouette is anchored there (Natural Earth outline, equirectangular,
+// in its own 54×49.6 box placed at PAK_MAP) and routes sweep in to the main airport
+// cities, starting at PAK — Pakistan's Türkiye-facing edge.
+const PAKISTAN_D =
+  'M45.5 0.0 L47.8 1.7 L48.8 4.6 L54.0 6.1 L50.9 9.2 L47.4 9.7 L42.5 8.8 L41.0 10.4 L42.1 13.6 L43.2 16.1 L45.8 17.9 L43.1 20.1 L43.1 22.7 L40.0 26.4 L38.0 30.2 L34.7 34.0 L31.0 33.8 L27.5 37.6 L29.6 39.3 L30.0 42.1 L31.7 44.0 L32.4 47.2 L25.4 47.2 L23.2 49.6 L20.9 48.7 L20.0 46.0 L17.5 43.2 L11.6 43.9 L6.5 44.0 L2.0 44.5 L3.2 40.2 L7.8 38.3 L7.5 36.6 L6.0 36.0 L5.9 32.8 L2.9 31.1 L1.6 28.9 L0.0 27.0 L5.3 28.8 L8.5 28.3 L10.4 28.8 L11.1 28.0 L13.3 28.3 L17.4 26.7 L17.5 23.6 L19.3 21.5 L21.7 21.5 L22.0 20.5 L24.5 20.0 L25.6 20.3 L26.9 19.3 L26.7 17.1 L28.1 14.9 L30.1 13.9 L28.8 11.5 L31.9 11.6 L32.7 10.3 L32.6 8.9 L34.2 7.3 L33.8 5.5 L33.1 3.9 L34.9 2.3 L38.3 1.5 L42.0 1.1 L43.6 0.4 L45.5 0.0Z'
+const PAK_MAP = { tx: 421.4, ty: 352.2, s: 0.8 }
+const PAK = { x: 422, y: 374 }
 const FLIGHT_CITIES = new Set(['İstanbul', 'Ankara', 'İzmir', 'Antalya', 'Gaziantep', 'Trabzon'])
+// Airplane glyph (Material "flight", nose up); rotated to follow each route's heading.
+const PLANE_D =
+  'M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'
 
 // A royal-blue 3D-style globe (true orthographic projection centred on Türkiye) with
 // the neighbouring countries drawn dull and Türkiye raised, red and flag-filled, so it
@@ -113,6 +121,10 @@ export function TurkeyGlobe({ className }: { className?: string }) {
           <stop offset="55%" stopColor="#16a34a" stopOpacity="0.18" />
           <stop offset="100%" stopColor="#16a34a" stopOpacity="0" />
         </radialGradient>
+        <linearGradient id="tg-pakfill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#2cc866" />
+          <stop offset="100%" stopColor="#0c7a37" />
+        </linearGradient>
         <linearGradient id="tg-red" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#f23642" />
           <stop offset="100%" stopColor="#c90812" />
@@ -221,7 +233,7 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         ))}
         {flights.map((f) => (
           <g key={'fc' + f.name}>
-            <animateMotion dur="2.8s" begin={f.begin} repeatCount="indefinite" path={f.d} />
+            <animateMotion dur="2.8s" begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
             <animate
               attributeName="opacity"
               values="0;1;1;0"
@@ -230,25 +242,37 @@ export function TurkeyGlobe({ className }: { className?: string }) {
               begin={f.begin}
               repeatCount="indefinite"
             />
-            <circle r="3.4" fill="#ffffff" opacity="0.25" />
-            <circle r="1.6" fill="#ffffff" />
+            <circle r="5" fill="#ffd86b" opacity="0.18" />
+            <g transform="rotate(90) scale(0.5) translate(-12 -12)">
+              <path d={PLANE_D} fill="#ffffff" />
+            </g>
           </g>
         ))}
-        {/* Pakistan origin (east of Türkiye, at the globe's edge) */}
-        <circle cx={PAK.x} cy={PAK.y} r="24" fill="url(#tg-pakglow)" />
-        <circle cx={PAK.x} cy={PAK.y} r="3" fill="none" stroke="#34d399" strokeWidth="0.9">
-          <animate attributeName="r" values="3;10" dur="2.1s" repeatCount="indefinite" />
-          <animate attributeName="stroke-opacity" values="0.85;0" dur="2.1s" repeatCount="indefinite" />
-        </circle>
-        <circle cx={PAK.x} cy={PAK.y} r="2.8" fill="#16a34a" stroke="#eafff0" strokeWidth="0.8" />
+        {/* Pakistan — a proper country silhouette, highlighted green, at the globe's ESE edge */}
+        <circle
+          cx={PAK_MAP.tx + (54 * PAK_MAP.s) / 2}
+          cy={PAK_MAP.ty + (49.6 * PAK_MAP.s) / 2}
+          r="34"
+          fill="url(#tg-pakglow)"
+        />
+        <g transform={`translate(${PAK_MAP.tx} ${PAK_MAP.ty}) scale(${PAK_MAP.s})`}>
+          <path
+            d={PAKISTAN_D}
+            fill="url(#tg-pakfill)"
+            stroke="#eafff0"
+            strokeOpacity="0.9"
+            strokeWidth="1.1"
+            strokeLinejoin="round"
+          />
+        </g>
         <text
-          x={PAK.x}
-          y={PAK.y + 13}
+          x={PAK_MAP.tx + (54 * PAK_MAP.s) / 2}
+          y={PAK_MAP.ty + 49.6 * PAK_MAP.s + 9}
           textAnchor="middle"
           fontFamily={LABEL_FONT}
           fontSize="7.5"
           fontWeight="700"
-          letterSpacing="0.6"
+          letterSpacing="0.8"
           fill="#eafff0"
           paintOrder="stroke"
           stroke="#07351c"
