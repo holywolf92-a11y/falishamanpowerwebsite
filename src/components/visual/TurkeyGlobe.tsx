@@ -9,15 +9,48 @@ import { GEO } from './turkeyGlobeGeo'
 const EMBLEM_PATH =
   'm41750 0 13568-4408-8386 11541V-7133l8386 11541zm925 8021a15000 15000 0 1 1 0-16042 12000 12000 0 1 0 0 16042z'
 
+// City markers over Türkiye, pre-projected into the same 0–520 viewBox as the geometry
+// (orthographic, scale 545, centred on Türkiye). `a` = label side relative to the dot.
+type City = { name: string; x: number; y: number; a: 'start' | 'end' | 'middle'; dx: number; dy: number; capital?: boolean }
+const CITIES: City[] = [
+  { name: 'İstanbul', x: 215.2, y: 249.4, a: 'end', dx: -4, dy: -1 },
+  { name: 'Bursa', x: 215.2, y: 257.2, a: 'end', dx: -4, dy: 8 },
+  { name: 'İzmir', x: 199.8, y: 272.9, a: 'end', dx: -4, dy: 3 },
+  { name: 'Antalya', x: 225.5, y: 289.2, a: 'middle', dx: 0, dy: 10 },
+  { name: 'Konya', x: 239.3, y: 280.5, a: 'middle', dx: -2, dy: 10 },
+  { name: 'Ankara', x: 242.6, y: 261, a: 'start', dx: 5, dy: -2, capital: true },
+  { name: 'Kayseri', x: 261.9, y: 272.6, a: 'start', dx: 5, dy: 3 },
+  { name: 'Adana', x: 260.6, y: 289.1, a: 'middle', dx: 2, dy: 10 },
+  { name: 'Gaziantep', x: 276.2, y: 288.2, a: 'start', dx: 4, dy: 5 },
+  { name: 'Samsun', x: 267.8, y: 248.3, a: 'start', dx: 4, dy: -1 },
+  { name: 'Trabzon', x: 292.1, y: 250.3, a: 'start', dx: 4, dy: 3 },
+]
+// Sea labels (italic, letter-spaced) and dull neighbour-country labels, same projection.
+const SEAS: { name: string; x: number; y: number }[] = [
+  { name: 'BLACK SEA', x: 256, y: 227 },
+]
+const SEA_STACK = { lines: ['MEDITERRANEAN', 'SEA'], x: 223, y: 309 }
+const NEIGHBORS: { name: string; x: number; y: number }[] = [
+  { name: 'BULGARIA', x: 196, y: 233 },
+  { name: 'GEORGIA', x: 314, y: 239 },
+  { name: 'IRAN', x: 330, y: 270 },
+  { name: 'IRAQ', x: 322, y: 305 },
+  { name: 'SYRIA', x: 286, y: 309 },
+  { name: 'CYPRUS', x: 243, y: 306 },
+]
+const LABEL_FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif'
+
 // A royal-blue 3D-style globe (true orthographic projection centred on Türkiye) with
 // the neighbouring countries drawn dull and Türkiye raised, red and flag-filled, so it
-// clearly stands out. Geometry is pre-projected in ./turkeyGlobeGeo (0–520 viewBox).
+// clearly stands out. City markers, sea and neighbour labels are projected into the
+// same space so it reads as a rich annotated map. Geometry is pre-projected in
+// ./turkeyGlobeGeo (0–520 viewBox).
 export function TurkeyGlobe({ className }: { className?: string }) {
   const { CX, CY, R, turkeyD, landD, graticuleD } = GEO
 
   // Place the official flag emblem over the central body of Anatolia: scale so the
   // crescent's outer circle (Ø30000) renders ~40px, and centre the emblem's bbox.
-  const emScale = 40 / 30000
+  const emScale = 44 / 30000
   const emCx = 252
   const emCy = 272
   const emblemTransform = `translate(${(emCx - emScale * 35159).toFixed(2)} ${emCy}) scale(${emScale.toFixed(6)})`
@@ -45,6 +78,11 @@ export function TurkeyGlobe({ className }: { className?: string }) {
           <stop offset="0%" stopColor="#ff2b38" stopOpacity="0.8" />
           <stop offset="55%" stopColor="#e30a17" stopOpacity="0.3" />
           <stop offset="100%" stopColor="#e30a17" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="tg-flagglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
+          <stop offset="55%" stopColor="#ffffff" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="tg-red" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#f23642" />
@@ -104,6 +142,11 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         <path d={turkeyD} fill="none" stroke="#ffffff" strokeOpacity="0.4" strokeWidth="1.1" />
       </g>
 
+      {/* soft glow behind the flag so it reads clearly on the red, clipped to Türkiye */}
+      <g clipPath="url(#tg-turkey)">
+        <circle cx={emCx} cy={emCy} r="36" fill="url(#tg-flagglow)" />
+      </g>
+
       {/* official flag emblem (crescent + star), clipped to Türkiye so it never spills out */}
       <g clipPath="url(#tg-turkey)" filter="url(#tg-liftwhite)">
         <path d={EMBLEM_PATH} transform={emblemTransform} fill="#ffffff" />
@@ -119,6 +162,94 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         strokeOpacity="0.4"
         strokeWidth="1.5"
       />
+
+      {/* annotated-map labels: seas, dull neighbours, then city markers on top */}
+      <g fontFamily={LABEL_FONT}>
+        {SEAS.map((s) => (
+          <text
+            key={s.name}
+            x={s.x}
+            y={s.y}
+            textAnchor="middle"
+            fontSize="8.5"
+            fontStyle="italic"
+            fontWeight="500"
+            letterSpacing="2"
+            fill="#9db4f0"
+            opacity="0.7"
+          >
+            {s.name}
+          </text>
+        ))}
+        <text
+          x={SEA_STACK.x}
+          y={SEA_STACK.y}
+          textAnchor="middle"
+          fontSize="8.5"
+          fontStyle="italic"
+          fontWeight="500"
+          letterSpacing="2"
+          fill="#9db4f0"
+          opacity="0.7"
+        >
+          <tspan x={SEA_STACK.x}>{SEA_STACK.lines[0]}</tspan>
+          <tspan x={SEA_STACK.x} dy="10">
+            {SEA_STACK.lines[1]}
+          </tspan>
+        </text>
+        {NEIGHBORS.map((n) => (
+          <text
+            key={n.name}
+            x={n.x}
+            y={n.y}
+            textAnchor="middle"
+            fontSize="7"
+            fontWeight="600"
+            letterSpacing="1.4"
+            fill="#aab8e4"
+            opacity="0.5"
+          >
+            {n.name}
+          </text>
+        ))}
+        {CITIES.map((c) => (
+          <g key={c.name}>
+            <circle
+              cx={c.x}
+              cy={c.y}
+              r={c.capital ? 2.4 : 1.7}
+              fill="#ffffff"
+              stroke="#0b1b4d"
+              strokeWidth="0.7"
+            />
+            {c.capital && (
+              <circle
+                cx={c.x}
+                cy={c.y}
+                r="4.2"
+                fill="none"
+                stroke="#ffffff"
+                strokeOpacity="0.55"
+                strokeWidth="0.8"
+              />
+            )}
+            <text
+              x={c.x + c.dx}
+              y={c.y + c.dy}
+              textAnchor={c.a}
+              fontSize="8.2"
+              fontWeight="600"
+              fill="#ffffff"
+              paintOrder="stroke"
+              stroke="#0a1838"
+              strokeWidth="2.3"
+              strokeLinejoin="round"
+            >
+              {c.name}
+            </text>
+          </g>
+        ))}
+      </g>
     </svg>
   )
 }
