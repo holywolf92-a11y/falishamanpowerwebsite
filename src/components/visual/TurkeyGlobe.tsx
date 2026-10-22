@@ -46,9 +46,35 @@ const LABEL_FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif'
 // cities, starting at PAK — Pakistan's Türkiye-facing edge.
 const PAKISTAN_D =
   'M45.5 0.0 L47.8 1.7 L48.8 4.6 L54.0 6.1 L50.9 9.2 L47.4 9.7 L42.5 8.8 L41.0 10.4 L42.1 13.6 L43.2 16.1 L45.8 17.9 L43.1 20.1 L43.1 22.7 L40.0 26.4 L38.0 30.2 L34.7 34.0 L31.0 33.8 L27.5 37.6 L29.6 39.3 L30.0 42.1 L31.7 44.0 L32.4 47.2 L25.4 47.2 L23.2 49.6 L20.9 48.7 L20.0 46.0 L17.5 43.2 L11.6 43.9 L6.5 44.0 L2.0 44.5 L3.2 40.2 L7.8 38.3 L7.5 36.6 L6.0 36.0 L5.9 32.8 L2.9 31.1 L1.6 28.9 L0.0 27.0 L5.3 28.8 L8.5 28.3 L10.4 28.8 L11.1 28.0 L13.3 28.3 L17.4 26.7 L17.5 23.6 L19.3 21.5 L21.7 21.5 L22.0 20.5 L24.5 20.0 L25.6 20.3 L26.9 19.3 L26.7 17.1 L28.1 14.9 L30.1 13.9 L28.8 11.5 L31.9 11.6 L32.7 10.3 L32.6 8.9 L34.2 7.3 L33.8 5.5 L33.1 3.9 L34.9 2.3 L38.3 1.5 L42.0 1.1 L43.6 0.4 L45.5 0.0Z'
-const PAK_MAP = { tx: 421.4, ty: 352.2, s: 0.8 }
-const PAK = { x: 422, y: 374 }
-const FLIGHT_CITIES = new Set(['İstanbul', 'Ankara', 'İzmir', 'Antalya', 'Gaziantep', 'Trabzon'])
+const PAK_MAP = { tx: 428.3, ty: 374.7, s: 1.1 }
+// Pakistani airport cities, projected into the same box as the silhouette.
+type PakCity = { name: string; x: number; y: number; a: 'start' | 'end' | 'middle'; dx: number; dy: number }
+const PAKISTAN_CITIES: PakCity[] = [
+  { name: 'Islamabad', x: 471, y: 388.6, a: 'start', dx: 3, dy: -3 },
+  { name: 'Peshawar', x: 465.8, y: 387.3, a: 'end', dx: -3, dy: -3 },
+  { name: 'Lahore', x: 475.6, y: 397.4, a: 'start', dx: 4, dy: 1 },
+  { name: 'Multan', x: 465.4, y: 402.8, a: 'end', dx: -4, dy: 4 },
+  { name: 'Karachi', x: 449.8, y: 424.5, a: 'end', dx: -3, dy: 3 },
+]
+// Türkiye destination coords and the Pakistan → Türkiye airport routes.
+const TUR_POS: Record<string, [number, number]> = {
+  İstanbul: [215.2, 249.4],
+  Ankara: [242.6, 261],
+  İzmir: [199.8, 272.9],
+  Antalya: [225.5, 289.2],
+  Gaziantep: [276.2, 288.2],
+  Trabzon: [292.1, 250.3],
+}
+const ROUTES: [string, string][] = [
+  ['Islamabad', 'İstanbul'],
+  ['Lahore', 'İstanbul'],
+  ['Karachi', 'İstanbul'],
+  ['Lahore', 'Ankara'],
+  ['Peshawar', 'İzmir'],
+  ['Karachi', 'Antalya'],
+  ['Multan', 'Gaziantep'],
+  ['Islamabad', 'Trabzon'],
+]
 // Airplane glyph (Material "flight", nose up); rotated to follow each route's heading.
 const PLANE_D =
   'M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'
@@ -68,13 +94,19 @@ export function TurkeyGlobe({ className }: { className?: string }) {
   const emCy = 272
   const emblemTransform = `translate(${(emCx - emScale * 35159).toFixed(2)} ${emCy}) scale(${emScale.toFixed(6)})`
 
-  // Flight arcs: a quadratic curve from Pakistan to each destination city, bowed
-  // away from the globe centre so the routes lift off the surface.
-  const flights = CITIES.filter((c) => FLIGHT_CITIES.has(c.name)).map((c, i) => {
-    const mx = (PAK.x + c.x) / 2
-    const my = (PAK.y + c.y) / 2
-    const dx = c.x - PAK.x
-    const dy = c.y - PAK.y
+  // Flight arcs: a quadratic curve from each Pakistani airport city to its Türkiye
+  // destination, bowed away from the globe centre so the routes lift off the surface.
+  const pakPos = (name: string): [number, number] => {
+    const c = PAKISTAN_CITIES.find((p) => p.name === name)!
+    return [c.x, c.y]
+  }
+  const flights = ROUTES.map(([from, to], i) => {
+    const [ox, oy] = pakPos(from)
+    const [cx, cy] = TUR_POS[to]
+    const mx = (ox + cx) / 2
+    const my = (oy + cy) / 2
+    const dx = cx - ox
+    const dy = cy - oy
     const len = Math.hypot(dx, dy) || 1
     let nx = -dy / len
     let ny = dx / len
@@ -82,9 +114,9 @@ export function TurkeyGlobe({ className }: { className?: string }) {
       nx = -nx
       ny = -ny
     }
-    const lift = Math.min(60, len * 0.32)
-    const d = `M${PAK.x} ${PAK.y} Q${(mx + nx * lift).toFixed(1)} ${(my + ny * lift).toFixed(1)} ${c.x} ${c.y}`
-    return { name: c.name, d, begin: `${(i * 0.45).toFixed(2)}s` }
+    const lift = Math.min(60, len * 0.3)
+    const d = `M${ox} ${oy} Q${(mx + nx * lift).toFixed(1)} ${(my + ny * lift).toFixed(1)} ${cx} ${cy}`
+    return { name: `${from}-${to}`, d, begin: `${(i * 0.33).toFixed(2)}s` }
   })
 
   return (
@@ -204,8 +236,8 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         strokeWidth="1.5"
       />
 
-      {/* flights from Pakistan sweeping into the Turkish airport cities */}
-      <g>
+      {/* flights from Pakistani airport cities sweeping into the Turkish cities */}
+      <g fontFamily={LABEL_FONT}>
         {flights.map((f) => (
           <path
             key={'fg' + f.name}
@@ -243,16 +275,16 @@ export function TurkeyGlobe({ className }: { className?: string }) {
               repeatCount="indefinite"
             />
             <circle r="5" fill="#ffd86b" opacity="0.18" />
-            <g transform="rotate(90) scale(0.5) translate(-12 -12)">
+            <g transform="rotate(90) scale(0.46) translate(-12 -12)">
               <path d={PLANE_D} fill="#ffffff" />
             </g>
           </g>
         ))}
-        {/* Pakistan — a proper country silhouette, highlighted green, at the globe's ESE edge */}
+        {/* Pakistan — country silhouette with its five airport cities */}
         <circle
           cx={PAK_MAP.tx + (54 * PAK_MAP.s) / 2}
           cy={PAK_MAP.ty + (49.6 * PAK_MAP.s) / 2}
-          r="34"
+          r="40"
           fill="url(#tg-pakglow)"
         />
         <g transform={`translate(${PAK_MAP.tx} ${PAK_MAP.ty}) scale(${PAK_MAP.s})`}>
@@ -261,25 +293,43 @@ export function TurkeyGlobe({ className }: { className?: string }) {
             fill="url(#tg-pakfill)"
             stroke="#eafff0"
             strokeOpacity="0.9"
-            strokeWidth="1.1"
+            strokeWidth="1"
             strokeLinejoin="round"
           />
         </g>
+        {PAKISTAN_CITIES.map((c) => (
+          <g key={c.name}>
+            <circle cx={c.x} cy={c.y} r="1.4" fill="#ffffff" stroke="#07351c" strokeWidth="0.6" />
+            <text
+              x={c.x + c.dx}
+              y={c.y + c.dy}
+              textAnchor={c.a}
+              fontSize="6"
+              fontWeight="600"
+              fill="#eafff0"
+              paintOrder="stroke"
+              stroke="#07351c"
+              strokeWidth="1.7"
+              strokeLinejoin="round"
+            >
+              {c.name}
+            </text>
+          </g>
+        ))}
         <text
           x={PAK_MAP.tx + (54 * PAK_MAP.s) / 2}
-          y={PAK_MAP.ty + 49.6 * PAK_MAP.s + 9}
+          y={PAK_MAP.ty + 49.6 * PAK_MAP.s + 10}
           textAnchor="middle"
-          fontFamily={LABEL_FONT}
-          fontSize="7.5"
-          fontWeight="700"
-          letterSpacing="0.8"
-          fill="#eafff0"
+          fontSize="8"
+          fontWeight="800"
+          letterSpacing="1.2"
+          fill="#e8b64c"
           paintOrder="stroke"
           stroke="#07351c"
           strokeWidth="2.3"
           strokeLinejoin="round"
         >
-          ✈ PAKISTAN
+          PAKISTAN
         </text>
       </g>
 
