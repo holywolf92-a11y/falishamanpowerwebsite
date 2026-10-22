@@ -40,6 +40,11 @@ const NEIGHBORS: { name: string; x: number; y: number }[] = [
 ]
 const LABEL_FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif'
 
+// "Flights from Pakistan": Pakistan lies east of Türkiye, just past this globe's
+// ESE edge, so routes are anchored there and sweep in to the main airport cities.
+const PAK = { x: 462, y: 360 }
+const FLIGHT_CITIES = new Set(['İstanbul', 'Ankara', 'İzmir', 'Antalya', 'Gaziantep', 'Trabzon'])
+
 // A royal-blue 3D-style globe (true orthographic projection centred on Türkiye) with
 // the neighbouring countries drawn dull and Türkiye raised, red and flag-filled, so it
 // clearly stands out. City markers, sea and neighbour labels are projected into the
@@ -54,6 +59,25 @@ export function TurkeyGlobe({ className }: { className?: string }) {
   const emCx = 252
   const emCy = 272
   const emblemTransform = `translate(${(emCx - emScale * 35159).toFixed(2)} ${emCy}) scale(${emScale.toFixed(6)})`
+
+  // Flight arcs: a quadratic curve from Pakistan to each destination city, bowed
+  // away from the globe centre so the routes lift off the surface.
+  const flights = CITIES.filter((c) => FLIGHT_CITIES.has(c.name)).map((c, i) => {
+    const mx = (PAK.x + c.x) / 2
+    const my = (PAK.y + c.y) / 2
+    const dx = c.x - PAK.x
+    const dy = c.y - PAK.y
+    const len = Math.hypot(dx, dy) || 1
+    let nx = -dy / len
+    let ny = dx / len
+    if (nx * (mx - CX) + ny * (my - CY) < 0) {
+      nx = -nx
+      ny = -ny
+    }
+    const lift = Math.min(60, len * 0.32)
+    const d = `M${PAK.x} ${PAK.y} Q${(mx + nx * lift).toFixed(1)} ${(my + ny * lift).toFixed(1)} ${c.x} ${c.y}`
+    return { name: c.name, d, begin: `${(i * 0.45).toFixed(2)}s` }
+  })
 
   return (
     <svg
@@ -83,6 +107,11 @@ export function TurkeyGlobe({ className }: { className?: string }) {
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
           <stop offset="55%" stopColor="#ffffff" stopOpacity="0.1" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="tg-pakglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#22c55e" stopOpacity="0.55" />
+          <stop offset="55%" stopColor="#16a34a" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#16a34a" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="tg-red" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#f23642" />
@@ -162,6 +191,73 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         strokeOpacity="0.4"
         strokeWidth="1.5"
       />
+
+      {/* flights from Pakistan sweeping into the Turkish airport cities */}
+      <g>
+        {flights.map((f) => (
+          <path
+            key={'fg' + f.name}
+            d={f.d}
+            fill="none"
+            stroke="#ffd86b"
+            strokeOpacity="0.12"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+          />
+        ))}
+        {flights.map((f) => (
+          <path
+            key={'fl' + f.name}
+            d={f.d}
+            fill="none"
+            stroke="#ffd86b"
+            strokeOpacity="0.5"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeDasharray="2.5 4.5"
+          >
+            <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.5s" repeatCount="indefinite" />
+          </path>
+        ))}
+        {flights.map((f) => (
+          <g key={'fc' + f.name}>
+            <animateMotion dur="2.8s" begin={f.begin} repeatCount="indefinite" path={f.d} />
+            <animate
+              attributeName="opacity"
+              values="0;1;1;0"
+              keyTimes="0;0.1;0.85;1"
+              dur="2.8s"
+              begin={f.begin}
+              repeatCount="indefinite"
+            />
+            <circle r="3.4" fill="#ffffff" opacity="0.25" />
+            <circle r="1.6" fill="#ffffff" />
+          </g>
+        ))}
+        {/* Pakistan origin (east of Türkiye, at the globe's edge) */}
+        <circle cx={PAK.x} cy={PAK.y} r="24" fill="url(#tg-pakglow)" />
+        <circle cx={PAK.x} cy={PAK.y} r="3" fill="none" stroke="#34d399" strokeWidth="0.9">
+          <animate attributeName="r" values="3;10" dur="2.1s" repeatCount="indefinite" />
+          <animate attributeName="stroke-opacity" values="0.85;0" dur="2.1s" repeatCount="indefinite" />
+        </circle>
+        <circle cx={PAK.x} cy={PAK.y} r="2.8" fill="#16a34a" stroke="#eafff0" strokeWidth="0.8" />
+        <text
+          x={PAK.x}
+          y={PAK.y + 13}
+          textAnchor="middle"
+          fontFamily={LABEL_FONT}
+          fontSize="7.5"
+          fontWeight="700"
+          letterSpacing="0.6"
+          fill="#eafff0"
+          paintOrder="stroke"
+          stroke="#07351c"
+          strokeWidth="2.3"
+          strokeLinejoin="round"
+        >
+          ✈ PAKISTAN
+        </text>
+      </g>
 
       {/* annotated-map labels: seas, dull neighbours, then city markers on top */}
       <g fontFamily={LABEL_FONT}>
