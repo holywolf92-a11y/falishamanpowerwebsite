@@ -267,62 +267,68 @@ export default async function HomePage() {
         />
 
         <div className="container relative">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
-            {/* Globe */}
-            <Reveal>
-              <div className="relative mx-auto w-full max-w-[32rem]">
-                <TurkeyGlobe className="w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)]" />
-                <div className="absolute right-1 top-5 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
-                  <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Türkiye corridor</p>
-                </div>
-                <div className="absolute bottom-6 left-0 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
-                  <p className="text-xl font-bold leading-none text-foreground">OEP 4035</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">BEOE licensed</p>
-                </div>
+          {/* Heading */}
+          <Reveal>
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3">
+                <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-border" />
+                <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                  Our speciality market
+                </p>
               </div>
-            </Reveal>
+              <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
+                <span className="text-primary">Türkiye</span> is where we go deepest
+              </h2>
+            </div>
+          </Reveal>
 
-            {/* Copy */}
-            <Reveal delay={0.1}>
-              <div>
-                <div className="flex items-center gap-3">
-                  <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-border" />
-                  <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
-                    Our speciality market
-                  </p>
-                </div>
-                <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
-                  <span className="text-primary">Türkiye</span> is where we go deepest
-                </h2>
-                <p className="mt-4 max-w-xl text-muted-foreground">
+          {/* Full-width flight-route map */}
+          <Reveal delay={0.08}>
+            <div className="relative mt-8 overflow-hidden rounded-3xl border border-border shadow-2xl shadow-black/25">
+              <TurkeyGlobe className="block w-full" />
+              <div className="absolute right-4 top-4 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
+                <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Türkiye corridor</p>
+              </div>
+              <div className="absolute bottom-4 left-4 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
+                <p className="text-xl font-bold leading-none text-foreground">OEP 4035</p>
+                <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">BEOE licensed</p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Supporting copy + CTAs */}
+          <Reveal delay={0.12}>
+            <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-muted-foreground">
                   Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
                   Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
                   managing the full journey from sourcing to on-site deployment.
                 </p>
-                <ul className="mt-6 space-y-3 text-sm">
+                <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm">
                   {TURKEY_POINTS.map((p) => (
-                    <li key={p} className="flex items-center gap-3 text-muted-foreground">
+                    <li key={p} className="flex items-center gap-2 text-muted-foreground">
                       <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--gold)]" />
                       {p}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Button asChild className="rounded-full px-6">
-                    <Link href="/fill-a-vacancy">Hire from Pakistan for Türkiye</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-full border-border bg-transparent px-6 text-foreground hover:bg-muted hover:text-foreground"
-                  >
-                    <Link href="/countries/turkey">Explore Türkiye →</Link>
-                  </Button>
-                </div>
               </div>
-            </Reveal>
-          </div>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild className="rounded-full px-6">
+                  <Link href="/fill-a-vacancy">Hire from Pakistan for Türkiye</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-full border-border bg-transparent px-6 text-foreground hover:bg-muted hover:text-foreground"
+                >
+                  <Link href="/countries/turkey">Explore Türkiye →</Link>
+                </Button>
+              </div>
+            </div>
+          </Reveal>
 
           {/* Employer logos */}
           <Reveal delay={0.15}>
