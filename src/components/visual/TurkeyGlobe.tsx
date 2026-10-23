@@ -131,6 +131,10 @@ export function TurkeyGlobe({ className }: { className?: string }) {
       aria-label="Globe centred on Türkiye with neighbouring countries shown dull — Falisha Manpower's speciality recruitment market"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <style>{`
+        @media (max-width: 500px) { .tg-pakcity { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .tg-plane, .tg-pulse { display: none; } }
+      `}</style>
       <defs>
         <radialGradient id="tg-ocean" cx="34%" cy="28%" r="82%">
           <stop offset="0%" stopColor="#5b86ff" />
@@ -270,7 +274,7 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         {dests.map((name, i) => {
           const [cx, cy] = TUR_POS[name]
           return (
-            <circle key={'p' + name} cx={cx} cy={cy} r="2" fill="none" stroke="#ffd86b" strokeWidth="0.8">
+            <circle key={'p' + name} className="tg-pulse" cx={cx} cy={cy} r="2" fill="none" stroke="#ffd86b" strokeWidth="0.8">
               <animate
                 attributeName="r"
                 values="1.5;6"
@@ -289,7 +293,7 @@ export function TurkeyGlobe({ className }: { className?: string }) {
           )
         })}
         {flights.map((f) => (
-          <g key={'fc' + f.name}>
+          <g key={'fc' + f.name} className="tg-plane">
             <animateMotion dur={f.dur} begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
             <animate
               attributeName="opacity"
@@ -326,6 +330,7 @@ export function TurkeyGlobe({ className }: { className?: string }) {
           <g key={c.name}>
             <circle cx={c.x} cy={c.y} r="1.4" fill="#ffffff" stroke="#07351c" strokeWidth="0.6" />
             <text
+              className="tg-pakcity"
               x={c.x + c.dx}
               y={c.y + c.dy}
               textAnchor={c.a}
