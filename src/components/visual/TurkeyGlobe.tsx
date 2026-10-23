@@ -27,6 +27,22 @@ const ROUTES: [string, string][] = [
   ['Peshawar', 'İzmir'], ['Karachi', 'Antalya'], ['Multan', 'Gaziantep'], ['Islamabad', 'Trabzon'],
 ]
 
+// Each neighbouring country → a palette slot (0–4), hand-assigned so adjacent
+// countries never share a colour (political-atlas look); anything unlisted hashes
+// to a slot as a fallback. Palette fills live in the SVG <style> below (tm-l0…4).
+const LAND_IDX: Record<string, number> = {
+  Iran: 0, Iraq: 2, Syria: 1, 'Saudi Arabia': 3, Afghanistan: 4, Turkmenistan: 1, Egypt: 2,
+  Kazakhstan: 2, Uzbekistan: 0, India: 3, China: 1, Russia: 4, Azerbaijan: 2, Armenia: 3, Georgia: 1,
+  Jordan: 4, Kuwait: 4, Qatar: 0, 'United Arab Emirates': 1, Oman: 0, Tajikistan: 2, Kyrgyzstan: 3,
+  Bulgaria: 0, Greece: 3, Cyprus: 1, 'N. Cyprus': 3, Israel: 3, Lebanon: 0, Palestine: 4, Libya: 0,
+}
+const landIdx = (n: string) => {
+  if (n in LAND_IDX) return LAND_IDX[n]
+  let h = 0
+  for (let i = 0; i < n.length; i++) h = (h * 31 + n.charCodeAt(i)) >>> 0
+  return h % 5
+}
+
 // A flat Mercator map of the Türkiye→Pakistan recruitment corridor: both countries
 // highlighted at the same scale, surrounding land for context, and animated flight
 // routes from Pakistan's airport cities into Türkiye. Pure SVG/SMIL, no client JS.
@@ -74,19 +90,25 @@ export function TurkeyGlobe({ className }: { className?: string }) {
       fontFamily={LABEL_FONT}
     >
       <style>{`
-        /* Theme-aware map colours (dark default; light overrides via the site's data-theme). */
+        /* Premium political-atlas palette, theme-aware (dark default; light via the
+           site's data-theme). tm-l0…4 are the five land tones; tm-land is the border. */
         .tm-ocean-a { stop-color: #1b3b78; }
         .tm-ocean-b { stop-color: #0a1c46; }
-        .tm-land { fill: #3a4c82; stroke: #6d80bd; }
+        .tm-land { stroke: rgba(170,190,230,0.16); stroke-width: 0.5; stroke-linejoin: round; }
+        .tm-l0 { fill: #2e3652; } .tm-l1 { fill: #2b4140; } .tm-l2 { fill: #3a3450; }
+        .tm-l3 { fill: #39412f; } .tm-l4 { fill: #3c333f; }
         .tm-grat { stroke: #9fb8ff; }
         .tm-sea { fill: #9db4f0; }
         .tm-neigh { fill: #c6d0ea; }
-        :root[data-theme="light"] .tm-ocean-a { stop-color: #d6e6fa; }
-        :root[data-theme="light"] .tm-ocean-b { stop-color: #b2cdee; }
-        :root[data-theme="light"] .tm-land { fill: #afc6e8; stroke: #8aa2cf; }
-        :root[data-theme="light"] .tm-grat { stroke: #5172ab; }
-        :root[data-theme="light"] .tm-sea { fill: #40609c; }
-        :root[data-theme="light"] .tm-neigh { fill: #566891; }
+        :root[data-theme="light"] .tm-ocean-a { stop-color: #aacfe8; }
+        :root[data-theme="light"] .tm-ocean-b { stop-color: #c8e0f0; }
+        :root[data-theme="light"] .tm-land { stroke: rgba(80,100,130,0.42); }
+        :root[data-theme="light"] .tm-l0 { fill: #ecdcac; } :root[data-theme="light"] .tm-l1 { fill: #cfe0bb; }
+        :root[data-theme="light"] .tm-l2 { fill: #f2d7b6; } :root[data-theme="light"] .tm-l3 { fill: #d2dde3; }
+        :root[data-theme="light"] .tm-l4 { fill: #e8cbd2; }
+        :root[data-theme="light"] .tm-grat { stroke: #6f93c8; }
+        :root[data-theme="light"] .tm-sea { fill: #5a76b0; }
+        :root[data-theme="light"] .tm-neigh { fill: #55657f; }
         @media (prefers-reduced-motion: reduce) { .tg-plane, .tg-pulse { display: none; } }
       `}</style>
       <defs>
@@ -109,17 +131,20 @@ export function TurkeyGlobe({ className }: { className?: string }) {
 
       <rect x={vx} y={vy} width={vw} height={vh} fill="url(#tm-ocean)" />
       <path className="tm-grat" d={MAP.graticuleD} fill="none" stroke="#9fb8ff" strokeOpacity="0.08" strokeWidth="0.6" />
-      <path className="tm-land" d={MAP.landD} fill="#3a4c82" fillOpacity="0.85" stroke="#6d80bd" strokeOpacity="0.25" strokeWidth="0.5" />
+      {/* surrounding countries, each its own atlas tone */}
+      {MAP.lands.map(({ n, d }) => (
+        <path key={n} className={`tm-land tm-l${landIdx(n)}`} d={d} />
+      ))}
 
       {/* sea + neighbour-country labels (map detail, hidden on phones) */}
       <g className="tg-detail">
         {Object.entries(MAP.seaPos).map(([n, [x, y]]) => (
-          <text key={n} className="tm-sea" x={x} y={y} textAnchor="middle" fontSize="9" fontStyle="italic" fontWeight="500" letterSpacing="1.5" fill="#9db4f0" opacity="0.6">
+          <text key={n} className="tm-sea" x={x} y={y} textAnchor="middle" fontSize="9" fontStyle="italic" fontWeight="500" letterSpacing="1.5" fill="#9db4f0" opacity="0.72">
             {n}
           </text>
         ))}
         {Object.entries(MAP.neighPos).map(([n, [x, y]]) => (
-          <text key={n} className="tm-neigh" x={x} y={y} textAnchor="middle" fontSize="8" fontWeight="600" letterSpacing="1.1" fill="#c6d0ea" opacity="0.42">
+          <text key={n} className="tm-neigh" x={x} y={y} textAnchor="middle" fontSize="8" fontWeight="600" letterSpacing="1.1" fill="#c6d0ea" opacity="0.58">
             {n}
           </text>
         ))}
