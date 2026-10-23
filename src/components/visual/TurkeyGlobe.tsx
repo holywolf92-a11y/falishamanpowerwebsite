@@ -109,7 +109,19 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         :root[data-theme="light"] .tm-grat { stroke: #6f93c8; }
         :root[data-theme="light"] .tm-sea { fill: #5a76b0; }
         :root[data-theme="light"] .tm-neigh { fill: #55657f; }
+        /* flight lines + planes: blue, theme-aware (bright azure on dark, royal blue on light). */
+        .tm-route { stroke: #5ea0ff; }
+        .tm-glow { stroke: #5ea0ff; }
+        .tm-pulse-s { stroke: #7cb8ff; }
+        .tm-plane-glow { fill: #5ea0ff; }
+        .tm-plane-body { fill: #ffffff; }
+        :root[data-theme="light"] .tm-route { stroke: #1b47c4; }
+        :root[data-theme="light"] .tm-glow { stroke: #3b63d6; }
+        :root[data-theme="light"] .tm-pulse-s { stroke: #1b47c4; }
+        :root[data-theme="light"] .tm-plane-glow { fill: #3b63d6; }
+        :root[data-theme="light"] .tm-plane-body { fill: #14307a; }
         @media (prefers-reduced-motion: reduce) { .tg-plane, .tg-pulse { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .tm-route, .tm-glow { stroke-dashoffset: 0 !important; stroke-opacity: 0.5 !important; } }
       `}</style>
       <defs>
         <linearGradient id="tm-ocean" x1="0" y1="0" x2="0" y2="1">
@@ -161,20 +173,27 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         <path d={MAP.pakistanD} fill="url(#tm-green)" stroke="#eafff0" strokeOpacity="0.85" strokeWidth="1" />
       </g>
 
-      {/* flight routes, arrival pulses and planes */}
+      {/* Flight lines that draw in *behind* each plane (the route is never pre-drawn):
+          pathLength=1 + dasharray "1 1" + dashoffset 1→0 reveals the arc from the origin
+          up to the plane's position, in sync with the plane's motion; it fades out as the
+          plane lands so the loop never flashes a full line. Glow under a crisp line. */}
       <g>
         {flights.map((f) => (
-          <path key={'g' + f.name} d={f.d} fill="none" stroke="#ffd86b" strokeOpacity="0.12" strokeWidth="4" strokeLinecap="round" />
+          <path key={'glow' + f.name} className="tm-glow" d={f.d} fill="none" strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1 1" strokeDashoffset="1" strokeOpacity="0.22">
+            <animate attributeName="stroke-dashoffset" from="1" to="0" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity" values="0.22;0.22;0" keyTimes="0;0.8;1" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
+          </path>
         ))}
         {flights.map((f) => (
-          <path key={'l' + f.name} d={f.d} fill="none" stroke="#ffd86b" strokeOpacity="0.55" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="3 5.5">
-            <animate attributeName="stroke-dashoffset" from="17" to="0" dur="2.6s" repeatCount="indefinite" />
+          <path key={'line' + f.name} className="tm-route" d={f.d} fill="none" strokeWidth="1.5" strokeLinecap="round" pathLength="1" strokeDasharray="1 1" strokeDashoffset="1" strokeOpacity="0.9">
+            <animate attributeName="stroke-dashoffset" from="1" to="0" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity" values="0.9;0.9;0" keyTimes="0;0.8;1" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
           </path>
         ))}
         {dests.map((name, i) => {
           const [cx, cy] = tCities[name]
           return (
-            <circle key={'p' + name} className="tg-pulse" cx={cx} cy={cy} r="2.5" fill="none" stroke="#ffd86b" strokeWidth="1">
+            <circle key={'p' + name} className="tg-pulse tm-pulse-s" cx={cx} cy={cy} r="2.5" fill="none" strokeWidth="1">
               <animate attributeName="r" values="2;9" dur="2.6s" begin={`${(i * 0.4).toFixed(1)}s`} repeatCount="indefinite" />
               <animate attributeName="stroke-opacity" values="0.7;0" dur="2.6s" begin={`${(i * 0.4).toFixed(1)}s`} repeatCount="indefinite" />
             </circle>
@@ -183,10 +202,10 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         {flights.map((f) => (
           <g key={'c' + f.name} className="tg-plane">
             <animateMotion dur={f.dur} begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
-            <circle r="6" fill="#ffd86b" opacity="0.18" />
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.03;0.92;1" dur={f.dur} begin={f.begin} repeatCount="indefinite" />
+            <circle className="tm-plane-glow" r="6" opacity="0.2" />
             <g transform="rotate(90) scale(0.62) translate(-12 -12)">
-              <path d={PLANE_D} fill="#ffffff" />
+              <path className="tm-plane-body" d={PLANE_D} />
             </g>
           </g>
         ))}
