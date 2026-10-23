@@ -87,7 +87,6 @@ export function TurkeyGlobe({ className }: { className?: string }) {
         :root[data-theme="light"] .tm-grat { stroke: #5172ab; }
         :root[data-theme="light"] .tm-sea { fill: #40609c; }
         :root[data-theme="light"] .tm-neigh { fill: #566891; }
-        @media (max-width: 640px) { .tg-detail { display: none; } }
         @media (prefers-reduced-motion: reduce) { .tg-plane, .tg-pulse { display: none; } }
       `}</style>
       <defs>

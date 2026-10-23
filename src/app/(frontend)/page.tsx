@@ -284,8 +284,16 @@ export default async function HomePage() {
 
           {/* Full-width flight-route map */}
           <Reveal delay={0.08}>
-            <div className="relative mt-8 overflow-hidden rounded-3xl border border-border shadow-2xl shadow-black/25">
-              <TurkeyGlobe className="block w-full" />
+            <div className="relative mt-8">
+              {/* On phones the wide map is taller and scrolls sideways (swipe Türkiye → Pakistan)
+                  so every label stays readable; on sm+ it fits full-width. */}
+              <div className="overflow-x-auto overflow-y-hidden rounded-3xl border border-border shadow-2xl shadow-black/25 [scrollbar-width:thin] sm:overflow-hidden">
+                <TurkeyGlobe className="block h-[320px] w-auto max-w-none sm:h-auto sm:w-full" />
+              </div>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 right-0 w-12 rounded-r-3xl bg-gradient-to-l from-background/70 to-transparent sm:hidden"
+              />
               <div className="absolute right-4 top-4 hidden rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md sm:block">
                 <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Türkiye corridor</p>
