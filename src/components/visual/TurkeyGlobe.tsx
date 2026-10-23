@@ -116,7 +116,9 @@ export function TurkeyGlobe({ className }: { className?: string }) {
     }
     const lift = Math.min(60, len * 0.3)
     const d = `M${ox} ${oy} Q${(mx + nx * lift).toFixed(1)} ${(my + ny * lift).toFixed(1)} ${cx} ${cy}`
-    return { name: `${from}-${to}`, d, begin: `${(i * 0.33).toFixed(2)}s` }
+    // Duration ∝ route length so every plane cruises at the same (calm) visual speed.
+    const dur = `${(len / 40).toFixed(2)}s`
+    return { name: `${from}-${to}`, d, dur, begin: `${(i * 0.6).toFixed(2)}s` }
   })
 
   return (
@@ -260,17 +262,17 @@ export function TurkeyGlobe({ className }: { className?: string }) {
             strokeLinecap="round"
             strokeDasharray="2.5 4.5"
           >
-            <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.5s" repeatCount="indefinite" />
+            <animate attributeName="stroke-dashoffset" from="14" to="0" dur="2.6s" repeatCount="indefinite" />
           </path>
         ))}
         {flights.map((f) => (
           <g key={'fc' + f.name}>
-            <animateMotion dur="2.8s" begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
+            <animateMotion dur={f.dur} begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
             <animate
               attributeName="opacity"
               values="0;1;1;0"
               keyTimes="0;0.1;0.85;1"
-              dur="2.8s"
+              dur={f.dur}
               begin={f.begin}
               repeatCount="indefinite"
             />
