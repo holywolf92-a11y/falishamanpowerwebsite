@@ -74,13 +74,26 @@ export function TurkeyGlobe({ className }: { className?: string }) {
       fontFamily={LABEL_FONT}
     >
       <style>{`
+        /* Theme-aware map colours (dark default; light overrides via the site's data-theme). */
+        .tm-ocean-a { stop-color: #1b3b78; }
+        .tm-ocean-b { stop-color: #0a1c46; }
+        .tm-land { fill: #3a4c82; stroke: #6d80bd; }
+        .tm-grat { stroke: #9fb8ff; }
+        .tm-sea { fill: #9db4f0; }
+        .tm-neigh { fill: #c6d0ea; }
+        :root[data-theme="light"] .tm-ocean-a { stop-color: #d6e6fa; }
+        :root[data-theme="light"] .tm-ocean-b { stop-color: #b2cdee; }
+        :root[data-theme="light"] .tm-land { fill: #afc6e8; stroke: #8aa2cf; }
+        :root[data-theme="light"] .tm-grat { stroke: #5172ab; }
+        :root[data-theme="light"] .tm-sea { fill: #40609c; }
+        :root[data-theme="light"] .tm-neigh { fill: #566891; }
         @media (max-width: 640px) { .tg-detail { display: none; } }
         @media (prefers-reduced-motion: reduce) { .tg-plane, .tg-pulse { display: none; } }
       `}</style>
       <defs>
         <linearGradient id="tm-ocean" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1b3b78" />
-          <stop offset="100%" stopColor="#0a1c46" />
+          <stop className="tm-ocean-a" offset="0%" stopColor="#1b3b78" />
+          <stop className="tm-ocean-b" offset="100%" stopColor="#0a1c46" />
         </linearGradient>
         <linearGradient id="tm-red" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#f23642" />
@@ -96,18 +109,18 @@ export function TurkeyGlobe({ className }: { className?: string }) {
       </defs>
 
       <rect x={vx} y={vy} width={vw} height={vh} fill="url(#tm-ocean)" />
-      <path d={MAP.graticuleD} fill="none" stroke="#9fb8ff" strokeOpacity="0.08" strokeWidth="0.6" />
-      <path d={MAP.landD} fill="#3a4c82" fillOpacity="0.85" stroke="#6d80bd" strokeOpacity="0.25" strokeWidth="0.5" />
+      <path className="tm-grat" d={MAP.graticuleD} fill="none" stroke="#9fb8ff" strokeOpacity="0.08" strokeWidth="0.6" />
+      <path className="tm-land" d={MAP.landD} fill="#3a4c82" fillOpacity="0.85" stroke="#6d80bd" strokeOpacity="0.25" strokeWidth="0.5" />
 
       {/* sea + neighbour-country labels (map detail, hidden on phones) */}
       <g className="tg-detail">
         {Object.entries(MAP.seaPos).map(([n, [x, y]]) => (
-          <text key={n} x={x} y={y} textAnchor="middle" fontSize="9" fontStyle="italic" fontWeight="500" letterSpacing="1.5" fill="#9db4f0" opacity="0.6">
+          <text key={n} className="tm-sea" x={x} y={y} textAnchor="middle" fontSize="9" fontStyle="italic" fontWeight="500" letterSpacing="1.5" fill="#9db4f0" opacity="0.6">
             {n}
           </text>
         ))}
         {Object.entries(MAP.neighPos).map(([n, [x, y]]) => (
-          <text key={n} x={x} y={y} textAnchor="middle" fontSize="8" fontWeight="600" letterSpacing="1.1" fill="#c6d0ea" opacity="0.42">
+          <text key={n} className="tm-neigh" x={x} y={y} textAnchor="middle" fontSize="8" fontWeight="600" letterSpacing="1.1" fill="#c6d0ea" opacity="0.42">
             {n}
           </text>
         ))}

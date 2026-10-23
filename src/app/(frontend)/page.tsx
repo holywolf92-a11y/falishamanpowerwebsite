@@ -286,11 +286,11 @@ export default async function HomePage() {
           <Reveal delay={0.08}>
             <div className="relative mt-8 overflow-hidden rounded-3xl border border-border shadow-2xl shadow-black/25">
               <TurkeyGlobe className="block w-full" />
-              <div className="absolute right-4 top-4 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
+              <div className="absolute right-4 top-4 hidden rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md sm:block">
                 <p className="text-xl font-bold leading-none text-[var(--gold)]">15+ yrs</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">Türkiye corridor</p>
               </div>
-              <div className="absolute bottom-4 left-4 rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md">
+              <div className="absolute bottom-4 left-4 hidden rounded-2xl border border-border bg-card/85 px-4 py-2.5 shadow-lg backdrop-blur-md sm:block">
                 <p className="text-xl font-bold leading-none text-foreground">OEP 4035</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wide text-muted-foreground">BEOE licensed</p>
               </div>
