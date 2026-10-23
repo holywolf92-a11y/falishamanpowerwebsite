@@ -120,10 +120,12 @@ export function TurkeyGlobe({ className }: { className?: string }) {
     const dur = `${(len / 40).toFixed(2)}s`
     return { name: `${from}-${to}`, d, dur, begin: `${(i * 0.6).toFixed(2)}s` }
   })
+  // Unique Türkiye arrival cities, for a soft "landing" pulse at each.
+  const dests = [...new Set(ROUTES.map(([, to]) => to))]
 
   return (
     <svg
-      viewBox="0 0 520 520"
+      viewBox="167 211 346 242"
       className={className}
       role="img"
       aria-label="Globe centred on Türkiye with neighbouring countries shown dull — Falisha Manpower's speciality recruitment market"
@@ -265,6 +267,27 @@ export function TurkeyGlobe({ className }: { className?: string }) {
             <animate attributeName="stroke-dashoffset" from="14" to="0" dur="2.6s" repeatCount="indefinite" />
           </path>
         ))}
+        {dests.map((name, i) => {
+          const [cx, cy] = TUR_POS[name]
+          return (
+            <circle key={'p' + name} cx={cx} cy={cy} r="2" fill="none" stroke="#ffd86b" strokeWidth="0.8">
+              <animate
+                attributeName="r"
+                values="1.5;6"
+                dur="2.6s"
+                begin={`${(i * 0.4).toFixed(1)}s`}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="stroke-opacity"
+                values="0.7;0"
+                dur="2.6s"
+                begin={`${(i * 0.4).toFixed(1)}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+          )
+        })}
         {flights.map((f) => (
           <g key={'fc' + f.name}>
             <animateMotion dur={f.dur} begin={f.begin} repeatCount="indefinite" rotate="auto" path={f.d} />
