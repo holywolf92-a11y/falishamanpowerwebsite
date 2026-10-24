@@ -157,7 +157,20 @@ export async function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border">
         <div className="container flex flex-col items-start justify-between gap-4 py-5 text-sm text-muted-foreground md:flex-row md:items-center">
-          <p>© {year} Falisha Manpower. All rights reserved.</p>
+          <div className="space-y-1">
+            <p>© {year} Falisha Manpower. All rights reserved.</p>
+            <p className="text-xs text-muted-foreground/80">
+              Powered by{' '}
+              <a
+                href="https://summitautomates.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Summit Systems Pvt Ltd
+              </a>
+            </p>
+          </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="text-muted-foreground transition-colors hover:text-foreground">
               Privacy &amp; Cookies
