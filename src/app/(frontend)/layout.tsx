@@ -7,6 +7,7 @@ import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { CookieConsent } from '@/components/visual/CookieConsent'
+import { WhatsAppButton } from '@/components/visual/WhatsAppButton'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
+          <WhatsAppButton />
           <CookieConsent />
         </Providers>
       </body>
