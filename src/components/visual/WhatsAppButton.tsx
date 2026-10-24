@@ -1,7 +1,7 @@
 import React from 'react'
 
-// Site-wide WhatsApp contact number (+92 330 333 3335).
-const WA_NUMBER = '923303333335'
+// Site-wide WhatsApp contact (same number used in the header, footer and forms).
+const WA_NUMBER = '923005547806'
 const WA_TEXT = encodeURIComponent(
   "Hello Falisha Manpower, I'd like to know more about your overseas recruitment services.",
 )
