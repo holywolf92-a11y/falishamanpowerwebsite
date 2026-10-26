@@ -11,6 +11,7 @@ import { SERVICES } from '@/data/serviceDetail'
 const CANDIDATE_LINKS = [
   { label: 'Latest job openings', href: '/jobs' },
   { label: 'Submit your CV', href: '/upload-cv' },
+  { label: 'About us', href: '/about' },
   { label: 'Company profile', href: '/profile' },
   { label: 'Our team', href: '/our-team' },
   { label: 'Blog & insights', href: '/posts' },

@@ -16,6 +16,7 @@ import { ClientLogos } from '@/components/visual/ClientLogos'
 import { TurkeyGlobe } from '@/components/visual/TurkeyGlobe'
 import { LogoMarquee } from '@/components/visual/LogoMarquee'
 import { CLIENT_LOGOS, industryImage } from '@/utilities/sectionImages'
+import { ReadMore } from '@/components/visual/ReadMore'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
@@ -428,15 +429,38 @@ export default async function HomePage() {
                 About us
               </span>
               <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
-                Award-winning recruitment agency{' '}
+                One of the most trusted recruitment agencies{' '}
                 <span className="text-primary">in Pakistan</span>
               </h2>
-              <p className="mt-5 text-muted-foreground">
-                As industries worldwide shift toward sustainable, long-term growth, companies increasingly
-                rely on overseas partners to secure skilled, dependable workers. Falisha Manpower specialises
-                in sourcing and supplying vetted Pakistani professionals across all major industries — managing
-                recruitment, visas, attestation and mobilisation from start to finish.
-              </p>
+              <ReadMore className="mt-5" collapsedHeight={176}>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    As industries around the world shift toward sustainable, long-term growth, companies
+                    increasingly rely on overseas recruitment partners to secure skilled and dependable workers.
+                    This is where Falisha Manpower stands out as one of the most trusted overseas recruitment
+                    agencies in Pakistan — a Government-licensed Overseas Employment Promoter (OEP Licence No.
+                    4035, BEOE-registered) supplying vetted Pakistani manpower to employers across the Gulf,
+                    Europe, Central Asia and beyond.
+                  </p>
+                  <p>
+                    With 15+ years of experience and a nationwide sourcing network — a head office in Rawalpindi
+                    and branches in Lahore, Karachi, Peshawar and Azad Jammu &amp; Kashmir — we place skilled,
+                    semi-skilled and professional workers across every major industry, from construction, oil
+                    &amp; gas and engineering to healthcare, hospitality and information technology.
+                  </p>
+                  <p>
+                    We manage the complete recruitment journey in-house: sourcing, screening, trade testing,
+                    documentation, medicals, work visa processing, document attestation and on-time mobilisation.
+                    Employers deal with a single, accountable partner from the first requirement to arrival on
+                    site, while Pakistani workers get a safe, lawful route to genuine overseas employment.
+                  </p>
+                  <p>
+                    Whether you need one specialist, a permanent hire or a project-scale workforce of several
+                    hundred, Falisha Manpower delivers compliant, ethical manpower recruitment built on government
+                    licensing, transparency and more than 15 years of overseas employment expertise.
+                  </p>
+                </div>
+              </ReadMore>
               <ul className="mt-6 grid max-w-md gap-2.5 text-sm">
                 {[
                   'Government-compliant, ethical recruitment',
@@ -449,9 +473,14 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
-              <Button asChild className="mt-8 rounded-full px-6">
-                <Link href="/services">Learn more</Link>
-              </Button>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild className="rounded-full px-6">
+                  <Link href="/about">Learn more about us</Link>
+                </Button>
+                <Button asChild variant="outline" className="rounded-full px-6">
+                  <Link href="/services">Our services →</Link>
+                </Button>
+              </div>
             </div>
           </Reveal>
 

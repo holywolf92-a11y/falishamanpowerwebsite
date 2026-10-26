@@ -15,6 +15,7 @@ const ROUTES: {
   changefreq: 'daily' | 'weekly' | 'monthly' | 'yearly'
 }[] = [
   { path: '/', priority: 1.0, changefreq: 'daily' },
+  { path: '/about', priority: 0.8, changefreq: 'monthly' },
   { path: '/countries', priority: 0.9, changefreq: 'weekly' },
   { path: '/industries', priority: 0.9, changefreq: 'weekly' },
   { path: '/services', priority: 0.9, changefreq: 'weekly' },
