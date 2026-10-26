@@ -36,12 +36,19 @@ export function ClientLogos({ logos, className }: { logos: string[]; className?:
             </li>
           ))}
         </ul>
+        <div className="mt-7 flex items-center gap-3">
+          <span className="text-4xl font-bold tracking-tight text-primary">500+</span>
+          <span className="text-sm font-medium leading-snug text-muted-foreground">
+            satisfied clients
+            <br className="hidden sm:block" /> served and counting
+          </span>
+        </div>
         <button
           type="button"
           onClick={() => setShowAll((v) => !v)}
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
         >
-          {showAll ? 'Show less' : `View all ${logos.length} clients`}
+          {showAll ? 'Show less' : 'View all logos'}
           <ArrowRight className={cn('h-4 w-4 transition-transform', showAll ? 'rotate-90' : 'group-hover:translate-x-1')} />
         </button>
       </div>
