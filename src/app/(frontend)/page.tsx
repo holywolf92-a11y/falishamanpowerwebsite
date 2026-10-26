@@ -18,6 +18,11 @@ import { LogoMarquee } from '@/components/visual/LogoMarquee'
 import { CLIENT_LOGOS, industryImage } from '@/utilities/sectionImages'
 import { ReadMore } from '@/components/visual/ReadMore'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
+import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
+import { ScrollProgress } from '@/components/visual/ScrollProgress'
+import { KineticHeading } from '@/components/visual/KineticHeading'
+import { SpotlightCard } from '@/components/visual/SpotlightCard'
+import { Magnetic } from '@/components/visual/Magnetic'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
 import { TestimonialsCarousel } from '@/components/visual/TestimonialsCarousel'
@@ -30,6 +35,8 @@ import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
 
 export const dynamic = 'force-dynamic'
+
+const display = 'font-display'
 
 function salaryLabel(j: Record<string, any>): string | null {
   if (!j.salaryMin && !j.salaryMax) return null
@@ -229,7 +236,9 @@ export default async function HomePage() {
   ]
 
   return (
-    <div>
+    <SmoothScrollProvider>
+      <ScrollProgress />
+      <div>
       {/* Hero */}
       <HeroShowcase
         slides={HERO_SLIDES}
@@ -269,19 +278,23 @@ export default async function HomePage() {
 
         <div className="container relative">
           {/* Heading */}
-          <Reveal>
-            <div className="max-w-2xl">
+          <div className="max-w-2xl">
+            <Reveal>
               <div className="flex items-center gap-3">
                 <Flag name="Türkiye" className="h-8 w-12 rounded shadow-sm ring-1 ring-border" />
                 <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
                   Our speciality market
                 </p>
               </div>
-              <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
-                <span className="text-primary">Türkiye</span> is where we go deepest
-              </h2>
-            </div>
-          </Reveal>
+            </Reveal>
+            <KineticHeading
+              as="h2"
+              igniteWord="Türkiye"
+              igniteClassName="text-primary"
+              lines={['Türkiye is where', 'we go deepest']}
+              className={`${display} mt-4 text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-5xl`}
+            />
+          </div>
 
           {/* Full-width flight-route map */}
           <Reveal delay={0.08}>
@@ -325,16 +338,20 @@ export default async function HomePage() {
                 </ul>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button asChild className="rounded-full px-6">
-                  <Link href="/fill-a-vacancy">Hire from Pakistan for Türkiye</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-full border-border bg-transparent px-6 text-foreground hover:bg-muted hover:text-foreground"
-                >
-                  <Link href="/countries/turkey">Explore Türkiye →</Link>
-                </Button>
+                <Magnetic>
+                  <Button asChild className="rounded-full px-6">
+                    <Link href="/fill-a-vacancy">Hire from Pakistan for Türkiye</Link>
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-full border-border bg-transparent px-6 text-foreground hover:bg-muted hover:text-foreground"
+                  >
+                    <Link href="/countries/turkey">Explore Türkiye →</Link>
+                  </Button>
+                </Magnetic>
               </div>
             </div>
           </Reveal>
@@ -375,7 +392,7 @@ export default async function HomePage() {
           <Reveal>
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">For employers</p>
-              <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+              <h2 className={`${display} mt-3 text-3xl font-semibold leading-tight tracking-tight md:text-4xl`}>
                 Hire skilled manpower <span className="text-primary">from Pakistan</span>
               </h2>
               <p className="mt-4 max-w-md text-muted-foreground">
@@ -384,19 +401,23 @@ export default async function HomePage() {
                 OEP No. 4035.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="rounded-full">
-                  <Link href="/hire-from-pakistan">
-                    Employer services <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full border-border bg-transparent text-foreground hover:bg-muted"
-                >
-                  <Link href="/fill-a-vacancy">Request workforce</Link>
-                </Button>
+                <Magnetic>
+                  <Button asChild size="lg" className="rounded-full">
+                    <Link href="/hire-from-pakistan">
+                      Employer services <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full border-border bg-transparent text-foreground hover:bg-muted"
+                  >
+                    <Link href="/fill-a-vacancy">Request workforce</Link>
+                  </Button>
+                </Magnetic>
               </div>
             </div>
           </Reveal>
@@ -404,16 +425,15 @@ export default async function HomePage() {
           <Reveal delay={0.1}>
             <div className="grid gap-4 sm:grid-cols-2">
               {EMPLOYER_HIGHLIGHTS.map(({ Icon, t, d }) => (
-                <div
-                  key={t}
-                  className="rounded-2xl border border-border bg-card p-5 shadow-sm transition-colors hover:border-primary/40 hover:bg-accent/40"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/15 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-4 font-semibold">{t}</h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{d}</p>
-                </div>
+                <SpotlightCard key={t} className="h-full" spotlight="var(--primary)">
+                  <div className="p-5">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary/15 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="mt-4 font-semibold">{t}</h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground">{d}</p>
+                  </div>
+                </SpotlightCard>
               ))}
             </div>
           </Reveal>
@@ -428,7 +448,7 @@ export default async function HomePage() {
               <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
                 About us
               </span>
-              <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+              <h2 className={`${display} mt-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl`}>
                 One of the most trusted recruitment agencies{' '}
                 <span className="text-primary">in Pakistan</span>
               </h2>
@@ -474,12 +494,16 @@ export default async function HomePage() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild className="rounded-full px-6">
-                  <Link href="/about">Learn more about us</Link>
-                </Button>
-                <Button asChild variant="outline" className="rounded-full px-6">
-                  <Link href="/services">Our services →</Link>
-                </Button>
+                <Magnetic>
+                  <Button asChild className="rounded-full px-6">
+                    <Link href="/about">Learn more about us</Link>
+                  </Button>
+                </Magnetic>
+                <Magnetic>
+                  <Button asChild variant="outline" className="rounded-full px-6">
+                    <Link href="/services">Our services →</Link>
+                  </Button>
+                </Magnetic>
               </div>
             </div>
           </Reveal>
@@ -549,7 +573,7 @@ export default async function HomePage() {
         <div className="container grid gap-8 py-14 sm:grid-cols-3">
           {stats.map((s, i) => (
             <Reveal key={s.l} delay={i * 0.1} className="text-center">
-              <p className="text-5xl font-bold">
+              <p className={`${display} text-5xl font-semibold`}>
                 <CountUp to={s.n} suffix="+" />
               </p>
               <p className="mt-2 text-primary-foreground/80">{s.l}</p>
@@ -564,7 +588,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">What we do</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Complete recruitment solutions</h2>
+              <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>Complete recruitment solutions</h2>
               <p className="mt-3 text-muted-foreground">
                 One BEOE-licensed partner for the entire journey — sourcing and executive search through to
                 visas, attestation and large-scale mobilisation.
@@ -661,7 +685,7 @@ export default async function HomePage() {
           <Reveal>
             <div className="max-w-xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">How it works</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">From requirement to arrival</h2>
+              <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>From requirement to arrival</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -678,7 +702,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Careers</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Latest overseas openings</h2>
+              <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>Latest overseas openings</h2>
             </div>
             <Link href="/jobs" className="text-sm font-medium text-primary hover:underline">View all jobs →</Link>
           </div>
@@ -735,7 +759,7 @@ export default async function HomePage() {
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div className="max-w-2xl">
                 <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Sectors &amp; roles</p>
-                <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
+                <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>
                   Best Manpower Recruitment Agency in Pakistan
                 </h2>
                 <p className="mt-3 text-muted-foreground">
@@ -827,20 +851,26 @@ export default async function HomePage() {
         />
 
         <div className="container relative">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal>
               <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
                 <Globe className="h-4 w-4" /> Where we place
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-                Recruitment across <span className="text-primary">{MARKET_COUNT}+ markets</span>
-              </h2>
+            </Reveal>
+            <KineticHeading
+              as="h2"
+              igniteWord={`${MARKET_COUNT}+ markets`}
+              igniteClassName="text-primary"
+              lines={['Recruitment across', `${MARKET_COUNT}+ markets`]}
+              className={`${display} mt-3 text-3xl font-semibold tracking-tight md:text-4xl`}
+            />
+            <Reveal delay={0.1}>
               <p className="mt-4 text-muted-foreground">
                 We source, screen and deploy skilled Pakistani talent across the Gulf, Europe, Asia and beyond —
                 tailored to each market&apos;s labour rules and sector demand.
               </p>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
           <div className="mt-14 space-y-14 md:space-y-16">
             {DESTINATIONS_BY_REGION.map((region) => {
@@ -860,7 +890,7 @@ export default async function HomePage() {
                         {region.label} · {region.countries.length}{' '}
                         {region.countries.length === 1 ? 'country' : 'countries'}
                       </p>
-                      <h3 className="mt-2 text-2xl font-bold leading-tight tracking-tight md:text-[2rem]">
+                      <h3 className={`${display} mt-2 text-2xl font-semibold leading-tight tracking-tight md:text-[2rem]`}>
                         {REGION_HEADINGS[region.key] ?? `Recruitment Agency in Pakistan for ${region.label}`}
                       </h3>
                       {REGION_INTRO[region.key] && (
@@ -892,13 +922,15 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-14 flex justify-center">
-            <Link
-              href="/countries"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
-            >
-              View all {MARKET_COUNT} destinations
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            <Magnetic>
+              <Link
+                href="/countries"
+                className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-lg shadow-primary/25 transition hover:brightness-110"
+              >
+                View all {MARKET_COUNT} destinations
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>
@@ -908,7 +940,7 @@ export default async function HomePage() {
         <section className="container py-20">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Testimonials</p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Trusted by candidates &amp; employers</h2>
+            <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>Trusted by candidates &amp; employers</h2>
           </Reveal>
           <div className="mt-10">
             <TestimonialsCarousel
@@ -931,7 +963,7 @@ export default async function HomePage() {
         />
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">Frequently asked questions</h2>
+          <h2 className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}>Frequently asked questions</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Answers for candidates seeking overseas jobs and for employers hiring skilled manpower from Pakistan.
           </p>
@@ -952,7 +984,7 @@ export default async function HomePage() {
         <div className="container flex flex-col items-start gap-6 py-16 md:flex-row md:items-center md:justify-between">
           <Reveal>
             <div>
-              <h2 className="text-3xl font-bold tracking-tight">Ready to hire, or ready to work abroad?</h2>
+              <h2 className={`${display} text-3xl font-semibold tracking-tight`}>Ready to hire, or ready to work abroad?</h2>
               <p className="mt-2 max-w-xl text-primary-foreground/80">
                 Whether you’re an employer needing a workforce or a candidate seeking an overseas role,
                 Falisha Manpower makes it simple.
@@ -960,12 +992,17 @@ export default async function HomePage() {
             </div>
           </Reveal>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Hire talent</Link></Button>
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/jobs">Find a job</Link></Button>
+            <Magnetic>
+              <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Hire talent</Link></Button>
+            </Magnetic>
+            <Magnetic>
+              <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/jobs">Find a job</Link></Button>
+            </Magnetic>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </SmoothScrollProvider>
   )
 }
 

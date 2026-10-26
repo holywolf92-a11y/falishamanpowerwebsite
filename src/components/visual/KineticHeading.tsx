@@ -23,6 +23,7 @@ function escapeRe(s: string) {
 type Props = {
   lines: string[]
   igniteWord?: string
+  igniteClassName?: string
   className?: string
   lineClassName?: string
   as?: 'h1' | 'h2' | 'p'
@@ -35,7 +36,15 @@ type Props = {
  * in gold. Falls back to plain text under prefers-reduced-motion (all copy stays
  * in the DOM for SEO either way).
  */
-export function KineticHeading({ lines, igniteWord, className, lineClassName, as = 'h2', delay = 0 }: Props) {
+export function KineticHeading({
+  lines,
+  igniteWord,
+  igniteClassName = 'text-[var(--gold)]',
+  className,
+  lineClassName,
+  as = 'h2',
+  delay = 0,
+}: Props) {
   const reduce = useReducedMotion()
 
   const renderText = (line: string, key: number) => {
@@ -43,7 +52,7 @@ export function KineticHeading({ lines, igniteWord, className, lineClassName, as
     const parts = line.split(new RegExp(`(${escapeRe(igniteWord)})`, 'g'))
     return parts.map((p, j) =>
       p === igniteWord ? (
-        <span key={`${key}-${j}`} className="text-[var(--gold)]">
+        <span key={`${key}-${j}`} className={igniteClassName}>
           {p}
         </span>
       ) : (

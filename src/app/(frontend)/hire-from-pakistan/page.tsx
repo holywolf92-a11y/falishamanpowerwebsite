@@ -2,6 +2,11 @@ import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Reveal from '@/components/visual/Reveal'
+import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
+import { ScrollProgress } from '@/components/visual/ScrollProgress'
+import { KineticHeading } from '@/components/visual/KineticHeading'
+import { SpotlightCard } from '@/components/visual/SpotlightCard'
+import { Magnetic } from '@/components/visual/Magnetic'
 import { FeatureGrid } from '@/components/visual/FeatureGrid'
 import { ProcessTimeline } from '@/components/visual/ProcessTimeline'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
@@ -12,6 +17,8 @@ import { industryImage } from '@/utilities/sectionImages'
 import { ArrowRight } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
+
+const display = 'font-display'
 
 const SERVICES: { k: string; v: string }[] = [
   { k: 'Workforce Requirement Analysis', v: 'Review of job titles, workforce quantities, qualifications, technical skills, experience, employment conditions and deployment schedules.' },
@@ -154,19 +161,29 @@ const FAQS = [
 
 function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
-    <Reveal>
-      <div className="max-w-3xl">
+    <div className="max-w-3xl">
+      <Reveal>
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">{eyebrow}</p>
-        <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
-        {sub && <p className="mt-3 text-muted-foreground">{sub}</p>}
-      </div>
-    </Reveal>
+      </Reveal>
+      <KineticHeading
+        as="h2"
+        lines={[title]}
+        className={`${display} mt-2 text-3xl font-semibold tracking-tight md:text-4xl`}
+      />
+      {sub && (
+        <Reveal delay={0.1}>
+          <p className="mt-3 text-muted-foreground">{sub}</p>
+        </Reveal>
+      )}
+    </div>
   )
 }
 
 export default function HireFromPakistanPage() {
   return (
-    <div>
+    <SmoothScrollProvider>
+      <ScrollProgress />
+      <div>
       {/* Hero */}
       <section className="relative overflow-hidden bg-background py-20 text-foreground md:py-28">
         <div
@@ -179,24 +196,39 @@ export default function HireFromPakistanPage() {
             maskImage: 'radial-gradient(120% 90% at 50% 0%, black, transparent 75%)',
           }}
         />
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[var(--gold)]/15 blur-3xl" />
         <div className="container relative max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">For international employers</p>
-          <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-            Hire skilled manpower <span className="text-primary">from Pakistan</span>
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Falisha Manpower provides employer-focused recruitment services covering the complete international
-            hiring lifecycle — from workforce planning and nationwide sourcing to assessment, documentation and
-            deployment. BEOE-licensed OEP No. 4035.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="rounded-full">
-              <Link href="/fill-a-vacancy">Request workforce <ArrowRight className="ml-1 h-4 w-4" /></Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full">
-              <Link href="/jobs">For candidates</Link>
-            </Button>
-          </div>
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">For international employers</p>
+          </Reveal>
+          <KineticHeading
+            as="h1"
+            igniteWord="from Pakistan"
+            igniteClassName="text-primary"
+            lines={['Hire skilled manpower', 'from Pakistan']}
+            className={`${display} mt-4 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-[3.75rem]`}
+          />
+          <Reveal delay={0.16}>
+            <p className="mt-5 text-lg text-muted-foreground">
+              Falisha Manpower provides employer-focused recruitment services covering the complete international
+              hiring lifecycle — from workforce planning and nationwide sourcing to assessment, documentation and
+              deployment. BEOE-licensed OEP No. 4035.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Magnetic>
+                <Button asChild size="lg" className="rounded-full">
+                  <Link href="/fill-a-vacancy">Request workforce <ArrowRight className="ml-1 h-4 w-4" /></Link>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button asChild size="lg" variant="outline" className="rounded-full">
+                  <Link href="/jobs">For candidates</Link>
+                </Button>
+              </Magnetic>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -285,7 +317,7 @@ export default function HireFromPakistanPage() {
         <SectionHead eyebrow="Compliance" title="Licences, certifications & regulatory compliance" sub="Falisha Manpower operates within Pakistan’s regulated overseas employment and corporate framework." />
         <Reveal delay={0.1}><div className="mt-8"><FeatureGrid columns={2} accent="gold" items={COMPLIANCE.map((r) => ({ title: r.k, desc: r.v }))} /></div></Reveal>
         <Reveal delay={0.15}>
-          <div className="mt-8 rounded-2xl border border-border bg-card p-7 shadow-sm">
+          <SpotlightCard className="mt-8 p-7">
             <h3 className="text-lg font-semibold">Employer recruitment delegations in Pakistan</h3>
             <p className="mt-2 text-muted-foreground">
               International employers may conduct direct interviews, technical assessments and practical
@@ -293,7 +325,7 @@ export default function HireFromPakistanPage() {
               schedules, assessments, documentation and post-selection processing — so you retain direct control
               over evaluation and final selection within a structured recruitment framework.
             </p>
-          </div>
+          </SpotlightCard>
         </Reveal>
       </section>
 
@@ -309,7 +341,7 @@ export default function HireFromPakistanPage() {
       <section className="bg-primary text-primary-foreground">
         <div className="container flex flex-col items-start gap-6 py-16 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Ready to hire skilled manpower from Pakistan?</h2>
+            <h2 className={`${display} text-3xl font-semibold tracking-tight`}>Ready to hire skilled manpower from Pakistan?</h2>
             <p className="mt-2 max-w-xl text-primary-foreground/80">
               Share your job titles, workforce quantities, qualifications, experience criteria, technical
               requirements, employment terms and deployment schedule, and our team will structure a sourcing,
@@ -317,12 +349,17 @@ export default function HireFromPakistanPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Request workforce</Link></Button>
-            <Button asChild size="lg" variant="secondary" className="rounded-full"><a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer">WhatsApp us</a></Button>
+            <Magnetic>
+              <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/fill-a-vacancy">Request workforce</Link></Button>
+            </Magnetic>
+            <Magnetic>
+              <Button asChild size="lg" variant="secondary" className="rounded-full"><a href="https://wa.me/923005547806" target="_blank" rel="noopener noreferrer">WhatsApp us</a></Button>
+            </Magnetic>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </SmoothScrollProvider>
   )
 }
 

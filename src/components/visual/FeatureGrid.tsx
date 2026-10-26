@@ -1,5 +1,6 @@
 import React from 'react'
 import { cn } from '@/utilities/ui'
+import { SpotlightCard } from '@/components/visual/SpotlightCard'
 import {
   Award,
   Briefcase,
@@ -87,6 +88,7 @@ export function FeatureGrid({
     accent === 'gold'
       ? 'bg-[var(--gold)]/12 text-[var(--gold)]'
       : 'bg-primary/10 text-primary'
+  const spotlight = accent === 'gold' ? 'var(--gold)' : 'var(--primary)'
 
   return (
     <div
@@ -95,18 +97,17 @@ export function FeatureGrid({
       {items.map((it) => {
         const Icon = iconFor(it.title + ' ' + it.desc)
         return (
-          <div
-            key={it.title}
-            className="flex gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-          >
-            <span className={cn('grid h-11 w-11 shrink-0 place-items-center rounded-xl', badge)}>
-              <Icon className="h-5 w-5" />
-            </span>
-            <div>
-              <h3 className="font-semibold leading-snug">{it.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{it.desc}</p>
+          <SpotlightCard key={it.title} className="h-full" spotlight={spotlight}>
+            <div className="flex h-full gap-4 p-5">
+              <span className={cn('grid h-11 w-11 shrink-0 place-items-center rounded-xl', badge)}>
+                <Icon className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="font-semibold leading-snug">{it.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{it.desc}</p>
+              </div>
             </div>
-          </div>
+          </SpotlightCard>
         )
       })}
     </div>
