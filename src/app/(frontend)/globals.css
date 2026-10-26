@@ -301,4 +301,5 @@ html[data-theme='light'] {
 @theme inline {
   --color-gold: var(--gold);
   --color-navy: var(--navy);
+  --font-display: var(--font-fraunces), ui-serif, Georgia, 'Times New Roman', serif;
 }
