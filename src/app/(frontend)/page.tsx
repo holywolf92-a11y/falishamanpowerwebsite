@@ -33,6 +33,7 @@ import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { HOME_FAQS, faqSchema } from '@/data/faqs'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
+import { SERVICES } from '@/data/serviceDetail'
 
 export const dynamic = 'force-dynamic'
 
@@ -198,11 +199,35 @@ const EMPLOYER_HIGHLIGHTS = [
   { Icon: Plane, t: 'Visa, BEOE & deployment', d: 'Documentation, medical, visa, Protector formalities and on-time mobilisation.' },
 ]
 
+// Homepage services showcase — code-driven (from serviceDetail.ts), so it always
+// renders a complete, reliable set regardless of CMS `featured` flags. A curated
+// six that spans recruitment and advisory, mirroring the header menu and /services.
+const HOME_SERVICE_SLUGS = [
+  'bulk--mass-recruitment',
+  'executive-search',
+  'global-mobility',
+  'work-visa-processing',
+  'document-attestation',
+  'hr-management',
+] as const
+const HOME_SERVICES = HOME_SERVICE_SLUGS.map((slug) => SERVICES.find((s) => s.slug === slug)).filter(
+  (s): s is (typeof SERVICES)[number] => Boolean(s),
+)
+
+// "Why choose Falisha" benefit checklist — real, licensed-OEP claims.
+const WHY_CHOOSE = [
+  'Deep knowledge of Gulf & Türkiye job markets',
+  'Streamlined, BEOE-compliant recruitment (OEP 4035)',
+  'Premium, accountable client experience',
+  'Vast vetted candidate network, sourced nationwide',
+  '15+ years · 500+ satisfied clients',
+  'End-to-end: sourcing → visa → attestation → mobilisation',
+]
+
 export default async function HomePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [services, jobs, testimonials, countries, industries] = await Promise.all([
-    payload.find({ collection: 'services', where: { featured: { equals: true } } as never, overrideAccess: false, limit: 6, depth: 0 }),
+  const [jobs, testimonials, countries, industries] = await Promise.all([
     payload.find({ collection: 'jobs', where: { vacancyStatus: { equals: 'open' } } as never, overrideAccess: false, limit: 6, depth: 1, sort: '-createdAt' }),
     payload.find({ collection: 'testimonials', where: { featured: { equals: true } } as never, overrideAccess: false, limit: 8, depth: 0 }),
     payload.find({ collection: 'countries', overrideAccess: false, limit: 24, depth: 0, sort: 'name' }),
@@ -521,6 +546,84 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Why choose Falisha */}
+      <section className="container py-20 md:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <Tilt3D max={7} className="relative mx-auto w-full max-w-md lg:max-w-none">
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/20 ring-1 ring-border">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/hero-office.webp"
+                  alt="Falisha Manpower — overseas recruitment team at work"
+                  className="block aspect-[4/3] w-full object-cover"
+                  width={1200}
+                  height={900}
+                  loading="lazy"
+                />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+              </div>
+              <div
+                className="absolute -bottom-5 -left-5 rounded-2xl bg-primary px-5 py-4 text-primary-foreground shadow-xl shadow-primary/25"
+                style={{ transform: 'translateZ(60px)' }}
+              >
+                <p className={`${display} text-2xl font-semibold leading-none`}>15+ yrs</p>
+                <p className="mt-1 text-xs text-primary-foreground/80">500+ clients served.</p>
+              </div>
+            </Tilt3D>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Why Falisha</p>
+              <h2 className={`${display} mt-3 text-3xl font-semibold leading-tight tracking-tight md:text-4xl`}>
+                Why employers choose <span className="text-primary">Falisha Manpower</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Employers across the Gulf, Türkiye and Europe choose Falisha Manpower because we treat every hire
+                as our responsibility — skilled Pakistani workers sourced, vetted and mobilised through one
+                accountable, government-licensed partner.
+              </p>
+              <ReadMore className="mt-4" collapsedHeight={92}>
+                <div className="space-y-4 text-muted-foreground">
+                  <h3 className="font-semibold text-foreground">
+                    Why Falisha is the top choice for Gulf &amp; Türkiye employers hiring from Pakistan
+                  </h3>
+                  <p>
+                    For more than 15 years we have specialised in exactly this: connecting skilled, semi-skilled and
+                    professional Pakistani workers with serious international employers. We know the trades the Gulf
+                    and Türkiye hire for, the documentation each destination demands, and how to move a workforce
+                    from a first requirement to a worker on site — without surprises.
+                  </p>
+                  <p>
+                    As a BEOE-licensed Overseas Employment Promoter (OEP Licence No. 4035, ISO 9001:2015 certified),
+                    we run the entire journey in-house: nationwide sourcing, trade testing, medicals, visa
+                    processing, attestation and Protector of Emigrants clearance, through to on-time mobilisation.
+                    You deal with one team that owns the outcome — with transparent terms and ethical, Employer-Pays
+                    recruitment at every step.
+                  </p>
+                </div>
+              </ReadMore>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY_CHOOSE.map((w, i) => (
+            <Reveal key={w} delay={(i % 3) * 0.06}>
+              <SpotlightCard className="h-full" spotlight="var(--primary)">
+                <div className="flex items-start gap-3 p-5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                    <CheckCircle2 className="h-5 w-5" />
+                  </span>
+                  <p className="pt-1.5 text-sm font-medium leading-snug">{w}</p>
+                </div>
+              </SpotlightCard>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* Credentials orbit */}
       <section className="border-y border-border bg-secondary/40 py-16 md:py-20">
         <div className="container">
@@ -604,10 +707,10 @@ export default async function HomePage() {
           </div>
         </Reveal>
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {(services.docs as Record<string, any>[]).map((s, i) => {
+          {HOME_SERVICES.map((s, i) => {
             const isRecruit = /recruit|search|executive/i.test(String(s.serviceType ?? ''))
             return (
-              <Reveal key={s.id} delay={(i % 3) * 0.08} className="h-full">
+              <Reveal key={s.slug} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   href={`/services/${s.slug}`}
                   className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-[0_22px_48px_-20px_rgba(37,99,235,0.45)]"
@@ -646,10 +749,10 @@ export default async function HomePage() {
             delay={0.1}
             className={cn(
               'h-full',
-              services.docs.length % 2 === 1 ? 'md:col-span-1' : 'md:col-span-2',
-              services.docs.length % 3 === 2
+              HOME_SERVICES.length % 2 === 1 ? 'md:col-span-1' : 'md:col-span-2',
+              HOME_SERVICES.length % 3 === 2
                 ? 'lg:col-span-1'
-                : services.docs.length % 3 === 1
+                : HOME_SERVICES.length % 3 === 1
                   ? 'lg:col-span-2'
                   : 'lg:col-span-3',
             )}
