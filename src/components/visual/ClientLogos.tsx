@@ -21,7 +21,7 @@ export function ClientLogos({ logos, className }: { logos: string[]; className?:
       {/* Left — copy */}
       <div>
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Our clients</p>
-        <h2 className="mt-2 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
+        <h2 className="font-display mt-2 text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
           Trusted by <span className="text-primary">leading employers</span> across the Gulf
         </h2>
         <p className="mt-4 max-w-md text-muted-foreground">
@@ -37,7 +37,7 @@ export function ClientLogos({ logos, className }: { logos: string[]; className?:
           ))}
         </ul>
         <div className="mt-7 flex items-center gap-3">
-          <span className="text-4xl font-bold tracking-tight text-primary">500+</span>
+          <span className="font-display text-4xl font-semibold tracking-tight text-primary">500+</span>
           <span className="text-sm font-medium leading-snug text-muted-foreground">
             satisfied clients
             <br className="hidden sm:block" /> served and counting
