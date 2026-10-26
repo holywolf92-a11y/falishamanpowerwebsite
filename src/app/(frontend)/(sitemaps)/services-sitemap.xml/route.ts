@@ -1,3 +1,16 @@
-import { collectionSitemap } from '../collectionSitemap'
+import { getServerSideSitemap } from 'next-sitemap'
+import { SERVICES } from '@/data/serviceDetail'
 
-export const GET = collectionSitemap('services', '/services')
+// Services are code-driven (src/data/serviceDetail.ts), so emit them directly
+// rather than querying the CMS collection.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SERVER_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined) ||
+  'https://falisha.up.railway.app'
+
+export async function GET() {
+  const now = new Date().toISOString()
+  return getServerSideSitemap(
+    SERVICES.map((s) => ({ loc: `${SITE_URL}/services/${s.slug}`, lastmod: now })),
+  )
+}

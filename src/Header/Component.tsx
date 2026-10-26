@@ -3,6 +3,7 @@ import configPromise from '@payload-config'
 import React from 'react'
 import { MegaHeader, type MenuLink } from '@/components/visual/MegaHeader'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
+import { SERVICES } from '@/data/serviceDetail'
 
 const EMPTY: { docs: Record<string, any>[] } = { docs: [] }
 
@@ -43,24 +44,25 @@ function buildPresence(): MenuLink[] {
 
 export async function Header() {
   let industries: { docs: Record<string, any>[] } = EMPTY
-  let services: { docs: Record<string, any>[] } = EMPTY
   try {
     const payload = await getPayload({ config: configPromise })
-    const [i, s] = (await Promise.all([
-      payload.find({ collection: 'industries', overrideAccess: false, limit: 24, depth: 0, sort: 'title', select: { title: true, slug: true } as never }),
-      payload.find({ collection: 'services', overrideAccess: false, limit: 50, depth: 0, sort: 'title', select: { title: true, slug: true, serviceType: true } as never }),
-    ])) as any[]
-    industries = i
-    services = s
+    industries = (await payload.find({
+      collection: 'industries',
+      overrideAccess: false,
+      limit: 24,
+      depth: 0,
+      sort: 'title',
+      select: { title: true, slug: true } as never,
+    })) as any
   } catch {
-    // DB unavailable (e.g. during build) — render the header with empty industry/service menus.
+    // DB unavailable (e.g. during build) — render the header with an empty industries menu.
   }
 
   const presence = buildPresence()
   const expertise: MenuLink[] = (industries.docs as Record<string, any>[]).map((i) => ({ label: i.title, href: `/industries/${i.slug}` }))
-  const svc = services.docs as Record<string, any>[]
-  const recruitment: MenuLink[] = svc.filter((s) => s.serviceType === 'recruitment').map((s) => ({ label: s.title, href: `/services/${s.slug}` }))
-  const advisory: MenuLink[] = svc.filter((s) => s.serviceType === 'advisory').map((s) => ({ label: s.title, href: `/services/${s.slug}` }))
+  // Services are code-driven (src/data/serviceDetail.ts), not the CMS.
+  const recruitment: MenuLink[] = SERVICES.filter((s) => s.serviceType === 'recruitment').map((s) => ({ label: s.title, href: `/services/${s.slug}` }))
+  const advisory: MenuLink[] = SERVICES.filter((s) => s.serviceType === 'advisory').map((s) => ({ label: s.title, href: `/services/${s.slug}` }))
 
   return <MegaHeader presence={presence} expertise={expertise} recruitment={recruitment} advisory={advisory} />
 }

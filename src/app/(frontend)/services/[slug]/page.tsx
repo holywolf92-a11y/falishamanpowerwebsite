@@ -1,81 +1,37 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import {
-  ArrowRight,
-  CheckCircle2,
-  Clock,
-  Globe2,
-  ListChecks,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-} from 'lucide-react'
-import RichText from '@/components/RichText'
+import { ArrowRight, CheckCircle2, Clock, Globe2, ListChecks, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Reveal from '@/components/visual/Reveal'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { ServiceIcon } from '@/components/visual/ServiceIcon'
-import { SERVICE_DETAIL } from '@/data/serviceDetail'
+import { SERVICES, SERVICE_BY_SLUG } from '@/data/serviceDetail'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
-
-export const dynamic = 'force-dynamic'
 
 const TYPE_LABEL: Record<string, string> = {
   recruitment: 'Recruitment service',
   advisory: 'Advisory service',
 }
 
-async function getData(slug: string) {
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const res = await payload.find({
-      collection: 'services',
-      where: { slug: { equals: slug } } as never,
-      overrideAccess: false,
-      depth: 0,
-      limit: 1,
-    })
-    const service = res.docs[0] as Record<string, any> | undefined
-    if (!service) return { service: undefined, related: [] as Record<string, any>[] }
-    const others = await payload.find({
-      collection: 'services',
-      where: { and: [{ slug: { not_equals: slug } }, { serviceType: { equals: service.serviceType } }] } as never,
-      overrideAccess: false,
-      depth: 0,
-      limit: 6,
-      sort: 'title',
-    })
-    return { service, related: others.docs as Record<string, any>[] }
-  } catch {
-    return { service: undefined, related: [] as Record<string, any>[] }
-  }
-}
-
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const { service, related } = await getData(slug)
+  const service = SERVICE_BY_SLUG[slug]
   if (!service) notFound()
 
-  const title: string = service.title
-  const detail = SERVICE_DETAIL[slug]
+  const title = service.title
   const typeLabel = TYPE_LABEL[service.serviceType] ?? 'Service'
-  const intro = detail?.tagline || service.summary || `${title} from Falisha Manpower — handled end to end.`
+  const related = SERVICES.filter((s) => s.serviceType === service.serviceType && s.slug !== slug).slice(0, 6)
 
-  const faqs = detail?.faqs ?? []
-  const faqSchema = faqs.length
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqs.map((f) => ({
-          '@type': 'Question',
-          name: f.q,
-          acceptedAnswer: { '@type': 'Answer', text: f.a },
-        })),
-      }
-    : null
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: service.faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
 
   const gridBg = {
     backgroundImage:
@@ -87,9 +43,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div>
-      {faqSchema && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      )}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -117,7 +71,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <Reveal>
               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">{typeLabel}</p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">{title}</h1>
-              <p className="mt-5 max-w-xl text-lg text-muted-foreground">{intro}</p>
+              <p className="mt-5 max-w-xl text-lg text-muted-foreground">{service.tagline}</p>
 
               <ul className="mt-7 flex flex-wrap gap-2.5">
                 {[
@@ -144,13 +98,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
             <Reveal delay={0.1}>
               <div className="relative mx-auto w-full max-w-sm">
-                <div className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--primary)] to-[color-mix(in_oklch,var(--primary)_55%,black)] shadow-2xl shadow-black/20 ring-1 ring-border">
-                  <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30" style={gridBg} />
-                  <ServiceIcon name={title} className="relative h-24 w-24 text-white/95" />
-                  <p className="absolute inset-x-5 bottom-4 text-xl font-bold text-white">{title}</p>
-                  <span className="absolute left-4 top-4 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur">
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/20 ring-1 ring-border">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={service.image} alt="" className="block aspect-[4/3] w-full object-cover" />
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                  <div className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white backdrop-blur">
+                    <ServiceIcon name={title} className="h-6 w-6" />
+                  </div>
+                  <span className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur">
                     {typeLabel}
                   </span>
+                  <p className="absolute inset-x-5 bottom-4 text-xl font-bold text-white">{title}</p>
                 </div>
                 <div className="absolute -right-3 top-5 rounded-2xl border border-border bg-card/90 px-4 py-2.5 shadow-lg backdrop-blur-md">
                   <p className="text-lg font-bold leading-none text-[var(--gold)]">OEP 4035</p>
@@ -171,22 +129,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
           <Reveal>
             <h2 className="text-2xl font-bold tracking-tight">What {title} means at Falisha Manpower</h2>
-            {detail ? (
-              <div className="mt-5 space-y-4 text-muted-foreground">
-                {detail.overview.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            ) : service.content ? (
-              <div className="prose dark:prose-invert mt-5 max-w-none">
-                <RichText data={service.content} enableGutter={false} />
-              </div>
-            ) : (
-              <p className="mt-5 text-muted-foreground">
-                Falisha Manpower delivers {title.toLowerCase()} end to end for employers across the Gulf, Europe and Asia —
-                compliant, documented and managed by a BEOE-licensed team (OEP 4035).
-              </p>
-            )}
+            <div className="mt-5 space-y-4 text-muted-foreground">
+              {service.overview.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -210,93 +157,85 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
 
         {/* What's included */}
-        {detail?.included?.length ? (
-          <section className="mt-16 md:mt-20">
-            <Reveal className="max-w-2xl">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
-                <ListChecks className="h-4 w-4" /> What&apos;s included
-              </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">What this service covers</h2>
-            </Reveal>
-            <div className="mt-8 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-              {detail.included.map((item, i) => (
-                <Reveal key={item} delay={(i % 3) * 0.05}>
-                  <div className="flex h-full items-start gap-2.5 rounded-xl border border-border bg-card p-3.5 text-sm shadow-sm">
-                    <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                    <span>{item}</span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </section>
-        ) : null}
+        <section className="mt-16 md:mt-20">
+          <Reveal className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+              <ListChecks className="h-4 w-4" /> What&apos;s included
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">What this service covers</h2>
+          </Reveal>
+          <div className="mt-8 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {service.included.map((item, i) => (
+              <Reveal key={item} delay={(i % 3) * 0.05}>
+                <div className="flex h-full items-start gap-2.5 rounded-xl border border-border bg-card p-3.5 text-sm shadow-sm">
+                  <CheckCircle2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{item}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
         {/* Process */}
-        {detail?.process?.length ? (
-          <section className="mt-16 md:mt-20">
-            <Reveal className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">How it works</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Our process</h2>
-            </Reveal>
-            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {detail.process.map((s, i) => (
-                <Reveal key={s.t} delay={i * 0.08}>
-                  <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)] text-primary-foreground">
-                        <CheckCircle2 className="h-5 w-5" />
-                      </span>
-                      <span className="text-2xl font-bold text-muted-foreground/25">{String(i + 1).padStart(2, '0')}</span>
-                    </div>
-                    <h3 className="mt-4 font-semibold">{s.t}</h3>
-                    <p className="mt-1.5 text-sm text-muted-foreground">{s.d}</p>
+        <section className="mt-16 md:mt-20">
+          <Reveal className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">How it works</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Our process</h2>
+          </Reveal>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {service.process.map((s, i) => (
+              <Reveal key={s.t} delay={i * 0.08}>
+                <div className="h-full rounded-2xl border border-border bg-card p-6 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)] text-primary-foreground">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </span>
+                    <span className="text-2xl font-bold text-muted-foreground/25">{String(i + 1).padStart(2, '0')}</span>
                   </div>
-                </Reveal>
-              ))}
-            </div>
-          </section>
-        ) : null}
+                  <h3 className="mt-4 font-semibold">{s.t}</h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{s.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
         {/* Why Falisha */}
-        {detail?.benefits?.length ? (
-          <section className="mt-16 md:mt-20">
-            <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
-              <Reveal>
-                <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
-                  <Sparkles className="h-4 w-4" /> Why Falisha
-                </p>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Why employers choose us for {title.toLowerCase()}</h2>
-                <p className="mt-4 text-muted-foreground">
-                  A BEOE-licensed team, a nationwide sourcing network and a single, accountable process — so this service is
-                  handled correctly, compliantly and on schedule.
-                </p>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <ul className="space-y-2.5">
-                  {detail.benefits.map((b) => (
-                    <li key={b} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 text-[15px] shadow-sm">
-                      <CheckCircle2 aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-          </section>
-        ) : null}
+        <section className="mt-16 md:mt-20">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+            <Reveal>
+              <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+                <Sparkles className="h-4 w-4" /> Why Falisha
+              </p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">Why employers choose us for {title.toLowerCase()}</h2>
+              <p className="mt-4 text-muted-foreground">
+                A BEOE-licensed team, a nationwide sourcing network and a single, accountable process — so this service is
+                handled correctly, compliantly and on schedule.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ul className="space-y-2.5">
+                {service.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 text-[15px] shadow-sm">
+                    <CheckCircle2 aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
 
         {/* FAQ */}
-        {faqs.length > 0 && (
-          <section className="mt-16 md:mt-20">
-            <Reveal className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">{title} — your questions</h2>
-            </Reveal>
-            <div className="mt-8 max-w-3xl">
-              <FAQAccordion items={faqs.map((f) => ({ q: f.q, a: f.a }))} />
-            </div>
-          </section>
-        )}
+        <section className="mt-16 md:mt-20">
+          <Reveal className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">FAQ</p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">{title} — your questions</h2>
+          </Reveal>
+          <div className="mt-8 max-w-3xl">
+            <FAQAccordion items={service.faqs} />
+          </div>
+        </section>
 
         {/* Related services */}
         {related.length > 0 && (
@@ -307,7 +246,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((r) => (
                 <Link
-                  key={r.id}
+                  key={r.slug}
                   href={`/services/${r.slug}`}
                   className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition hover:shadow-md"
                 >
@@ -316,7 +255,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   </span>
                   <span>
                     <span className="block font-medium group-hover:text-primary">{r.title}</span>
-                    {r.summary && <span className="mt-0.5 block text-sm text-muted-foreground">{r.summary}</span>}
+                    <span className="mt-0.5 block text-sm text-muted-foreground">{r.summary}</span>
                   </span>
                 </Link>
               ))}
@@ -364,17 +303,11 @@ function Fact({ label, value }: { label: string; value: string }) {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const { service } = await getData(slug)
+  const service = SERVICE_BY_SLUG[slug]
   if (!service) return { title: 'Service not found | Falisha Manpower' }
-  const detail = SERVICE_DETAIL[slug]
   return {
     alternates: { canonical: `/services/${slug}` },
-    title: service.meta?.title || detail?.metaTitle || `${service.title} | Falisha Manpower`,
-    description:
-      service.meta?.description ||
-      detail?.metaDescription ||
-      detail?.tagline ||
-      service.summary ||
-      `${service.title} from Falisha Manpower.`,
+    title: service.metaTitle || `${service.title} | Falisha Manpower`,
+    description: service.metaDescription || service.tagline || service.summary,
   }
 }

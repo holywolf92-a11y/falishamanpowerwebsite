@@ -1,5 +1,3 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
 import Link from 'next/link'
 import React from 'react'
 import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
@@ -8,6 +6,7 @@ import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { Logo } from '@/components/Logo/Logo'
 import { Flag } from '@/components/visual/Flag'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
+import { SERVICES } from '@/data/serviceDetail'
 
 const CANDIDATE_LINKS = [
   { label: 'Latest job openings', href: '/jobs' },
@@ -26,29 +25,14 @@ const SOCIALS = [
   { label: 'WhatsApp', href: 'https://wa.me/923005547806', Icon: MessageCircle },
 ]
 
-const EMPTY: { docs: Record<string, any>[] } = { docs: [] }
-
 // Footer destinations — the markets we're known for (Türkiye + the Gulf).
 const FOOTER_DESTINATIONS = ['turkey', 'saudi-arabia', 'united-arab-emirates', 'qatar', 'kuwait', 'oman']
   .filter((slug) => COUNTRY_CONTENT[slug]?.name)
   .map((slug) => ({ slug, name: COUNTRY_CONTENT[slug]!.name as string }))
 
-export async function Footer() {
-  let services: { docs: Record<string, any>[] } = EMPTY
-  try {
-    const payload = await getPayload({ config: configPromise })
-    services = (await payload.find({
-      collection: 'services',
-      overrideAccess: false,
-      limit: 6,
-      depth: 0,
-      sort: 'title',
-      select: { title: true, slug: true } as never,
-    })) as any
-  } catch {
-    // DB unavailable (e.g. during build) — render the footer without the services column.
-  }
-
+export function Footer() {
+  // Services are code-driven (src/data/serviceDetail.ts); show the first six.
+  const services = SERVICES.slice(0, 6)
   const year = new Date().getFullYear()
 
   return (
@@ -101,8 +85,8 @@ export async function Footer() {
         <nav aria-label="Services">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Services</p>
           <ul className="mt-4 space-y-2.5 text-sm">
-            {(services.docs as Record<string, any>[]).map((s) => (
-              <li key={s.id}>
+            {services.map((s) => (
+              <li key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="text-muted-foreground transition-colors hover:text-foreground">
                   {s.title}
                 </Link>
