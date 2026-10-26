@@ -39,6 +39,23 @@ export const dynamic = 'force-dynamic'
 
 const display = 'font-display'
 
+// In-demand roles shown in the "Latest openings" section when no live jobs are
+// posted — keeps the section useful (SEO + candidate capture) instead of blank.
+const POPULAR_ROLES: { t: string; s: string }[] = [
+  { t: 'Welders & Fabricators', s: 'Construction · Oil & Gas' },
+  { t: 'Masons & Steel Fixers', s: 'Construction' },
+  { t: 'Electricians', s: 'MEP · Facilities' },
+  { t: 'Plumbers & HVAC Technicians', s: 'MEP' },
+  { t: 'Heavy & LTV Drivers', s: 'Transport · Logistics' },
+  { t: 'Mechanics & Auto Technicians', s: 'Automotive' },
+  { t: 'CNC & Production Operators', s: 'Manufacturing' },
+  { t: 'Nurses & Healthcare Staff', s: 'Healthcare' },
+  { t: 'Hotel & Kitchen Crew', s: 'Hospitality' },
+  { t: 'Carpenters & Shuttering', s: 'Construction' },
+  { t: 'Civil & Site Engineers', s: 'Engineering' },
+  { t: 'Warehouse & Forklift Operators', s: 'Logistics' },
+]
+
 function salaryLabel(j: Record<string, any>): string | null {
   if (!j.salaryMin && !j.salaryMax) return null
   const per = j.salaryPeriod === 'year' ? '/yr' : '/mo'
@@ -275,6 +292,51 @@ export default async function HomePage() {
       {/* Accreditations & memberships ticker */}
       <CredentialTicker />
 
+      {/* SEO intro — keyword-rich overview directly under the hero */}
+      <section className="border-b border-border bg-background py-14 md:py-16">
+        <div className="container max-w-4xl">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+              Overseas recruitment from Pakistan
+            </p>
+            <h2 className={`${display} mt-2 text-2xl font-semibold leading-snug tracking-tight md:text-[2rem]`}>
+              Pakistan&rsquo;s trusted partner for hiring skilled manpower — and for working abroad
+            </h2>
+            <ReadMore className="mt-4" collapsedHeight={116}>
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Falisha Manpower is a Government-licensed overseas recruitment agency in Pakistan — a BEOE-registered
+                  Overseas Employment Promoter (OEP Licence No. 4035) with more than 15 years&rsquo; experience placing
+                  skilled, semi-skilled and professional Pakistani workers with employers across the Gulf, Türkiye,
+                  Europe, Central Asia and Africa. From our head office in Rawalpindi and branches in Lahore, Karachi,
+                  Peshawar and Azad Jammu &amp; Kashmir, we run a nationwide sourcing network that reaches genuine talent
+                  in every major trade and profession.
+                </p>
+                <p>
+                  For employers, we manage the complete international hiring lifecycle in one place — workforce planning,
+                  nationwide sourcing, screening and trade testing, interviews, medicals, work visa processing, document
+                  attestation, Protector of Emigrants clearance, ticketing and on-time mobilisation. Whether you need a
+                  single specialist, a permanent hire or a project-scale workforce of several hundred, you deal with one
+                  accountable, BEOE-licensed partner from the first requirement to arrival on site.
+                </p>
+                <p>
+                  For candidates, we offer a safe, lawful route to real overseas employment — with transparent terms, no
+                  hidden fees and ethical recruitment built on the Employer Pays Principle. Explore our{' '}
+                  <Link href="/services" className="font-medium text-primary hover:underline">recruitment &amp; advisory services</Link>,
+                  the{' '}
+                  <Link href="/countries" className="font-medium text-primary hover:underline">countries we recruit for</Link>,
+                  and the{' '}
+                  <Link href="/industries" className="font-medium text-primary hover:underline">industries and roles</Link>{' '}
+                  we specialise in — or{' '}
+                  <Link href="/hire-from-pakistan" className="font-medium text-primary hover:underline">hire skilled manpower from Pakistan</Link>{' '}
+                  today.
+                </p>
+              </div>
+            </ReadMore>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Client logos — partner wall */}
       <section className="border-b border-border bg-secondary/40 py-16 md:py-20">
         <div className="container">
@@ -348,11 +410,27 @@ export default async function HomePage() {
           <Reveal delay={0.12}>
             <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="max-w-2xl">
-                <p className="text-muted-foreground">
-                  Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
-                  Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
-                  managing the full journey from sourcing to on-site deployment.
-                </p>
+                <ReadMore collapsedHeight={100}>
+                  <div className="space-y-4 text-muted-foreground">
+                    <p>
+                      Türkiye is one of our strongest corridors. Falisha Manpower supplies skilled and technical
+                      Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies —
+                      managing the full journey from sourcing to on-site deployment.
+                    </p>
+                    <p>
+                      Over more than 15 years on the Pakistan–Türkiye route we have mobilised welders and fabricators,
+                      masons and steel fixers, shuttering carpenters, electricians, plumbers and HVAC technicians, heavy
+                      machinery operators, mechanics and complete project teams for large infrastructure, energy and
+                      manufacturing projects across the country.
+                    </p>
+                    <p>
+                      Every placement is handled end to end and in full compliance — trade testing to your
+                      specification, medicals, work visa processing, document attestation and Protector of Emigrants
+                      clearance — so Turkish employers get dependable, job-ready Pakistani manpower and workers travel on
+                      a safe, lawful route.
+                    </p>
+                  </div>
+                </ReadMore>
                 <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm">
                   {TURKEY_POINTS.map((p) => (
                     <li key={p} className="flex items-center gap-2 text-muted-foreground">
@@ -420,11 +498,25 @@ export default async function HomePage() {
               <h2 className={`${display} mt-3 text-3xl font-semibold leading-tight tracking-tight md:text-4xl`}>
                 Hire skilled manpower <span className="text-primary">from Pakistan</span>
               </h2>
-              <p className="mt-4 max-w-md text-muted-foreground">
-                Falisha Manpower manages the complete international hiring lifecycle — from workforce
-                planning and nationwide sourcing to assessment, documentation and deployment. BEOE-licensed
-                OEP No. 4035.
-              </p>
+              <ReadMore className="mt-4 max-w-md" collapsedHeight={96}>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Falisha Manpower manages the complete international hiring lifecycle — from workforce planning
+                    and nationwide sourcing to assessment, documentation and deployment. BEOE-licensed OEP No. 4035.
+                  </p>
+                  <p>
+                    We recruit across construction, oil &amp; gas, engineering, healthcare, hospitality, IT,
+                    transportation, manufacturing and more — supplying professional, skilled, semi-skilled and general
+                    manpower for the Gulf, Türkiye and Europe. From a single hire to a project workforce of several
+                    hundred, every candidate is vetted and trade-tested to your specification before you interview.
+                  </p>
+                  <p>
+                    One accountable partner handles sourcing, screening, medicals, work visas, document attestation,
+                    Protector of Emigrants clearance, ticketing and mobilisation — ethical, transparent and fully
+                    compliant, with no hidden fees and no passport retention.
+                  </p>
+                </div>
+              </ReadMore>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Magnetic>
                   <Button asChild size="lg" className="rounded-full">
@@ -838,18 +930,37 @@ export default async function HomePage() {
             })}
           </div>
         ) : (
-          <div className="mt-10 rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-10">
-            <h3 className="text-lg font-semibold">New roles are posted regularly</h3>
-            <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Register your interest and we&apos;ll contact you the moment a matching overseas position opens.
-            </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-3">
-              <Button asChild>
-                <Link href="/upload-cv">Register your interest</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/fill-a-vacancy">Hire talent</Link>
-              </Button>
+          <div className="mt-10">
+            <div className="rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-10">
+              <h3 className="text-xl font-semibold">New overseas roles are posted regularly</h3>
+              <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+                Between live postings, these are the roles we recruit for most across the Gulf, Türkiye and Europe.
+                Register your interest and we&apos;ll contact you the moment a matching position opens.
+              </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                <Button asChild>
+                  <Link href="/upload-cv">Register your interest</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/fill-a-vacancy">Hire talent</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {POPULAR_ROLES.map((r, i) => (
+                <Reveal key={r.t} delay={(i % 4) * 0.05}>
+                  <Link
+                    href="/upload-cv"
+                    className="group flex h-full items-center justify-between gap-2 rounded-xl border border-border bg-card px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                  >
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold">{r.t}</span>
+                      <span className="mt-0.5 block text-xs text-muted-foreground">{r.s}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" />
+                  </Link>
+                </Reveal>
+              ))}
             </div>
           </div>
         )}
