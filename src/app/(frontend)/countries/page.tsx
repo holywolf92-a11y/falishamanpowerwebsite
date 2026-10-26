@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Flag } from '@/components/visual/Flag'
 import Reveal from '@/components/visual/Reveal'
+import { ReadMore } from '@/components/visual/ReadMore'
 import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/visual/ScrollProgress'
 import { KineticHeading } from '@/components/visual/KineticHeading'
@@ -198,6 +199,49 @@ export default function CountriesPage() {
             </section>
           ))}
         </div>
+
+        {/* SEO content */}
+        <section className="container mt-16 max-w-4xl md:mt-20">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">
+              Where we recruit
+            </p>
+            <h2 className={`${display} mt-2 text-2xl font-semibold leading-snug tracking-tight md:text-3xl`}>
+              Overseas recruitment destinations for Pakistani manpower
+            </h2>
+            <ReadMore className="mt-4" collapsedHeight={116}>
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Falisha Manpower is a BEOE-licensed Overseas Employment Promoter (OEP Licence No. 4035) deploying
+                  skilled, semi-skilled and professional Pakistani workers to employers around the world. The Gulf is our
+                  core market — we recruit for{' '}
+                  <Link href="/countries/saudi-arabia" className="font-medium text-primary hover:underline">Saudi Arabia</Link>,{' '}
+                  <Link href="/countries/united-arab-emirates" className="font-medium text-primary hover:underline">the UAE</Link>,{' '}
+                  <Link href="/countries/qatar" className="font-medium text-primary hover:underline">Qatar</Link>,{' '}
+                  <Link href="/countries/kuwait" className="font-medium text-primary hover:underline">Kuwait</Link>,{' '}
+                  <Link href="/countries/oman" className="font-medium text-primary hover:underline">Oman</Link> and{' '}
+                  <Link href="/countries/bahrain" className="font-medium text-primary hover:underline">Bahrain</Link> — across
+                  construction, oil &amp; gas, healthcare, hospitality, engineering and more.
+                </p>
+                <p>
+                  Beyond the Gulf, Türkiye is one of our strongest corridors, and we also place workers across Europe,
+                  Central Asia and Africa. For each destination we manage the full journey in-house — sourcing, screening
+                  and trade testing, medicals, work visa processing, document attestation, Protector of Emigrants
+                  clearance, ticketing and on-time mobilisation — so employers deal with one accountable, licensed
+                  partner from first requirement to arrival on site.
+                </p>
+                <p>
+                  Explore the{' '}
+                  <Link href="/industries" className="font-medium text-primary hover:underline">industries and roles</Link>{' '}
+                  we recruit for, see our{' '}
+                  <Link href="/services" className="font-medium text-primary hover:underline">recruitment &amp; advisory services</Link>, or{' '}
+                  <Link href="/hire-from-pakistan" className="font-medium text-primary hover:underline">request a workforce</Link>{' '}
+                  for your country today.
+                </p>
+              </div>
+            </ReadMore>
+          </Reveal>
+        </section>
 
         {/* CTA */}
         <section className="container mt-16 md:mt-20">

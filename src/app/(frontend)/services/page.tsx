@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, ShieldCheck, Clock, Globe2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Reveal from '@/components/visual/Reveal'
+import { ReadMore } from '@/components/visual/ReadMore'
 import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/visual/ScrollProgress'
 import { KineticHeading } from '@/components/visual/KineticHeading'
@@ -112,6 +113,50 @@ export default function ServicesPage() {
             })}
           </div>
         </div>
+
+        {/* SEO content */}
+        <section className="border-t border-border bg-secondary/30">
+          <div className="container max-w-4xl py-16 md:py-20">
+            <Reveal>
+              <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Why Falisha</p>
+              <h2 className={`${display} mt-2 text-2xl font-semibold leading-snug tracking-tight md:text-3xl`}>
+                One licensed partner for overseas recruitment from Pakistan
+              </h2>
+              <ReadMore className="mt-4" collapsedHeight={116}>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Falisha Manpower is a BEOE-licensed Overseas Employment Promoter (OEP Licence No. 4035) providing
+                    complete recruitment and advisory services from Pakistan. Whether you are hiring a single specialist
+                    or a project-scale workforce of several hundred, we cover the entire journey in one place — workforce
+                    planning, nationwide sourcing, screening and trade testing, interviews, medicals, work visa
+                    processing, document attestation, Protector of Emigrants clearance, ticketing and on-time
+                    mobilisation.
+                  </p>
+                  <p>
+                    Our{' '}
+                    <Link href="/services/bulk--mass-recruitment" className="font-medium text-primary hover:underline">bulk &amp; mass recruitment</Link>,{' '}
+                    <Link href="/services/permanent-recruitment" className="font-medium text-primary hover:underline">permanent recruitment</Link> and{' '}
+                    <Link href="/services/executive-search" className="font-medium text-primary hover:underline">executive search</Link>{' '}
+                    services place skilled, semi-skilled and professional Pakistani workers across construction, oil
+                    &amp; gas, engineering, healthcare, hospitality, IT, transport and manufacturing — for employers in
+                    the Gulf, Türkiye and Europe. Around every hire, our advisory team handles{' '}
+                    <Link href="/services/work-visa-processing" className="font-medium text-primary hover:underline">work visa processing</Link>,{' '}
+                    <Link href="/services/document-attestation" className="font-medium text-primary hover:underline">document attestation</Link>,{' '}
+                    <Link href="/services/payroll-outsourcing" className="font-medium text-primary hover:underline">payroll outsourcing</Link> and{' '}
+                    <Link href="/services/hr-management" className="font-medium text-primary hover:underline">HR management</Link>.
+                  </p>
+                  <p>
+                    Every placement is ethical, transparent and fully compliant — built on the Employer Pays Principle,
+                    with no hidden fees and no passport retention. Explore the{' '}
+                    <Link href="/countries" className="font-medium text-primary hover:underline">countries we recruit for</Link> and the{' '}
+                    <Link href="/industries" className="font-medium text-primary hover:underline">industries we serve</Link>, or{' '}
+                    <Link href="/hire-from-pakistan" className="font-medium text-primary hover:underline">request a workforce</Link> today.
+                  </p>
+                </div>
+              </ReadMore>
+            </Reveal>
+          </div>
+        </section>
 
         {/* CTA band */}
         <section className="container pb-20">

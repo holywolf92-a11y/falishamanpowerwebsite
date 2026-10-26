@@ -2,6 +2,7 @@ import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Reveal from '@/components/visual/Reveal'
+import { ReadMore } from '@/components/visual/ReadMore'
 import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/visual/ScrollProgress'
 import { KineticHeading } from '@/components/visual/KineticHeading'
@@ -209,11 +210,26 @@ export default function HireFromPakistanPage() {
             className={`${display} mt-4 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-[3.75rem]`}
           />
           <Reveal delay={0.16}>
-            <p className="mt-5 text-lg text-muted-foreground">
-              Falisha Manpower provides employer-focused recruitment services covering the complete international
-              hiring lifecycle — from workforce planning and nationwide sourcing to assessment, documentation and
-              deployment. BEOE-licensed OEP No. 4035.
-            </p>
+            <ReadMore className="mt-5" collapsedHeight={104}>
+              <div className="space-y-4 text-muted-foreground">
+                <p className="text-lg">
+                  Falisha Manpower provides employer-focused recruitment services covering the complete international
+                  hiring lifecycle — from workforce planning and nationwide sourcing to assessment, documentation and
+                  deployment. BEOE-licensed OEP No. 4035.
+                </p>
+                <p>
+                  We supply professional, skilled, semi-skilled and general manpower from Pakistan to employers across
+                  the Gulf, Türkiye and Europe — construction, oil &amp; gas, engineering, healthcare, hospitality, IT,
+                  transport, manufacturing and more. Every candidate is vetted and trade-tested to your specification
+                  before you interview, whether you need a single specialist or a project workforce of several hundred.
+                </p>
+                <p>
+                  One accountable partner handles sourcing, screening, medicals, work visa processing, document
+                  attestation, Protector of Emigrants clearance, ticketing and on-time mobilisation — ethical,
+                  transparent and fully compliant, with no hidden fees and no passport retention.
+                </p>
+              </div>
+            </ReadMore>
           </Reveal>
           <Reveal delay={0.24}>
             <div className="mt-8 flex flex-wrap gap-3">
