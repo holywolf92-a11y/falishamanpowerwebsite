@@ -303,3 +303,21 @@ html[data-theme='light'] {
   --color-navy: var(--navy);
   --font-display: var(--font-fraunces), ui-serif, Georgia, 'Times New Roman', serif;
 }
+
+/* ===== Lenis smooth-scroll (SmoothScrollProvider) — official recommended CSS ===== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

@@ -25,6 +25,7 @@ import {
 import { Button } from '@/components/ui/button'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { Tilt3D } from '@/components/visual/Tilt3D'
+import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
 import { ScrollProgress } from '@/components/visual/ScrollProgress'
 import { KineticHeading } from '@/components/visual/KineticHeading'
 import { SpotlightCard } from '@/components/visual/SpotlightCard'
@@ -94,7 +95,7 @@ const gridOverlay = {
 
 export default function AboutPage() {
   return (
-    <>
+    <SmoothScrollProvider>
       <ScrollProgress />
       <script
         type="application/ld+json"
@@ -480,7 +481,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </>
+    </SmoothScrollProvider>
   )
 }
 
