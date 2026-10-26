@@ -155,9 +155,18 @@ export function Footer() {
               </a>
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link href="/privacy" className="text-muted-foreground transition-colors hover:text-foreground">
               Privacy &amp; Cookies
+            </Link>
+            <Link href="/quality-policy" className="text-muted-foreground transition-colors hover:text-foreground">
+              Quality Policy
+            </Link>
+            <Link href="/anti-trafficking" className="text-muted-foreground transition-colors hover:text-foreground">
+              Anti-Trafficking
+            </Link>
+            <Link href="/report-a-fraud" className="text-muted-foreground transition-colors hover:text-foreground">
+              Report a Fraud
             </Link>
             <span className="hidden font-medium text-gold sm:inline">OEP Licence No. 4035</span>
             <ThemeSelector />

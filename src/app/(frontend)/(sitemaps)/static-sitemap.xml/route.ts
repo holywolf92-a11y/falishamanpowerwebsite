@@ -26,6 +26,9 @@ const ROUTES: {
   { path: '/faq', priority: 0.7, changefreq: 'monthly' },
   { path: '/contact', priority: 0.7, changefreq: 'monthly' },
   { path: '/our-team', priority: 0.6, changefreq: 'monthly' },
+  { path: '/report-a-fraud', priority: 0.5, changefreq: 'yearly' },
+  { path: '/quality-policy', priority: 0.3, changefreq: 'yearly' },
+  { path: '/anti-trafficking', priority: 0.3, changefreq: 'yearly' },
   { path: '/privacy', priority: 0.3, changefreq: 'yearly' },
 ]
 
