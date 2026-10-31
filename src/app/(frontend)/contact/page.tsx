@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { LiveTalentStats } from '@/components/visual/LiveTalentStats'
 
 export const dynamic = 'force-dynamic'
 
@@ -56,6 +57,10 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+
+      <section className="mt-10 rounded-xl border border-border bg-secondary/40 p-8">
+        <LiveTalentStats />
+      </section>
 
       <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 rounded-xl border border-border bg-secondary/40 p-6 text-sm">
         <a href={`tel:${PHONE.replace(/[\s-]/g, '')}`} className="font-medium text-foreground hover:text-primary">📞 {PHONE}</a>
