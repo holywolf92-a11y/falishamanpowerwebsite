@@ -10,7 +10,7 @@ const getPostsSitemap = unstable_cache(
     const SITE_URL =
       process.env.NEXT_PUBLIC_SERVER_URL ||
       process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://falisha.up.railway.app'
+      'https://falishamanpower.com'
 
     const results = await payload.find({
       collection: 'posts',

@@ -5,7 +5,7 @@ const SITE_URL =
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : undefined) ||
-  'https://falisha.up.railway.app'
+  'https://falishamanpower.com'
 
 // Hand-built (non-CMS) routes. Collection detail pages and posts live in their own
 // sitemaps; /search is intentionally excluded (disallowed in robots.txt).

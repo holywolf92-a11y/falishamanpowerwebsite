@@ -10,7 +10,7 @@ const SITE_URL =
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : undefined) ||
-  'https://falisha.up.railway.app'
+  'https://falishamanpower.com'
 
 export async function GET() {
   const lastmod = new Date().toISOString()

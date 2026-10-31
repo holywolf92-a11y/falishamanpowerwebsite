@@ -11,7 +11,7 @@ const SITE_URL =
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : undefined) ||
-  'https://falisha.up.railway.app'
+  'https://falishamanpower.com'
 
 // Builds a GET handler that emits a sitemap for every published doc in a collection,
 // at `${SITE_URL}${pathPrefix}/${slug}`.

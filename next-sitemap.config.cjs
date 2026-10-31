@@ -5,7 +5,7 @@ const SITE_URL =
     : undefined) ||
   // Canonical production URL. Update to https://falishamanpower.com at domain cutover
   // (or set NEXT_PUBLIC_SERVER_URL in the build env, which overrides this).
-  'https://falisha.up.railway.app'
+  'https://falishamanpower.com'
 
 // Per-collection sitemaps are generated at runtime by the route handlers in
 // src/app/(frontend)/(sitemaps); next-sitemap only emits the index + robots.txt.
