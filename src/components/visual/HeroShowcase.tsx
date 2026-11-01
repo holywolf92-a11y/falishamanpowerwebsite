@@ -128,16 +128,20 @@ export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) 
           <div className="relative pt-4" style={{ transformStyle: 'preserve-3d' }}>
             {/* Per-slide image (crossfades with the slide); globe slide gets animated flights */}
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
-              <AnimatePresence initial={false}>
+              <AnimatePresence>
                 <motion.img
                   key={i}
                   src={s.photo}
                   alt=""
-                  initial={reduce ? false : { rotateY: 95, opacity: 0 }}
-                  animate={{ rotateY: 0, opacity: 1 }}
-                  exit={reduce ? { opacity: 0 } : { rotateY: -95, opacity: 0 }}
-                  transition={{ duration: 0.95, ease: [0.42, 0, 0.25, 1] }}
-                  style={{ transformPerspective: 1500, transformOrigin: 'left center', backfaceVisibility: 'hidden' }}
+                  initial={reduce ? false : { opacity: 0, scale: 1.08, x: '0%', y: '0%' }}
+                  animate={reduce ? { opacity: 1 } : { opacity: 1, scale: 1.18, x: '-2.5%', y: '-1.5%' }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    opacity: { duration: 1.2, ease: 'easeInOut' },
+                    scale: { duration: 8, ease: 'easeOut' },
+                    x: { duration: 8, ease: 'easeOut' },
+                    y: { duration: 8, ease: 'easeOut' },
+                  }}
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="eager"
                 />
