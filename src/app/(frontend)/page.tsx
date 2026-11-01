@@ -34,37 +34,11 @@ import { HOME_FAQS, faqSchema } from '@/data/faqs'
 import { COUNTRY_CONTENT } from '@/data/countryContent'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
 import { SERVICES } from '@/data/serviceDetail'
+import { JOBS, jobSalaryLabel } from '@/data/jobsData'
 
 export const dynamic = 'force-dynamic'
 
 const display = 'font-display'
-
-// In-demand roles shown in the "Latest openings" section when no live jobs are
-// posted — keeps the section useful (SEO + candidate capture) instead of blank.
-const POPULAR_ROLES: { t: string; s: string }[] = [
-  { t: 'Welders & Fabricators', s: 'Construction · Oil & Gas' },
-  { t: 'Masons & Steel Fixers', s: 'Construction' },
-  { t: 'Electricians', s: 'MEP · Facilities' },
-  { t: 'Plumbers & HVAC Technicians', s: 'MEP' },
-  { t: 'Heavy & LTV Drivers', s: 'Transport · Logistics' },
-  { t: 'Mechanics & Auto Technicians', s: 'Automotive' },
-  { t: 'CNC & Production Operators', s: 'Manufacturing' },
-  { t: 'Nurses & Healthcare Staff', s: 'Healthcare' },
-  { t: 'Hotel & Kitchen Crew', s: 'Hospitality' },
-  { t: 'Carpenters & Shuttering', s: 'Construction' },
-  { t: 'Civil & Site Engineers', s: 'Engineering' },
-  { t: 'Warehouse & Forklift Operators', s: 'Logistics' },
-]
-
-function salaryLabel(j: Record<string, any>): string | null {
-  if (!j.salaryMin && !j.salaryMax) return null
-  const per = j.salaryPeriod === 'year' ? '/yr' : '/mo'
-  const range =
-    j.salaryMin && j.salaryMax
-      ? `${j.salaryMin.toLocaleString()}–${j.salaryMax.toLocaleString()}`
-      : `${(j.salaryMin || j.salaryMax).toLocaleString()}`
-  return `${j.salaryCurrency || ''} ${range}${per}`
-}
 
 const HERO_SLIDES = [
   {
@@ -239,8 +213,7 @@ const WHY_CHOOSE = [
 export default async function HomePage() {
   const payload = await getPayload({ config: configPromise })
 
-  const [jobs, testimonials, countries, industries] = await Promise.all([
-    payload.find({ collection: 'jobs', where: { vacancyStatus: { equals: 'open' } } as never, overrideAccess: false, limit: 6, depth: 1, sort: '-createdAt' }),
+  const [testimonials, countries, industries] = await Promise.all([
     payload.find({ collection: 'testimonials', where: { featured: { equals: true } } as never, overrideAccess: false, limit: 8, depth: 0 }),
     payload.find({ collection: 'countries', overrideAccess: false, limit: 24, depth: 0, sort: 'name' }),
     payload.find({ collection: 'industries', overrideAccess: false, limit: 24, depth: 0 }),
@@ -896,68 +869,29 @@ export default async function HomePage() {
             <Link href="/jobs" className="text-sm font-medium text-primary hover:underline">View all jobs →</Link>
           </div>
         </Reveal>
-        {jobs.docs.length > 0 ? (
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {(jobs.docs as Record<string, any>[]).map((job, i) => {
-              const country = typeof job.country === 'object' ? job.country?.name : ''
-              return (
-                <Reveal key={job.id} delay={(i % 3) * 0.08}>
-                  <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
-                          <span className="h-2 w-2 rounded-full bg-green-500" /> Open
-                        </div>
-                        {country && <Flag name={country} className="h-4 w-6" />}
-                      </div>
-                      <CardTitle className="mt-2 text-lg leading-snug">
-                        <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="mt-auto space-y-1 text-sm text-muted-foreground">
-                      <div>📍 {[job.city, country].filter(Boolean).join(', ')}</div>
-                      {salaryLabel(job) && <div className="font-medium text-[var(--gold)]">{salaryLabel(job)}</div>}
-                    </CardContent>
-                  </Card>
-                </Reveal>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="mt-10">
-            <div className="rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-10">
-              <h3 className="text-xl font-semibold">New overseas roles are posted regularly</h3>
-              <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
-                Between live postings, these are the roles we recruit for most across the Gulf, Türkiye and Europe.
-                Register your interest and we&apos;ll contact you the moment a matching position opens.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <Button asChild>
-                  <Link href="/upload-cv">Register your interest</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href="/fill-a-vacancy">Hire talent</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {POPULAR_ROLES.map((r, i) => (
-                <Reveal key={r.t} delay={(i % 4) * 0.05}>
-                  <Link
-                    href="/upload-cv"
-                    className="group flex h-full items-center justify-between gap-2 rounded-xl border border-border bg-card px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-                  >
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-semibold">{r.t}</span>
-                      <span className="mt-0.5 block text-xs text-muted-foreground">{r.s}</span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" />
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {JOBS.slice(0, 6).map((job, i) => (
+            <Reveal key={job.slug} delay={(i % 3) * 0.08}>
+              <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+                      <span className="h-2 w-2 rounded-full bg-green-500" /> Open
+                    </div>
+                    <Flag name={job.country} className="h-4 w-6" />
+                  </div>
+                  <CardTitle className="mt-2 text-lg leading-snug">
+                    <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="mt-auto space-y-1 text-sm text-muted-foreground">
+                  <div>📍 {job.city}, {job.country}</div>
+                  <div className="font-medium text-[var(--gold)]">{jobSalaryLabel(job)}</div>
+                </CardContent>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       {/* Industries & roles — "Best Manpower Recruitment Agency in Pakistan" */}

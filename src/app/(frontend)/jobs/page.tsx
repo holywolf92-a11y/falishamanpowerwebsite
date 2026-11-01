@@ -1,55 +1,19 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { JOBS, JOB_COUNTRIES, jobSalaryLabel } from '@/data/jobsData'
 
 export const dynamic = 'force-dynamic'
 
 type Search = { country?: string; type?: string }
 
-function formatSalary(job: {
-  salaryMin?: number | null
-  salaryMax?: number | null
-  salaryCurrency?: string | null
-  salaryPeriod?: string | null
-}): string | null {
-  const { salaryMin, salaryMax, salaryCurrency, salaryPeriod } = job
-  if (!salaryMin && !salaryMax) return null
-  const cur = salaryCurrency || ''
-  const per = salaryPeriod === 'year' ? '/yr' : '/mo'
-  const range =
-    salaryMin && salaryMax ? `${salaryMin.toLocaleString()}–${salaryMax.toLocaleString()}` : `${(salaryMin || salaryMax)!.toLocaleString()}`
-  return `${cur} ${range}${per}`
-}
-
 export default async function JobsPage({ searchParams }: { searchParams: Promise<Search> }) {
   const { country, type } = await searchParams
-  const payload = await getPayload({ config: configPromise })
 
-  const and: Record<string, unknown>[] = [{ vacancyStatus: { equals: 'open' } }]
-  if (country) and.push({ 'country.slug': { equals: country } })
-  if (type) and.push({ employmentType: { equals: type } })
-
-  const [jobs, countries] = await Promise.all([
-    payload.find({
-      collection: 'jobs',
-      depth: 1,
-      limit: 60,
-      overrideAccess: false,
-      sort: '-createdAt',
-      where: { and } as never,
-    }),
-    payload.find({
-      collection: 'countries',
-      depth: 0,
-      limit: 100,
-      overrideAccess: false,
-      sort: 'name',
-      select: { name: true, slug: true } as never,
-    }),
-  ])
+  const jobs = JOBS.filter(
+    (j) => (!country || j.countrySlug === country) && (!type || j.employmentType === type),
+  )
 
   return (
     <div className="container py-16 md:py-24">
@@ -57,8 +21,8 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
         <p className="text-sm font-medium uppercase tracking-wider text-primary">Careers</p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight">Latest overseas openings</h1>
         <p className="mt-3 text-muted-foreground">
-          Live vacancies with Falisha Manpower. Every listing here is open and accepting
-          applications — closed roles are removed automatically.
+          Live vacancies with Falisha Manpower across the Gulf, Türkiye and beyond. Every role is handled
+          end to end — trade testing, visa, attestation and mobilisation included.
         </p>
       </header>
 
@@ -73,8 +37,8 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
             className="h-10 rounded-md border border-input bg-background px-3 text-sm"
           >
             <option value="">All countries</option>
-            {countries.docs.map((c: { id: number | string; name?: string; slug?: string }) => (
-              <option key={c.id} value={c.slug || ''}>{c.name}</option>
+            {JOB_COUNTRIES.map((c) => (
+              <option key={c.slug} value={c.slug}>{c.name}</option>
             ))}
           </select>
         </div>
@@ -101,61 +65,45 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
       </form>
 
       <p className="mt-8 text-sm text-muted-foreground">
-        {jobs.totalDocs} open {jobs.totalDocs === 1 ? 'vacancy' : 'vacancies'}
+        {jobs.length} open {jobs.length === 1 ? 'vacancy' : 'vacancies'}
       </p>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {jobs.docs.map((job: Record<string, any>) => {
-          const salary = formatSalary(job)
-          const countryName = typeof job.country === 'object' ? job.country?.name : null
-          return (
-            <Card key={job.id} className="flex flex-col transition-shadow hover:shadow-md">
-              <CardHeader>
-                <div className="flex items-center gap-2 text-xs font-medium text-primary">
-                  <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-                  Open
-                </div>
-                <CardTitle className="mt-1 text-lg leading-snug">
-                  <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="mt-auto grid gap-2 text-sm text-muted-foreground">
-                <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {countryName && <span>📍 {[job.city, countryName].filter(Boolean).join(', ')}</span>}
-                </div>
-                <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {job.employmentType && <span className="capitalize">{job.employmentType.replace('-', ' ')}</span>}
-                  {job.positions ? <span>· {job.positions} positions</span> : null}
-                </div>
-                {salary && <div className="font-medium text-foreground">{salary}</div>}
-                <Button asChild variant="outline" size="sm" className="mt-2 w-fit">
-                  <Link href={`/jobs/${job.slug}`}>View &amp; apply</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          )
-        })}
+        {jobs.map((job) => (
+          <Card key={job.slug} className="flex flex-col transition-shadow hover:shadow-md">
+            <CardHeader>
+              <div className="flex items-center gap-2 text-xs font-medium text-primary">
+                <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
+                Open
+              </div>
+              <CardTitle className="mt-1 text-lg leading-snug">
+                <Link href={`/jobs/${job.slug}`} className="hover:underline">{job.title}</Link>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="mt-auto grid gap-2 text-sm text-muted-foreground">
+              <div>📍 {job.city}, {job.country}</div>
+              <div className="flex flex-wrap gap-x-3 gap-y-1">
+                <span className="capitalize">{job.employmentType.replace('-', ' ')}</span>
+                <span>· {job.positions} positions</span>
+              </div>
+              <div className="font-medium text-foreground">{jobSalaryLabel(job)}</div>
+              <Button asChild variant="outline" size="sm" className="mt-2 w-fit">
+                <Link href={`/jobs/${job.slug}`}>View &amp; apply</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      {jobs.totalDocs === 0 && (
+      {jobs.length === 0 && (
         <div className="mt-10 rounded-2xl border border-border bg-secondary/40 p-8 text-center md:p-12">
-          <h2 className="text-xl font-semibold">
-            {country || type ? 'No vacancies match your filters' : 'No open vacancies right now'}
-          </h2>
+          <h2 className="text-xl font-semibold">No vacancies match your filters</h2>
           <p className="mx-auto mt-2 max-w-md text-muted-foreground">
-            {country || type
-              ? 'Try resetting the filters, or register your interest and we’ll match you to roles as they open.'
-              : 'New overseas roles are added regularly. Register your interest and we’ll contact you the moment a matching position opens.'}
+            Try resetting the filters, or register your interest and we’ll match you to roles as they open.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
-            {(country || type) && (
-              <Button asChild variant="outline">
-                <Link href="/jobs">Reset filters</Link>
-              </Button>
-            )}
-            <Button asChild>
-              <Link href="/upload-cv">Register your interest</Link>
-            </Button>
+            <Button asChild variant="outline"><Link href="/jobs">Reset filters</Link></Button>
+            <Button asChild><Link href="/upload-cv">Register your interest</Link></Button>
           </div>
         </div>
       )}
@@ -168,6 +116,6 @@ export function generateMetadata(): Metadata {
     alternates: { canonical: '/jobs' },
     title: 'Latest Overseas Job Openings | Falisha Manpower',
     description:
-      'Browse current overseas job vacancies in Saudi Arabia, UAE, Qatar and more with Falisha Manpower.',
+      'Browse current overseas job vacancies in Saudi Arabia, the UAE, Qatar and Türkiye with Falisha Manpower — welders, electricians, drivers, nurses, hospitality and more.',
   }
 }
