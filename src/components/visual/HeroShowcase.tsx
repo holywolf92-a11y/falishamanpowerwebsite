@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Globe, Award, ShieldCheck } from 'lucide-react'
 import { Tilt3D } from './Tilt3D'
+import { HeroFlightFx } from './HeroFlightFx'
 
 export type HeroSlide = {
   eyebrow: string
@@ -123,7 +124,7 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
 
         {/* Right: 3D photo composition + floating cards */}
         <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
-          <div className="relative pt-16" style={{ transformStyle: 'preserve-3d' }}>
+          <div className="relative pt-4" style={{ transformStyle: 'preserve-3d' }}>
             {/* CEO holding the glowing globe — manpower exported from Pakistan worldwide */}
             <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -135,10 +136,12 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
                 height={1375}
                 loading="eager"
               />
+              {/* animated flights crossing the globe */}
+              <HeroFlightFx className="pointer-events-none absolute inset-0 h-full w-full" />
             </div>
 
           {/* Card: markets served */}
-          <div className="absolute -left-4 top-0 md:-left-10" style={{ transform: 'translateZ(30px)' }}>
+          <div className="absolute -left-5 -top-5 md:-left-12" style={{ transform: 'translateZ(30px)' }}>
           <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
             <div className="flex items-center justify-between">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary">
