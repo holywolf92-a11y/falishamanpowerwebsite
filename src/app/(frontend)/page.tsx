@@ -281,6 +281,7 @@ export default async function HomePage() {
       {/* Hero */}
       <HeroShowcase
         slides={HERO_SLIDES}
+        photo="/hero-ceo-globe.webp"
         primary={{ href: '/jobs', label: 'Job Opening' }}
         secondary={{ href: '/contact', label: 'Recruit Manpower' }}
       />

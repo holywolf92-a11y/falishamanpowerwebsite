@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Globe, Award, ShieldCheck } from 'lucide-react'
 import { Tilt3D } from './Tilt3D'
-import { GlobeHero } from './GlobeHero'
 
 export type HeroSlide = {
   eyebrow: string
@@ -17,6 +16,7 @@ export type HeroSlide = {
 
 export type HeroShowcaseProps = {
   slides: HeroSlide[]
+  photo: string
   primary: { href: string; label: string }
   secondary: { href: string; label: string }
 }
@@ -48,7 +48,7 @@ function FloatCard({
   )
 }
 
-export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) {
+export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcaseProps) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
 
@@ -124,12 +124,17 @@ export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) 
         {/* Right: 3D photo composition + floating cards */}
         <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
           <div className="relative pt-16" style={{ transformStyle: 'preserve-3d' }}>
-            {/* animated world globe — manpower flowing from Pakistan to its markets */}
-            <div
-              className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full shadow-2xl md:max-w-none"
-              style={{ background: 'radial-gradient(circle at 50% 42%, #16265a 0%, #0c1636 55%, #0a1430 100%)' }}
-            >
-              <GlobeHero className="absolute inset-0" />
+            {/* CEO holding the glowing globe — manpower exported from Pakistan worldwide */}
+            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo}
+                alt="Raja Abid Ayoub, Founder & CEO of Falisha Manpower, holding a globe showing manpower exported from Pakistan to the world"
+                className="block aspect-[4/5] w-full object-cover"
+                width={1100}
+                height={1375}
+                loading="eager"
+              />
             </div>
 
           {/* Card: markets served */}
