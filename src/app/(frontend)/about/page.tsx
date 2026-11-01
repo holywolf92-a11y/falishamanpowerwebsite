@@ -23,6 +23,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DESTINATION_COUNT } from '@/data/siteStats'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { Tilt3D } from '@/components/visual/Tilt3D'
 import { SmoothScrollProvider } from '@/components/visual/SmoothScrollProvider'
@@ -40,8 +41,8 @@ const display = 'font-display'
 
 const STATS: { num?: number; suffix?: string; unit?: string; text?: string; sub: string }[] = [
   { num: 15, suffix: '+', unit: 'Years', sub: 'Recruitment experience' },
-  { num: 50, suffix: '+', unit: 'Countries', sub: 'Global reach' },
-  { num: 28, unit: 'Markets', sub: 'Core destinations' },
+  { num: DESTINATION_COUNT, suffix: '+', unit: 'Countries', sub: 'Across the Gulf, Europe & Asia' },
+  { text: 'OEP 4035', unit: 'BEOE', sub: 'Government-licensed' },
   { text: 'End-to-End', sub: 'Sourcing to deployment' },
 ]
 
@@ -369,8 +370,9 @@ export default function AboutPage() {
               </p>
               <h2 className={`${display} mt-3 text-3xl font-semibold tracking-tight md:text-5xl`}>Pakistan, to the world.</h2>
               <p className="mt-4 text-white/70">
-                From our head office in Rawalpindi, we deploy Pakistani talent across 28 core markets in four regions —
-                combining a worldwide employer network with on-the-ground sourcing at home. Scroll to trace the routes.
+                From our head office in Rawalpindi, we deploy Pakistani talent across {DESTINATION_COUNT}+ destination
+                markets spanning the Gulf, Europe, Central Asia and East Asia — combining a worldwide employer network
+                with on-the-ground sourcing at home. Scroll to trace the routes.
               </p>
             </div>
           </Reveal>

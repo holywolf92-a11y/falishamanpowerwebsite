@@ -33,7 +33,7 @@ export type ServiceEntry = {
 export const SERVICES: ServiceEntry[] = [
   // ───────────────────────── Recruitment ─────────────────────────
   {
-    slug: 'bulk--mass-recruitment',
+    slug: 'bulk-mass-recruitment',
     title: 'Bulk & Mass Recruitment',
     serviceType: 'recruitment',
     summary: 'Source, screen and mobilise large workforces quickly and compliantly.',

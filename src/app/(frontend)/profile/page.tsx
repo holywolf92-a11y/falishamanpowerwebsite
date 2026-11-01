@@ -24,6 +24,7 @@ import {
   Users,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DESTINATION_COUNT } from '@/data/siteStats'
 import Reveal, { CountUp } from '@/components/visual/Reveal'
 import { WorldPresence } from '@/components/visual/WorldPresence'
 import { LogoMarquee } from '@/components/visual/LogoMarquee'
@@ -330,8 +331,9 @@ export default function ProfilePage() {
               </p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">Global reach. Local expertise.</h2>
               <p className="mt-4 text-white/70">
-                From our head office in Rawalpindi, we deploy Pakistani talent across 28 core markets in
-                four regions — combining a worldwide employer network with on-the-ground sourcing at home.
+                From our head office in Rawalpindi, we deploy Pakistani talent across {DESTINATION_COUNT}+ destination
+                markets spanning the Gulf, Europe, Central Asia and East Asia — combining a worldwide employer network
+                with on-the-ground sourcing at home.
               </p>
             </div>
           </Reveal>

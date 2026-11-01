@@ -134,7 +134,7 @@ export default function ServicesPage() {
                   </p>
                   <p>
                     Our{' '}
-                    <Link href="/services/bulk--mass-recruitment" className="font-medium text-primary hover:underline">bulk &amp; mass recruitment</Link>,{' '}
+                    <Link href="/services/bulk-mass-recruitment" className="font-medium text-primary hover:underline">bulk &amp; mass recruitment</Link>,{' '}
                     <Link href="/services/permanent-recruitment" className="font-medium text-primary hover:underline">permanent recruitment</Link> and{' '}
                     <Link href="/services/executive-search" className="font-medium text-primary hover:underline">executive search</Link>{' '}
                     services place skilled, semi-skilled and professional Pakistani workers across construction, oil

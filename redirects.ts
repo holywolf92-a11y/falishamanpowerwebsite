@@ -46,5 +46,16 @@ export const redirects: NextConfig['redirects'] = async () => {
     { source: '/countries/scotland', destination: '/countries/united-kingdom', statusCode: 301 as const },
   ]
 
-  return [internetExplorerRedirect, ...countryConsolidation, ...legacy]
+  // Clean up the one slug with a double hyphen (SEO audit, 27 Oct 2026). The
+  // service now lives at the single-hyphen URL; 301 the old one so any inbound
+  // links and prior indexing carry over.
+  const slugCleanup = [
+    {
+      source: '/services/bulk--mass-recruitment',
+      destination: '/services/bulk-mass-recruitment',
+      statusCode: 301 as const,
+    },
+  ]
+
+  return [internetExplorerRedirect, ...countryConsolidation, ...slugCleanup, ...legacy]
 }

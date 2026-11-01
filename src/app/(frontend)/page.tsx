@@ -189,7 +189,7 @@ const EMPLOYER_HIGHLIGHTS = [
 // renders a complete, reliable set regardless of CMS `featured` flags. A curated
 // six that spans recruitment and advisory, mirroring the header menu and /services.
 const HOME_SERVICE_SLUGS = [
-  'bulk--mass-recruitment',
+  'bulk-mass-recruitment',
   'executive-search',
   'global-mobility',
   'work-visa-processing',
@@ -252,6 +252,7 @@ export default async function HomePage() {
       {/* Hero */}
       <HeroShowcase
         slides={HERO_SLIDES}
+        marketCount={MARKET_COUNT}
         primary={{ href: '/jobs', label: 'Job Opening' }}
         secondary={{ href: '/contact', label: 'Recruit Manpower' }}
       />
@@ -1151,8 +1152,8 @@ export default async function HomePage() {
 export function generateMetadata(): Metadata {
   return {
     alternates: { canonical: '/' },
-    title: 'Falisha Manpower | Overseas Recruitment Agency in Pakistan',
+    title: 'Overseas Recruitment Agency in Pakistan | Falisha Manpower',
     description:
-      'Falisha Manpower places skilled Pakistani professionals with employers across the Gulf and beyond, with full visa, attestation and mobilisation support.',
+      'Hire skilled Pakistani manpower for Saudi Arabia, the UAE, Qatar, Türkiye and Europe. BEOE-licensed recruitment, trade testing, visas and deployment — handled end to end.',
   }
 }

@@ -19,6 +19,9 @@ export type HeroSlide = {
 
 export type HeroShowcaseProps = {
   slides: HeroSlide[]
+  /** Number of destination markets served — single-sourced from siteStats so the
+   *  hero figure never disagrees with the Countries/About pages. */
+  marketCount: number
   primary: { href: string; label: string }
   secondary: { href: string; label: string }
 }
@@ -50,7 +53,7 @@ function FloatCard({
   )
 }
 
-export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) {
+export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroShowcaseProps) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
 
@@ -161,7 +164,7 @@ export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) 
               <span className="rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-[10px] font-semibold text-white">Gulf · EU · Asia</span>
             </div>
             <p className="mt-2 text-xs font-medium text-white/75">Markets served</p>
-            <p className="text-2xl font-bold">48+</p>
+            <p className="text-2xl font-bold">{marketCount}+</p>
           </FloatCard>
           </div>
 
