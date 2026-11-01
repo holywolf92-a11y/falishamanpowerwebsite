@@ -1,7 +1,7 @@
 import type { Metadata } from 'next/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { LiveTalentStats } from '@/components/visual/LiveTalentStats'
+import { EmployerActionPanel } from '@/components/EmployerActionPanel'
 
 export const dynamic = 'force-dynamic'
 
@@ -58,8 +58,15 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <section className="mt-10 rounded-xl border border-border bg-secondary/40 p-8">
-        <LiveTalentStats />
+      <section className="mt-12">
+        <div className="mb-6 max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[var(--gold)]">Our live talent pool</p>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Browse pre-screened candidates by trade and destination, or request exactly what you need — we handle
+            sourcing, screening, visas and mobilisation end to end.
+          </p>
+        </div>
+        <EmployerActionPanel />
       </section>
 
       <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 rounded-xl border border-border bg-secondary/40 p-6 text-sm">
