@@ -13,11 +13,12 @@ export type HeroSlide = {
   titleAccent: string
   titleRest?: string
   subtitle: string
+  photo: string
+  globe?: boolean
 }
 
 export type HeroShowcaseProps = {
   slides: HeroSlide[]
-  photo: string
   primary: { href: string; label: string }
   secondary: { href: string; label: string }
 }
@@ -49,7 +50,7 @@ function FloatCard({
   )
 }
 
-export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcaseProps) {
+export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
 
@@ -125,19 +126,24 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
         {/* Right: 3D photo composition + floating cards */}
         <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
           <div className="relative pt-4" style={{ transformStyle: 'preserve-3d' }}>
-            {/* CEO holding the glowing globe — manpower exported from Pakistan worldwide */}
-            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photo}
-                alt="Raja Abid Ayoub, Founder & CEO of Falisha Manpower, holding a globe showing manpower exported from Pakistan to the world"
-                className="block aspect-[4/5] w-full object-cover"
-                width={1100}
-                height={1375}
-                loading="eager"
-              />
-              {/* animated flights crossing the globe */}
-              <HeroFlightFx className="pointer-events-none absolute inset-0 h-full w-full" />
+            {/* Per-slide image (crossfades with the slide); globe slide gets animated flights */}
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={i}
+                  src={s.photo}
+                  alt=""
+                  initial={reduce ? false : { opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={reduce ? undefined : { opacity: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="eager"
+                />
+              </AnimatePresence>
+              {/* legibility scrim for the corner labels */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/40" />
+              {s.globe && <HeroFlightFx className="pointer-events-none absolute inset-0 h-full w-full" />}
             </div>
 
           {/* Stat labels — card-less, white, floating over the image corners */}

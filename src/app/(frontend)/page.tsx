@@ -74,6 +74,8 @@ const HERO_SLIDES = [
     titleRest: ' Agency in Pakistan.',
     subtitle:
       '15+ years of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
+    photo: '/hero-ceo-globe.webp',
+    globe: true,
   },
   {
     eyebrow: 'No.1 recruitment agency in Pakistan',
@@ -82,6 +84,7 @@ const HERO_SLIDES = [
     titleRest: ' for the Gulf.',
     subtitle:
       'We connect skilled Pakistani professionals with leading employers across Saudi Arabia, the UAE and beyond — visa, attestation and mobilisation included.',
+    photo: '/hero-slide-gulf.webp',
   },
   {
     eyebrow: 'For employers',
@@ -90,6 +93,7 @@ const HERO_SLIDES = [
     titleRest: ' end-to-end.',
     subtitle:
       'From bulk hiring to executive search — we handle sourcing, screening, visas, attestation and payroll so you can focus on operations.',
+    photo: '/hero-slide-employers.webp',
   },
   {
     eyebrow: 'Our speciality market',
@@ -98,13 +102,7 @@ const HERO_SLIDES = [
     titleRest: ' top employers.',
     subtitle:
       'One of our strongest corridors — we supply skilled and technical Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies.',
-  },
-  {
-    eyebrow: 'Ethical recruitment',
-    titleLead: 'Transparent, ',
-    titleAccent: 'zero-fee',
-    titleRest: ' hiring you can trust.',
-    subtitle: 'A compliant, honest process for candidates and employers across every market we serve.',
+    photo: '/hero-slide-turkiye.webp',
   },
 ]
 
@@ -281,7 +279,6 @@ export default async function HomePage() {
       {/* Hero */}
       <HeroShowcase
         slides={HERO_SLIDES}
-        photo="/hero-ceo-globe.webp"
         primary={{ href: '/jobs', label: 'Job Opening' }}
         secondary={{ href: '/contact', label: 'Recruit Manpower' }}
       />
