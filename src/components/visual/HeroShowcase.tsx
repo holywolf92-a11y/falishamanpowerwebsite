@@ -140,43 +140,40 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               <HeroFlightFx className="pointer-events-none absolute inset-0 h-full w-full" />
             </div>
 
-          {/* Card: markets served */}
-          <div className="absolute -left-5 -top-5 md:-left-12" style={{ transform: 'translateZ(30px)' }}>
-          <FloatCard reduce={reduce} delay={0.1} className="w-52 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <div className="flex items-center justify-between">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary">
+          {/* Stat labels — card-less, white, floating over the image corners */}
+          <div className="absolute left-4 top-4 md:left-5 md:top-5" style={{ transform: 'translateZ(40px)' }}>
+          <FloatCard reduce={reduce} delay={0.1} className="w-44 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+            <div className="flex items-center gap-2">
+              <span className="grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
                 <Globe className="h-5 w-5" />
               </span>
-              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">Gulf · EU · Asia</span>
+              <span className="rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-[10px] font-semibold text-white">Gulf · EU · Asia</span>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">Markets served</p>
+            <p className="mt-2 text-xs font-medium text-white/75">Markets served</p>
             <p className="text-2xl font-bold">48+</p>
           </FloatCard>
           </div>
 
-          {/* Card: experience */}
-          <div className="absolute -right-3 top-10 md:-right-8" style={{ transform: 'translateZ(30px)' }}>
-          <FloatCard reduce={reduce} delay={0.35} className="w-44 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary">
+          {/* Experience */}
+          <div className="absolute right-4 top-4 text-right md:right-5 md:top-5" style={{ transform: 'translateZ(40px)' }}>
+          <FloatCard reduce={reduce} delay={0.35} className="w-36 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+            <span className="ml-auto grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
               <Award className="h-5 w-5" />
             </span>
-            <p className="mt-3 text-xs text-muted-foreground">Experience</p>
+            <p className="mt-2 text-xs font-medium text-white/75">Experience</p>
             <p className="text-2xl font-bold">15+ Years</p>
-            <p className="text-[11px] text-muted-foreground">of ethical recruitment</p>
           </FloatCard>
           </div>
 
-          {/* Card: government licence */}
-          <div className="absolute bottom-8 -right-2 md:-right-6" style={{ transform: 'translateZ(90px)' }}>
-          <FloatCard reduce={reduce} delay={0.6} className="w-60 rounded-2xl bg-white p-4 text-[var(--navy)] shadow-2xl ring-1 ring-black/[0.06]">
-            <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
-                <ShieldCheck className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-xs text-muted-foreground">Govt. Licensed</p>
-                <p className="text-base font-bold leading-tight">BEOE · OEP 4035</p>
-              </div>
+          {/* Government licence */}
+          <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5" style={{ transform: 'translateZ(60px)' }}>
+          <FloatCard reduce={reduce} delay={0.6} className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
+              <ShieldCheck className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-[11px] font-medium text-white/75">Govt. Licensed</p>
+              <p className="text-sm font-bold leading-tight">BEOE · OEP 4035</p>
             </div>
           </FloatCard>
           </div>
