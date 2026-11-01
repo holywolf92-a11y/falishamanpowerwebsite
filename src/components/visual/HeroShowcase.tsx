@@ -133,11 +133,11 @@ export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) 
                   key={i}
                   src={s.photo}
                   alt=""
-                  initial={reduce ? false : { opacity: 0, rotateY: 55, scale: 1.14, filter: 'blur(12px)' }}
-                  animate={{ opacity: 1, rotateY: 0, scale: 1, filter: 'blur(0px)' }}
-                  exit={reduce ? { opacity: 0 } : { opacity: 0, rotateY: -45, scale: 1.08, filter: 'blur(12px)' }}
-                  transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ transformPerspective: 1100, transformOrigin: 'center', backfaceVisibility: 'hidden' }}
+                  initial={reduce ? false : { rotateY: 95, opacity: 0 }}
+                  animate={{ rotateY: 0, opacity: 1 }}
+                  exit={reduce ? { opacity: 0 } : { rotateY: -95, opacity: 0 }}
+                  transition={{ duration: 0.95, ease: [0.42, 0, 0.25, 1] }}
+                  style={{ transformPerspective: 1500, transformOrigin: 'left center', backfaceVisibility: 'hidden' }}
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="eager"
                 />
