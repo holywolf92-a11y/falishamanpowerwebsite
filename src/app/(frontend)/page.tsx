@@ -66,8 +66,8 @@ function salaryLabel(j: Record<string, any>): string | null {
   return `${j.salaryCurrency || ''} ${range}${per}`
 }
 
-// Generated cutout of a Pakistani professional (transparent WebP) — served locally.
-const HERO_PHOTO = '/hero-person.webp'
+// Raja Abid Ayoub — Founder & CEO (background-removed studio portrait, transparent WebP).
+const HERO_PHOTO = '/hero-ceo.webp'
 
 const HERO_SLIDES = [
   {

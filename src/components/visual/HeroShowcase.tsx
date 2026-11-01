@@ -151,8 +151,8 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={photo}
-                alt="Recruitment professional with laptop"
-                className="h-[430px] w-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.45)] md:h-[500px]"
+                alt="Raja Abid Ayoub — Founder & CEO, Falisha Manpower"
+                className="h-[400px] w-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.45)] md:h-[470px]"
                 loading="eager"
               />
             </div>
