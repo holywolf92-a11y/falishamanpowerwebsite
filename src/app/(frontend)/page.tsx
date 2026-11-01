@@ -66,9 +66,6 @@ function salaryLabel(j: Record<string, any>): string | null {
   return `${j.salaryCurrency || ''} ${range}${per}`
 }
 
-// Raja Abid Ayoub — Founder & CEO (background-removed studio portrait, transparent WebP).
-const HERO_PHOTO = '/hero-ceo.webp'
-
 const HERO_SLIDES = [
   {
     eyebrow: 'BEOE-licensed · OEP 4035',
@@ -284,7 +281,6 @@ export default async function HomePage() {
       {/* Hero */}
       <HeroShowcase
         slides={HERO_SLIDES}
-        photo={HERO_PHOTO}
         primary={{ href: '/jobs', label: 'Job Opening' }}
         secondary={{ href: '/contact', label: 'Recruit Manpower' }}
       />

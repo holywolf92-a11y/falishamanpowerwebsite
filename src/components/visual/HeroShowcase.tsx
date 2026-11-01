@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Globe, Award, ShieldCheck } from 'lucide-react'
 import { Tilt3D } from './Tilt3D'
+import { GlobeHero } from './GlobeHero'
 
 export type HeroSlide = {
   eyebrow: string
@@ -16,7 +17,6 @@ export type HeroSlide = {
 
 export type HeroShowcaseProps = {
   slides: HeroSlide[]
-  photo: string
   primary: { href: string; label: string }
   secondary: { href: string; label: string }
 }
@@ -48,7 +48,7 @@ function FloatCard({
   )
 }
 
-export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcaseProps) {
+export function HeroShowcase({ slides, primary, secondary }: HeroShowcaseProps) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
 
@@ -124,37 +124,12 @@ export function HeroShowcase({ slides, photo, primary, secondary }: HeroShowcase
         {/* Right: 3D photo composition + floating cards */}
         <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
           <div className="relative pt-16" style={{ transformStyle: 'preserve-3d' }}>
-            {/* teal panel with concentric rings */}
+            {/* animated world globe — manpower flowing from Pakistan to its markets */}
             <div
-              className="relative h-[340px] overflow-hidden rounded-[2rem] shadow-2xl md:h-[400px]"
-              style={{
-                background:
-                  'linear-gradient(165deg, color-mix(in oklch, var(--primary) 65%, white) 0%, var(--primary) 100%)',
-              }}
+              className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full shadow-2xl md:max-w-none"
+              style={{ background: 'radial-gradient(circle at 50% 42%, #16265a 0%, #0c1636 55%, #0a1430 100%)' }}
             >
-              <svg
-                viewBox="0 0 400 400"
-                className="absolute left-1/2 top-1/2 h-[115%] w-auto -translate-x-1/2 -translate-y-1/2"
-                aria-hidden
-              >
-                <circle cx="200" cy="200" r="160" fill="none" stroke="white" strokeWidth="26" opacity="0.28" />
-                <circle cx="200" cy="200" r="104" fill="none" stroke="white" strokeWidth="16" opacity="0.24" />
-                <circle cx="200" cy="200" r="58" fill="none" stroke="white" strokeWidth="10" opacity="0.2" />
-              </svg>
-            </div>
-
-            {/* person cutout — pops above the panel */}
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center"
-              style={{ transform: 'translateZ(50px)' }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photo}
-                alt="Raja Abid Ayoub — Founder & CEO, Falisha Manpower"
-                className="h-[400px] w-auto object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.45)] md:h-[470px]"
-                loading="eager"
-              />
+              <GlobeHero className="absolute inset-0" />
             </div>
 
           {/* Card: markets served */}
