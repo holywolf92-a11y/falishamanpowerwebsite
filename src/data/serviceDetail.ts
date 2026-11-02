@@ -34,7 +34,7 @@ export const SERVICES: ServiceEntry[] = [
   // ───────────────────────── Recruitment ─────────────────────────
   {
     slug: 'bulk-mass-recruitment',
-    title: 'Bulk & Mass Recruitment',
+    title: 'Project & Volume Recruitment',
     serviceType: 'recruitment',
     summary: 'Source, screen and mobilise large workforces quickly and compliantly.',
     image: IMG('1759922378222-47ad736a174d'),
@@ -71,13 +71,13 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'Is every worker processed legally?', a: 'Yes — every worker is cleared through Protector of Emigrants (BEOE) under our OEP Licence No. 4035, with documentation and attestation handled end to end.' },
       { q: 'Which destinations do you mobilise to?', a: 'Primarily the Gulf (Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain), plus Europe, Central Asia and beyond. See our Destinations for the full list.' },
     ],
-    metaTitle: 'Bulk & Mass Recruitment Services in Pakistan | Falisha Manpower',
+    metaTitle: 'Project & Volume Recruitment from Pakistan | Falisha Manpower',
     metaDescription: 'High-volume manpower recruitment from Pakistan — source, trade-test and mobilise large workforces for Gulf, European and Asian projects. BEOE OEP 4035.',
   },
 
   {
     slug: 'permanent-recruitment',
-    title: 'Permanent Recruitment',
+    title: 'Permanent Placement',
     serviceType: 'recruitment',
     summary: 'End-to-end direct-hire placement of skilled and professional staff.',
     image: IMG('1522071820081-009f0129c71c'),
@@ -114,13 +114,13 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'What if a hire doesn’t work out?', a: 'We work with you on replacement terms as part of the engagement; share your requirement and our team will confirm the specifics for your roles and destination.' },
       { q: 'How long does a permanent placement take?', a: 'It varies with the role, destination and visa procedure. We give you a realistic timeline once the requirement is assessed and keep you updated at each stage.' },
     ],
-    metaTitle: 'Permanent Recruitment Services from Pakistan | Falisha Manpower',
+    metaTitle: 'Permanent Placement & Direct Hire from Pakistan | Falisha Manpower',
     metaDescription: 'Direct-hire placement of skilled and professional staff from Pakistan for Gulf, European and Asian employers — vetted for fit, documents and longevity. BEOE OEP 4035.',
   },
 
   {
     slug: 'contract-recruitment',
-    title: 'Contract Recruitment',
+    title: 'Contract Staffing',
     serviceType: 'recruitment',
     summary: 'Flexible, fixed-term workforce for project peaks, seasonal demand and cover.',
     image: IMG('1504307651254-35680f356dfd'),
@@ -156,13 +156,13 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'Who handles visas and compliance for contractors?', a: 'We do — contract documentation, visas, Protector of Emigrants clearance and labour-law compliance for the full term.' },
       { q: 'Can we convert a contractor to permanent?', a: 'Yes. Many employers convert strong performers to permanent; we handle the change in status and documentation.' },
     ],
-    metaTitle: 'Contract & Temporary Recruitment from Pakistan | Falisha Manpower',
+    metaTitle: 'Contract Staffing & Temporary Workforce from Pakistan | Falisha Manpower',
     metaDescription: 'Flexible, fixed-term workforce from Pakistan for project peaks, seasons and cover — sourced, vetted and fully compliant for the contract duration. BEOE OEP 4035.',
   },
 
   {
     slug: 'executive-search',
-    title: 'Executive Search',
+    title: 'Executive & Leadership Search',
     serviceType: 'recruitment',
     summary: 'Confidential search for senior and business-critical roles.',
     image: IMG('1556761175-b413da4baf72'),
@@ -198,13 +198,13 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'What levels do you search for?', a: 'Senior and business-critical roles — country and general managers, department and functional heads, principal engineers and specialist leadership positions.' },
       { q: 'Do you handle the move, not just the hire?', a: 'Yes — offer management, work visa, document attestation and relocation are handled end to end, so your selected executive arrives ready to start.' },
     ],
-    metaTitle: 'Executive Search & Headhunting from Pakistan | Falisha Manpower',
+    metaTitle: 'Executive & Leadership Search from Pakistan | Falisha Manpower',
     metaDescription: 'Confidential executive search for senior and business-critical roles — market mapping, direct headhunting, assessment and relocation. BEOE OEP 4035.',
   },
 
   {
     slug: 'staffing-solutions',
-    title: 'Staffing Solutions',
+    title: 'Managed Staffing',
     serviceType: 'recruitment',
     summary: 'A managed, flexible workforce you can scale with demand.',
     image: IMG('1521737604893-d14cc237f11d'),
@@ -240,13 +240,13 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'How fast can you replace or add staff?', a: 'Because the pipeline is always running, turnaround is faster than starting a fresh search each time.' },
       { q: 'Which roles does it cover?', a: 'Skilled, semi-skilled and professional roles across the sectors on our Industries page.' },
     ],
-    metaTitle: 'Staffing Solutions & Managed Workforce from Pakistan | Falisha Manpower',
+    metaTitle: 'Managed Staffing & Outsourced Workforce from Pakistan | Falisha Manpower',
     metaDescription: 'A managed, flexible workforce from Pakistan you can scale with demand — continuous sourcing, vetting and compliant deployment. BEOE OEP 4035.',
   },
 
   {
     slug: 'global-mobility',
-    title: 'Global Mobility',
+    title: 'Overseas Mobilisation',
     serviceType: 'recruitment',
     summary: 'Cross-border deployment with full immigration support.',
     image: IMG('1436491865332-7a61a109cc05'),
@@ -282,7 +282,7 @@ export const SERVICES: ServiceEntry[] = [
       { q: 'Which countries do you support?', a: 'The Gulf states, plus European and Asian destinations. Share your destination and we’ll confirm the exact route and requirements.' },
       { q: 'Who stays responsible for compliance?', a: 'We keep both employer and worker compliant with destination immigration and Pakistani emigration rules, and advise you at each step so there are no gaps.' },
     ],
-    metaTitle: 'Global Mobility & Cross-Border Deployment | Falisha Manpower',
+    metaTitle: 'Overseas Mobilisation & Cross-Border Deployment | Falisha Manpower',
     metaDescription: 'Cross-border deployment from Pakistan — work permits, visas, attestation, medicals, POE clearance and relocation for individuals and teams. BEOE OEP 4035.',
   },
 

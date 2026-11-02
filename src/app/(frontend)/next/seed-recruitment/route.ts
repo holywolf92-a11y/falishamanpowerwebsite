@@ -162,10 +162,10 @@ export async function GET(req: Request) {
 
   // ---- Services ----
   const serviceData: { title: string; serviceType: string; featured: boolean; summary: string }[] = [
-    { title: 'Bulk & Mass Recruitment', serviceType: 'recruitment', featured: true, summary: 'Source, screen and mobilise large workforces quickly and compliantly.' },
-    { title: 'Permanent Recruitment', serviceType: 'recruitment', featured: true, summary: 'End-to-end placement of skilled and professional staff.' },
-    { title: 'Executive Search', serviceType: 'recruitment', featured: true, summary: 'Confidential search for senior and business-critical roles.' },
-    { title: 'Global Mobility', serviceType: 'recruitment', featured: false, summary: 'Cross-border deployment with full immigration support.' },
+    { title: 'Project & Volume Recruitment', serviceType: 'recruitment', featured: true, summary: 'Source, screen and mobilise large workforces quickly and compliantly.' },
+    { title: 'Permanent Placement', serviceType: 'recruitment', featured: true, summary: 'End-to-end placement of skilled and professional staff.' },
+    { title: 'Executive & Leadership Search', serviceType: 'recruitment', featured: true, summary: 'Confidential search for senior and business-critical roles.' },
+    { title: 'Overseas Mobilisation', serviceType: 'recruitment', featured: false, summary: 'Cross-border deployment with full immigration support.' },
     { title: 'Work Visa Processing', serviceType: 'advisory', featured: true, summary: 'Work, business and visit visa processing for the GCC.' },
     { title: 'Document Attestation', serviceType: 'advisory', featured: true, summary: 'Degree, personal and commercial document attestation for Gulf employment.' },
     { title: 'Payroll Outsourcing', serviceType: 'advisory', featured: false, summary: 'Compliant payroll management for Middle East operations.' },
