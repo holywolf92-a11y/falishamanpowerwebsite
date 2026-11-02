@@ -48,7 +48,7 @@ const HERO_SLIDES = [
     titleRest: ' Agency in Pakistan.',
     subtitle:
       '15+ years of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
-    photo: '/hero-cutout-ceo.webp',
+    photo: '/hero-cutout-woman.webp',
   },
   {
     eyebrow: 'Skilled trades & technical',
@@ -66,7 +66,7 @@ const HERO_SLIDES = [
     titleRest: ' end-to-end.',
     subtitle:
       'From professionals to project-scale teams — we handle sourcing, screening, visas, attestation and payroll so you can focus on operations.',
-    photo: '/hero-cutout-woman.webp',
+    photo: '/hero-cutout-ceo.webp',
   },
 ]
 
