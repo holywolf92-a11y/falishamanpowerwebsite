@@ -17,10 +17,8 @@ function resolveImage(post: Post, base: string): string | undefined {
     const u = (hero as Media).url
     if (u) return base + u
   }
-  if (post.externalImage) {
-    const local = postImageSrc(post.externalImage)
-    if (local) return local.startsWith('http') ? local : base + local
-  }
+  const local = postImageSrc(post.externalImage, post.slug)
+  if (local) return local.startsWith('http') ? local : base + local
   return `${base}/og-image.png`
 }
 

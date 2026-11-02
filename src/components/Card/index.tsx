@@ -43,7 +43,7 @@ export const Card: React.FC<{
           <Media resource={metaImage} size="33vw" />
         ) : externalImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={postImageSrc(externalImage)} alt="" aria-hidden className="aspect-video w-full object-cover" />
+          <img src={postImageSrc(externalImage, slug)} alt="" aria-hidden className="aspect-video w-full object-cover" />
         ) : (
           <div className="aspect-video w-full bg-muted" />
         )}

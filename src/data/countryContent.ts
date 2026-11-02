@@ -24,6 +24,27 @@ import {
   LITHUANIA_SECTIONS,
 } from './sectionsEu2'
 import { AUSTRIA_SECTIONS, NETHERLANDS_SECTIONS, SPAIN_SECTIONS } from './sectionsEu3'
+import {
+  IRELAND_SECTIONS,
+  FRANCE_SECTIONS,
+  BELGIUM_SECTIONS,
+  DENMARK_SECTIONS,
+  SWEDEN_SECTIONS,
+  NORWAY_SECTIONS,
+  FINLAND_SECTIONS,
+  SWITZERLAND_SECTIONS,
+  LUXEMBOURG_SECTIONS,
+  ICELAND_SECTIONS,
+  MALTA_SECTIONS,
+  MOLDOVA_SECTIONS,
+} from './sectionsEu4'
+import {
+  RUSSIA_SECTIONS,
+  KAZAKHSTAN_SECTIONS,
+  UZBEKISTAN_SECTIONS,
+  GEORGIA_SECTIONS,
+  LIBYA_SECTIONS,
+} from './sectionsIntl2'
 
 /** A unique, per-country prose block rendered on the country page. */
 export type CountrySection = { heading: string; body: string[] }
@@ -1390,3 +1411,24 @@ COUNTRY_CONTENT.lithuania.sections = LITHUANIA_SECTIONS
 COUNTRY_CONTENT.austria.sections = AUSTRIA_SECTIONS
 COUNTRY_CONTENT.netherlands.sections = NETHERLANDS_SECTIONS
 COUNTRY_CONTENT.spain.sections = SPAIN_SECTIONS
+
+// Fourth wave — remaining template-only European markets (SEO audit, Issue 3).
+COUNTRY_CONTENT.ireland.sections = IRELAND_SECTIONS
+COUNTRY_CONTENT.france.sections = FRANCE_SECTIONS
+COUNTRY_CONTENT.belgium.sections = BELGIUM_SECTIONS
+COUNTRY_CONTENT.denmark.sections = DENMARK_SECTIONS
+COUNTRY_CONTENT.sweden.sections = SWEDEN_SECTIONS
+COUNTRY_CONTENT.norway.sections = NORWAY_SECTIONS
+COUNTRY_CONTENT.finland.sections = FINLAND_SECTIONS
+COUNTRY_CONTENT.switzerland.sections = SWITZERLAND_SECTIONS
+COUNTRY_CONTENT.luxembourg.sections = LUXEMBOURG_SECTIONS
+COUNTRY_CONTENT.iceland.sections = ICELAND_SECTIONS
+COUNTRY_CONTENT.malta.sections = MALTA_SECTIONS
+COUNTRY_CONTENT.moldova.sections = MOLDOVA_SECTIONS
+
+// Non-European markets (national routes under each country's own law).
+COUNTRY_CONTENT.russia.sections = RUSSIA_SECTIONS
+COUNTRY_CONTENT.kazakhstan.sections = KAZAKHSTAN_SECTIONS
+COUNTRY_CONTENT.uzbekistan.sections = UZBEKISTAN_SECTIONS
+COUNTRY_CONTENT.georgia.sections = GEORGIA_SECTIONS
+COUNTRY_CONTENT.libya.sections = LIBYA_SECTIONS

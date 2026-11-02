@@ -10,7 +10,7 @@ import { postImageSrc } from '@/utilities/postImageSrc'
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, externalImage, populatedAuthors, publishedAt, title } = post
+  const { categories, heroImage, externalImage, populatedAuthors, publishedAt, slug, title } = post
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
@@ -69,7 +69,7 @@ export const PostHero: React.FC<{
         ) : externalImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={postImageSrc(externalImage)}
+            src={postImageSrc(externalImage, slug)}
             alt=""
             aria-hidden
             className="absolute inset-0 -z-10 h-full w-full object-cover"
