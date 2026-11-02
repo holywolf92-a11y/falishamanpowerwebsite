@@ -286,3 +286,270 @@ export const INDUSTRY_DETAIL: Record<string, IndustryDetail> = {
       'Candidates are assessed for customer-service manner, grooming and spoken-English and other language ability, with GDS and ticketing skills tested for reservations roles. Travel or aviation certifications and prior experience are verified, and cabin-crew applicants are prepared for airline assessment days before selection.',
   },
 }
+
+// SEO audit (27 Oct 2026), Issue 7 — the industry pages shared one boilerplate
+// "nationwide network / offices in Rawalpindi" paragraph and an identical templated
+// FAQ across every sector, which read as generic. This map gives each sector its own
+// demand paragraph (where the overseas demand actually is, and why) and two bespoke
+// FAQs, so no two industry pages say the same thing. Markets and certifications are
+// real and publicly standard; no invented clients or statistics. British spelling.
+
+export type IndustryExtra = {
+  demand: string // sector-specific: which markets are hiring and why
+  faqs: { q: string; a: string }[] // 2 bespoke FAQs, prepended ahead of the generic ones
+}
+
+export const INDUSTRY_EXTRA: Record<string, IndustryExtra> = {
+  construction: {
+    demand:
+      "The heaviest demand is in the Gulf, where Saudi Arabia's Vision 2030 giga-projects (NEOM, Qiddiya, the Red Sea and Diriyah), alongside continued building in the UAE and Qatar, run for years rather than months — which means steady, repeatable requirements for complete site teams rather than one-off vacancies.",
+    faqs: [
+      {
+        q: 'Which markets have the most construction demand right now?',
+        a: "Saudi Arabia leads, driven by the Vision 2030 giga-projects, followed by the UAE and Qatar. These are multi-year pipelines, so we can mobilise trades in waves as a project ramps up.",
+      },
+      {
+        q: 'Do construction candidates have to pass a trade test?',
+        a: 'Yes — masons, steel fixers, shuttering carpenters, electricians and the like complete a practical trade test and tool-handling assessment, and site-experience letters are verified, before you interview and select.',
+      },
+    ],
+  },
+  'oil--gas': {
+    demand:
+      "Oil, gas and petrochemical demand concentrates in Saudi Arabia, the UAE, Qatar and the wider Gulf, and peaks sharply around planned shutdown and turnaround windows — so we keep a ready pool of safety-certified, often third-party-coded hands who can mobilise at short notice.",
+    faqs: [
+      {
+        q: 'Can you supply third-party coded welders?',
+        a: "Yes. Welders are tested to the client's welding procedure and are frequently coded up to 6G before mobilisation, with ASME/API tickets and NDT certifications verified.",
+      },
+      {
+        q: 'What safety certifications do oil & gas workers need?',
+        a: 'Depending on the site, BOSIET/HUET offshore survival, H2S awareness, confined-space and work-at-height training and an offshore-style medical are checked before deployment.',
+      },
+    ],
+  },
+  healthcare: {
+    demand:
+      "Healthcare demand runs on two tracks: the Gulf (Saudi Arabia, the UAE and Qatar), where nurses and doctors must clear a licensing exam and primary-source verification, and the UK and Europe, where our pipeline now centres on NMC-registered nurses and allied-health professionals rather than care assistants.",
+    faqs: [
+      {
+        q: 'Do nurses need DataFlow and a Gulf licensing exam?',
+        a: 'Yes. Gulf-bound nurses complete DataFlow primary-source verification and the relevant licensing exam (Prometric, DHA, MOH, SCFHS or DOH) before a visa is issued; we focus on exam-ready, fully documented candidates.',
+      },
+      {
+        q: 'Can you supply nurses for the UK?',
+        a: 'We place NMC-registered nurses and allied-health professionals for the UK with OET or IELTS English proficiency. Note the UK has been closed to new overseas care-worker applications since July 2025.',
+      },
+    ],
+  },
+  'information-technology': {
+    demand:
+      "IT demand is driven by Gulf digital-transformation and smart-city programmes (particularly in Saudi Arabia and the UAE) and by selected European tech employers, with the strongest pull for software engineers, cloud and DevOps specialists, data and cybersecurity professionals.",
+    faqs: [
+      {
+        q: 'What IT roles are most in demand overseas?',
+        a: 'Software and full-stack engineers, cloud and DevOps specialists, data engineers and analysts, cybersecurity professionals and ERP/SAP consultants see the strongest demand across the Gulf and Europe.',
+      },
+      {
+        q: 'How are IT candidates screened?',
+        a: 'Experience and project portfolios are verified and, where an employer requires it, a technical assessment or coding test is arranged alongside the interview.',
+      },
+    ],
+  },
+  hospitality: {
+    demand:
+      "Hospitality demand tracks the Gulf's tourism expansion — Saudi Arabia's opening to tourism, the UAE and Qatar's hotel and events sector — with additional openings in Europe, for chefs, F&B and front-of-house staff who can show grooming, service manner and English.",
+    faqs: [
+      {
+        q: 'Which hospitality roles do you recruit for?',
+        a: 'Chefs and cooks (by cuisine), waiters and F&B service, baristas, housekeeping, front-office and reservations, and hotel supervisory staff — for hotels, restaurants and catering across the Gulf and Europe.',
+      },
+      {
+        q: 'How do you assess hospitality candidates?',
+        a: 'Candidates are assessed for service manner, grooming and spoken English, with a practical skills test (for example a cooking trial) arranged for chef and specialist roles before selection.',
+      },
+    ],
+  },
+  engineering: {
+    demand:
+      "Engineering demand follows the Gulf's project pipeline — oil and gas, construction, power and manufacturing in Saudi Arabia, the UAE and Qatar — with degree-qualified mechanical, electrical, civil and QA/QC engineers also sought by selected European employers.",
+    faqs: [
+      {
+        q: 'Do you verify engineering degrees and experience?',
+        a: 'Yes — degrees, professional memberships and project-experience letters are verified, and discipline-specific competency is confirmed before the employer interviews the candidate.',
+      },
+      {
+        q: 'Which engineering disciplines are most requested?',
+        a: 'Mechanical, electrical, civil, QA/QC, planning and project engineers are the most frequently requested across Gulf oil & gas, construction and power projects.',
+      },
+    ],
+  },
+  'banking--finance': {
+    demand:
+      "Banking and finance demand centres on the Gulf's financial hubs — the UAE, Saudi Arabia and Qatar — for relationship managers, credit and risk analysts, compliance and AML specialists and finance professionals who hold recognised qualifications.",
+    faqs: [
+      {
+        q: 'What qualifications do banking candidates need?',
+        a: 'Recognised professional qualifications (such as ACCA, CFA or equivalent) and verified degrees, plus sector experience in banking, credit, risk or compliance, depending on the role.',
+      },
+      {
+        q: 'Which markets hire the most finance staff?',
+        a: 'The UAE, Saudi Arabia and Qatar, where expanding banking, investment and fintech sectors recruit experienced, qualified professionals.',
+      },
+    ],
+  },
+  'accountancy--finance': {
+    demand:
+      "Accountancy demand is steady across the Gulf (the UAE, Saudi Arabia and Qatar), where businesses need qualified and part-qualified accountants, auditors, and accounts and payroll staff familiar with VAT and local reporting requirements.",
+    faqs: [
+      {
+        q: 'Do you supply qualified and part-qualified accountants?',
+        a: 'Yes — from accounts assistants and payroll staff through to qualified accountants and auditors (ACCA, CA, CMA or equivalent), with qualifications and experience verified.',
+      },
+      {
+        q: 'Is VAT or local-reporting experience checked?',
+        a: 'Where the employer requires it, familiarity with VAT and local reporting standards is confirmed as part of screening for accounting and audit roles.',
+      },
+    ],
+  },
+  textile: {
+    demand:
+      "Textile and garment demand comes from manufacturing employers in the Gulf and beyond who need experienced machine operators, cutters, stitchers, quality controllers and production supervisors drawn from Pakistan's large, skilled textile workforce.",
+    faqs: [
+      {
+        q: 'Which textile roles do you recruit for?',
+        a: 'Stitching and sewing-machine operators, cutters, pattern masters, quality controllers, dyeing and finishing hands and production supervisors — with practical skill tested before selection.',
+      },
+      {
+        q: 'Are textile candidates skill-tested?',
+        a: 'Yes — machine operators and specialist hands complete a practical test, and prior factory experience is verified, so employers receive production-ready workers.',
+      },
+    ],
+  },
+  agriculture: {
+    demand:
+      "Agricultural demand comes from large-scale Gulf farming and dairy producers (particularly in Saudi Arabia and the UAE) and from seasonal and year-round operations in parts of Europe, for farm workers, machinery operators, greenhouse and dairy staff.",
+    faqs: [
+      {
+        q: 'What agricultural roles are in demand?',
+        a: 'General farm workers, tractor and machinery operators, greenhouse and irrigation hands, and dairy and livestock workers for large Gulf agribusinesses and European seasonal operations.',
+      },
+      {
+        q: 'Do candidates need specific farming experience?',
+        a: 'Relevant experience is verified and, for machinery and dairy roles, practical competence is checked before deployment.',
+      },
+    ],
+  },
+  security: {
+    demand:
+      "Security demand is strongest in the Gulf — Qatar, Saudi Arabia and the UAE — for licensed security guards and supervisors across facilities, events, retail and corporate sites, where physical fitness and local licensing (such as SIRA) matter.",
+    faqs: [
+      {
+        q: 'Do security guards need local licensing?',
+        a: 'Many Gulf markets require local security licensing (for example SIRA in the UAE); candidates are prepared for these requirements, and height, fitness and background checks are completed before selection.',
+      },
+      {
+        q: 'What security roles can you supply?',
+        a: 'Security guards, CCTV and control-room operators, and security supervisors for facilities, events, retail and corporate clients across the Gulf.',
+      },
+    ],
+  },
+  'power--energy': {
+    demand:
+      "Power and energy demand follows the Gulf's generation, transmission and fast-growing renewables build-out — including Saudi Arabia's solar and NEOM energy programmes — for plant operators, high-voltage and instrumentation technicians and turbine and solar specialists.",
+    faqs: [
+      {
+        q: 'Do you supply renewables as well as conventional power staff?',
+        a: 'Yes — alongside conventional plant operators and high-voltage technicians, we recruit solar PV and turbine technicians for the Gulf renewables programmes.',
+      },
+      {
+        q: 'How are power & energy technicians screened?',
+        a: 'Discipline-specific competency, certifications and prior plant experience are verified, with a practical or safety assessment where the employer requires it.',
+      },
+    ],
+  },
+  education: {
+    demand:
+      "Education demand comes mainly from Gulf schools and training institutes (in the UAE, Saudi Arabia and Qatar) seeking qualified teachers, subject specialists and academic support staff with recognised teaching qualifications and strong English.",
+    faqs: [
+      {
+        q: 'What teaching roles do you recruit for?',
+        a: 'Subject teachers (maths, science, English and more), early-years and special-needs staff, lecturers and academic coordinators for schools and institutes across the Gulf.',
+      },
+      {
+        q: 'Are teaching qualifications verified?',
+        a: 'Yes — degrees, teaching qualifications (such as B.Ed or PGCE) and experience are verified, and English proficiency is confirmed before the employer interviews.',
+      },
+    ],
+  },
+  fmcg: {
+    demand:
+      "FMCG demand comes from Gulf distribution, retail and food-and-beverage companies needing merchandisers, sales and distribution staff, warehouse and logistics hands and production operatives to support fast-moving supply chains.",
+    faqs: [
+      {
+        q: 'Which FMCG roles are most requested?',
+        a: 'Merchandisers, van salesmen and distribution staff, warehouse and inventory hands, and production and packaging operatives for Gulf retail and food-and-beverage businesses.',
+      },
+      {
+        q: 'How are FMCG candidates screened?',
+        a: 'Experience is verified and, for sales and distribution roles, driving licences and customer-facing ability are checked before selection.',
+      },
+    ],
+  },
+  livestock: {
+    demand:
+      "Livestock demand comes from large Gulf dairy, poultry and meat producers — particularly in Saudi Arabia and the UAE — for herdsmen, milking-parlour and poultry-farm operatives, and veterinary support staff on industrial-scale farms.",
+    faqs: [
+      {
+        q: 'What livestock roles do you recruit for?',
+        a: 'Herdsmen and cattle handlers, milking-parlour operatives, poultry-farm workers and veterinary assistants for large Gulf dairy, poultry and meat producers.',
+      },
+      {
+        q: 'Is hands-on livestock experience required?',
+        a: 'Relevant farm experience is verified, and practical competence with animals or parlour equipment is checked where the employer requires it.',
+      },
+    ],
+  },
+  'steel-fabrication': {
+    demand:
+      "Steel-fabrication demand feeds the Gulf's oil & gas, construction and industrial sectors (Saudi Arabia, the UAE and Qatar), for fabricators, fitters, coded welders and riggers who can work to drawing and to specification.",
+    faqs: [
+      {
+        q: 'Can you supply fabricators who work to drawing?',
+        a: 'Yes — fabricators and fitters are trade-tested on reading drawings and working to specification, and coded welders are tested to the relevant procedure before mobilisation.',
+      },
+      {
+        q: 'Which sectors hire steel-fabrication trades?',
+        a: 'Gulf oil & gas, construction, shipyards and heavy industry, especially around fabrication yards in Saudi Arabia, the UAE and Qatar.',
+      },
+    ],
+  },
+  transportation: {
+    demand:
+      "Transport and logistics demand is strong across the Gulf, driven by e-commerce, distribution and construction haulage, for light- and heavy-vehicle (HTV) drivers, delivery riders, warehouse staff and logistics coordinators.",
+    faqs: [
+      {
+        q: 'Do you supply heavy-vehicle (HTV) drivers?',
+        a: 'Yes — light- and heavy-vehicle drivers are supplied with licences and category entitlements verified and a practical driving test arranged where the employer requires it.',
+      },
+      {
+        q: 'Are drivers briefed on licence conversion?',
+        a: 'Yes — candidates are briefed on the destination’s licence-conversion rules before deployment, and driving records and medical/eyesight fitness are checked.',
+      },
+    ],
+  },
+  'travel--tourism': {
+    demand:
+      "Travel and tourism demand centres on the Gulf's role as a global aviation and tourism hub (the UAE, Qatar and a fast-opening Saudi Arabia), for GDS-trained travel and ticketing agents, tour operators and airport and cabin-crew staff.",
+    faqs: [
+      {
+        q: 'Do travel agents need GDS experience?',
+        a: 'For reservations and ticketing roles, GDS proficiency (Amadeus, Galileo or Sabre) and IATA/UFTAA certification are tested and verified before selection.',
+      },
+      {
+        q: 'Can you prepare cabin-crew candidates?',
+        a: 'Yes — cabin-crew applicants are screened for grooming, service manner and English and prepared for airline assessment days before the employer’s selection.',
+      },
+    ],
+  },
+}

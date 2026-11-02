@@ -11,7 +11,7 @@ import Reveal from '@/components/visual/Reveal'
 import { FAQAccordion } from '@/components/visual/FAQAccordion'
 import { IndustryIcon } from '@/components/visual/IndustryIcon'
 import { INDUSTRY_ROLES } from '@/data/industryContent'
-import { INDUSTRY_DETAIL } from '@/data/industryDetail'
+import { INDUSTRY_DETAIL, INDUSTRY_EXTRA } from '@/data/industryDetail'
 import { canonicalPath } from '@/data/legacyUrlMap'
 import { industryImage } from '@/utilities/sectionImages'
 import { breadcrumbSchema } from '@/utilities/breadcrumbSchema'
@@ -101,10 +101,17 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
     : []
   const roles = INDUSTRY_ROLES[slug] ?? cmsRoles
   const detail = INDUSTRY_DETAIL[slug]
+  const extra = INDUSTRY_EXTRA[slug]
   const intro: string =
     industry.summary ||
     `Skilled, semi-skilled and professional ${title.toLowerCase()} manpower from Pakistan for employers across the Gulf, Europe and Asia.`
-  const faqs = industryFaqs(title)
+  // Lead with the sector-specific FAQs where we have them, then keep the useful
+  // generic ones (how to hire, countries, timeline) — avoids the near-identical
+  // templated FAQ block that used to repeat on every industry page.
+  const genericFaqs = industryFaqs(title)
+  const faqs = extra
+    ? [...extra.faqs, genericFaqs[0], genericFaqs[3], genericFaqs[4]]
+    : genericFaqs
   const related = (others.docs as Record<string, any>[]).slice(0, 6)
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -208,11 +215,15 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {detail ? (
               <div className="mt-5 space-y-4 text-muted-foreground">
                 <p>{detail.overview}</p>
-                <p>
-                  With a nationwide sourcing network and offices in Rawalpindi (head office), Lahore, Karachi, Peshawar
-                  and Azad Jammu &amp; Kashmir (AJK), our team delivers skilled, semi-skilled and professional
-                  {` ${title.toLowerCase()}`} manpower tailored to your project requirements.
-                </p>
+                {extra ? (
+                  <p>{extra.demand}</p>
+                ) : (
+                  <p>
+                    With a nationwide sourcing network and offices in Rawalpindi (head office), Lahore, Karachi, Peshawar
+                    and Azad Jammu &amp; Kashmir (AJK), our team delivers skilled, semi-skilled and professional
+                    {` ${title.toLowerCase()}`} manpower tailored to your project requirements.
+                  </p>
+                )}
               </div>
             ) : industry.content ? (
               <div className="prose dark:prose-invert mt-5 max-w-none">

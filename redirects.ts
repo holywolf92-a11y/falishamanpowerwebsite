@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 import legacyRedirects from './src/data/legacy-redirects.json'
 import { NEW_PATH_BY_LEGACY } from './src/data/legacyUrlMap'
+import { POST_RENAMES } from './src/data/postPatches'
 
 export const redirects: NextConfig['redirects'] = async () => {
   const internetExplorerRedirect = {
@@ -57,5 +58,19 @@ export const redirects: NextConfig['redirects'] = async () => {
     },
   ]
 
-  return [internetExplorerRedirect, ...countryConsolidation, ...slugCleanup, ...legacy]
+  // Blog cannibalisation cleanup (SEO audit, 27 Oct 2026). Ten near-duplicate
+  // "good news" posts were rewritten into distinct evergreen guides with clean
+  // slugs; a few had percent-encoded emoji/Arabic in their old URL. 301 both the
+  // old /posts/<slug> and the old WordPress root URL to the new post so ranking
+  // signal and any inbound links consolidate onto the new page. These run before
+  // the 1:1 legacy rewrites, so they override the old root-URL rewrite.
+  const postRenames = POST_RENAMES.flatMap(({ oldSlug, newSlug }) => {
+    const dest = `/posts/${newSlug}`
+    return [
+      { source: `/posts/${oldSlug}`, destination: dest, statusCode: 301 as const },
+      { source: `/${oldSlug}`, destination: dest, statusCode: 301 as const },
+    ]
+  })
+
+  return [internetExplorerRedirect, ...countryConsolidation, ...slugCleanup, ...postRenames, ...legacy]
 }
