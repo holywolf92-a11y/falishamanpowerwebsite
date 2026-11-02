@@ -124,7 +124,7 @@ export default function AboutPage() {
             </Reveal>
             <KineticHeading
               as="h1"
-              lines={['One of the most trusted', 'recruitment agencies for', 'Pakistani manpower.']}
+              lines={['Connecting skilled', 'Pakistani workers', 'with the world.']}
               igniteWord="Pakistani"
               className={`${display} mt-5 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-[3.5rem]`}
             />
@@ -209,9 +209,10 @@ export default function AboutPage() {
             />
             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
               <p className="first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:font-display first-letter:text-5xl first-letter:font-semibold first-letter:leading-[0.8] first-letter:text-[var(--gold)]">
-                As industries around the world shift toward sustainable, long-term growth, companies increasingly rely on
-                overseas recruitment partners to secure skilled and dependable workers. This is where Falisha Manpower
-                stands out as one of the most trusted recruitment agencies in Pakistan for hiring Pakistani manpower.
+                As employers across the Gulf, Europe and Asia compete for reliable workers, the recruitment partner
+                behind them matters. Falisha Manpower is a Government of Pakistan–licensed Overseas Employment Promoter
+                (OEP Licence No. 4035, BEOE-registered) that sources, screens and deploys skilled Pakistani manpower —
+                accountably, and end to end.
               </p>
               <p>
                 Founded in 2011 and headquartered in Rawalpindi — with branches in Lahore, Karachi, Peshawar and Azad

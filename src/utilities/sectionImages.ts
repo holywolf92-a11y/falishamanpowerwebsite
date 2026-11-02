@@ -37,14 +37,11 @@ export function industryImage(name: string): string {
 // Group of Gulf-bound workers — used as the hero's 3D back layer.
 export const WORKERS_PHOTO = IMG('1759922378222-47ad736a174d')
 
-// Employer/client logos in /public/logos. c01–c04 are white-on-transparent
-// (hero variants) and invisible on white tiles, so the wall uses c05–c28.
-// NOTE: sourced from the user's reference — trim to actual Falisha clients before launch.
-// Removed c05 (Almarai), c12 (Saudi Business Machines) and c14 (Nadec): those are
-// Delta International's clients from the reference site, not Falisha's — dropped to
-// avoid misrepresenting another agency's client wall as our own.
-const CLIENT_LOGOS_EXCLUDE = new Set(['/logos/c05.webp', '/logos/c12.webp', '/logos/c14.webp'])
-export const CLIENT_LOGOS: string[] = Array.from({ length: 24 }, (_, i) => `/logos/c${String(i + 5).padStart(2, '0')}.webp`).filter(
-  (src) => !CLIENT_LOGOS_EXCLUDE.has(src),
-)
+// Employer/client logos in /public/logos. The c01–c28 files were taken from the
+// reference site (Delta International / ditrc.com) and are NOT confirmed Falisha
+// clients — publishing another agency's client wall as our own misrepresents them,
+// so the wall is intentionally EMPTY until genuine Falisha client logos are supplied.
+// The home "Our clients" section hides itself while this is empty.
+// To restore: drop verified Falisha logos into /public/logos and list their paths here.
+export const CLIENT_LOGOS: string[] = []
 

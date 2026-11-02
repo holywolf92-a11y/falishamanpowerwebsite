@@ -305,12 +305,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Client logos — partner wall */}
-      <section className="border-b border-border bg-secondary/40 py-16 md:py-20">
-        <div className="container">
-          <ClientLogos logos={CLIENT_LOGOS} />
-        </div>
-      </section>
+      {/* Client logos — partner wall (hidden until genuine Falisha client logos exist) */}
+      {CLIENT_LOGOS.length > 0 && (
+        <section className="border-b border-border bg-secondary/40 py-16 md:py-20">
+          <div className="container">
+            <ClientLogos logos={CLIENT_LOGOS} />
+          </div>
+        </section>
+      )}
 
       {/* Turkey specialty — focus band */}
       <section className="relative overflow-hidden bg-background py-20 text-foreground md:py-28">
@@ -534,18 +536,16 @@ export default async function HomePage() {
                 About us
               </span>
               <h2 className={`${display} mt-5 text-3xl font-semibold leading-tight tracking-tight md:text-4xl`}>
-                One of the most trusted recruitment agencies{' '}
-                <span className="text-primary">in Pakistan</span>
+                Licensed overseas recruitment{' '}
+                <span className="text-primary">from Pakistan</span>
               </h2>
               <ReadMore className="mt-5" collapsedHeight={176}>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    As industries around the world shift toward sustainable, long-term growth, companies
-                    increasingly rely on overseas recruitment partners to secure skilled and dependable workers.
-                    This is where Falisha Manpower stands out as one of the most trusted overseas recruitment
-                    agencies in Pakistan — a Government-licensed Overseas Employment Promoter (OEP Licence No.
-                    4035, BEOE-registered) supplying vetted Pakistani manpower to employers across the Gulf,
-                    Europe, Central Asia and beyond.
+                    Falisha Manpower is a Government of Pakistan–licensed Overseas Employment Promoter (OEP
+                    Licence No. 4035, BEOE-registered), headquartered in Rawalpindi and recruiting nationwide.
+                    We connect employers across the Gulf, Europe, Central Asia and beyond with vetted Pakistani
+                    workers — and connect Pakistani talent with genuine, lawful overseas employment.
                   </p>
                   <p>
                     With 15+ years of experience and a nationwide sourcing network — a head office in Rawalpindi

@@ -186,12 +186,11 @@ export async function GET(req: Request) {
   }
 
   // ---- Team ----
-  const teamData = [
-    { name: 'Makhdoom Asim', role: 'Country Business Director', department: 'business-development', order: 1 },
-    { name: 'Arslan Akhtar', role: 'Senior Recruitment Manager', department: 'recruitment', order: 2 },
-    { name: 'Usama Bin Hafeez', role: 'Visa Processing Manager', department: 'processing', order: 3 },
-    { name: 'Muntazir Abbas', role: 'Accounts Manager', department: 'accounts', order: 4 },
-  ]
+  // NOTE: the previous sample names here were taken from the reference site
+  // (Delta International / ditrc.com) — they are that agency's real staff, not
+  // Falisha's. Left empty so nothing is fabricated; add genuine Falisha team
+  // members via the admin panel (or populate this array with real people).
+  const teamData: { name: string; role: string; department: string; order: number }[] = []
   for (const t of teamData) {
     await create({
       collection: 'team',
@@ -200,11 +199,9 @@ export async function GET(req: Request) {
   }
 
   // ---- Testimonials ----
-  const testimonialData = [
-    { name: 'Ahmed Khan', roleOrCompany: 'Placed as Site Engineer, Riyadh', quote: 'Falisha handled everything from interview to visa. I was on-site in Saudi within weeks.', rating: '5', featured: true },
-    { name: 'Sarah Malik', roleOrCompany: 'HR Manager, Gulf Contracting Co.', quote: 'Reliable bulk hiring with candidates who actually match the spec. Our go-to partner.', rating: '5', featured: true },
-    { name: 'Bilal Aslam', roleOrCompany: 'Placed as Nurse, Dubai', quote: 'Professional, transparent, and never asked for any hidden fees. Highly recommended.', rating: '5', featured: true },
-  ]
+  // Left empty: the previous entries were invented placeholder people/quotes, not
+  // real clients. Add genuine, attributable testimonials via the admin panel.
+  const testimonialData: { name: string; roleOrCompany: string; quote: string; rating: string; featured: boolean }[] = []
   for (const t of testimonialData) {
     await create({
       collection: 'testimonials',
