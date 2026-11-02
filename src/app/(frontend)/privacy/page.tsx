@@ -232,9 +232,12 @@ export default function PrivacyPage() {
       </header>
 
       <div className="mt-6 rounded-xl border border-[var(--gold)]/30 bg-[var(--gold)]/10 p-4 text-sm text-muted-foreground">
-        <strong className="text-foreground">Note:</strong> This is a template drafted for Falisha
-        Manpower and should be reviewed by qualified legal counsel before launch to confirm it meets
-        the requirements of every jurisdiction in which the company operates.
+        <strong className="text-foreground">Questions about your data?</strong> If you have any
+        questions about this policy or how we handle your personal information, contact us at{' '}
+        <a href="mailto:info@falishamanpower.com" className="text-primary hover:underline">
+          info@falishamanpower.com
+        </a>
+        .
       </div>
 
       {/* On-page contents */}

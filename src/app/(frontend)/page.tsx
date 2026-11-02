@@ -206,7 +206,7 @@ const WHY_CHOOSE = [
   'Streamlined, BEOE-compliant recruitment (OEP 4035)',
   'Premium, accountable client experience',
   'Vast vetted candidate network, sourced nationwide',
-  '15+ years · 500+ satisfied clients',
+  '15+ years placing workers across the Gulf, Europe & Asia',
   'End-to-end: sourcing → visa → attestation → mobilisation',
 ]
 

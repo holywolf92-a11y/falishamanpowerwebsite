@@ -37,10 +37,9 @@ export function ClientLogos({ logos, className }: { logos: string[]; className?:
           ))}
         </ul>
         <div className="mt-7 flex items-center gap-3">
-          <span className="font-display text-4xl font-semibold tracking-tight text-primary">500+</span>
           <span className="text-sm font-medium leading-snug text-muted-foreground">
-            satisfied clients
-            <br className="hidden sm:block" /> served and counting
+            Employers across the Gulf, Europe &amp; Asia rely on Falisha Manpower
+            <br className="hidden sm:block" /> to source and mobilise their workforce.
           </span>
         </div>
         <button
