@@ -171,8 +171,8 @@ export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroSh
               className="pointer-events-none absolute bottom-[4%] left-1/2 h-5 w-[58%] -translate-x-1/2 rounded-[50%] bg-black/25 blur-xl"
             />
 
-            {/* the cut-out portrait */}
-            <div className="relative mx-auto h-[26rem] w-full md:h-[32rem]" style={{ transform: 'translateZ(30px)' }}>
+            {/* the cut-out portrait — kept narrow and centred so the chips can flank it */}
+            <div className="relative mx-auto h-[25rem] w-[15rem] sm:w-[17rem] md:h-[31rem] md:w-[20rem]" style={{ transform: 'translateZ(30px)' }}>
               <AnimatePresence mode="popLayout">
                 <motion.img
                   key={i}
@@ -188,22 +188,22 @@ export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroSh
               </AnimatePresence>
             </div>
 
-            {/* Markets served */}
-            <div className="absolute left-0 top-6 md:-left-2" style={{ transform: 'translateZ(60px)' }}>
+            {/* Markets served — left, at shoulder height (below every subject's face) */}
+            <div className="absolute left-0 top-28 md:-left-1" style={{ transform: 'translateZ(60px)' }}>
               <FloatCard reduce={reduce} delay={0.1}>
                 <StatChip icon={Globe} label="Markets served" value={`${marketCount}+`} />
               </FloatCard>
             </div>
 
-            {/* Experience */}
-            <div className="absolute right-0 top-24 md:-right-2" style={{ transform: 'translateZ(60px)' }}>
+            {/* Experience — mid right, beside the torso (clear of the face) */}
+            <div className="absolute right-0 top-1/2 md:-right-1" style={{ transform: 'translateZ(60px) translateY(-50%)' }}>
               <FloatCard reduce={reduce} delay={0.35}>
                 <StatChip icon={Award} label="Experience" value="15+ Years" />
               </FloatCard>
             </div>
 
-            {/* Government licence */}
-            <div className="absolute bottom-10 left-0 md:-left-2" style={{ transform: 'translateZ(80px)' }}>
+            {/* Government licence — lower left, clear of the torso */}
+            <div className="absolute bottom-6 left-0 md:-left-1" style={{ transform: 'translateZ(80px)' }}>
               <FloatCard reduce={reduce} delay={0.6}>
                 <StatChip icon={ShieldCheck} label="Govt. Licensed" value="BEOE · OEP 4035" />
               </FloatCard>
