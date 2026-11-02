@@ -48,17 +48,16 @@ const HERO_SLIDES = [
     titleRest: ' Agency in Pakistan.',
     subtitle:
       '15+ years of ethical, government-licensed overseas recruitment — placing skilled Pakistani talent with employers across the Gulf, Europe and Asia.',
-    photo: '/hero-ceo-globe.webp',
-    globe: true,
+    photo: '/hero-cutout-ceo.webp',
   },
   {
-    eyebrow: 'No.1 recruitment agency in Pakistan',
-    titleLead: 'Manpower ',
-    titleAccent: 'Recruitment Agency',
-    titleRest: ' for the Gulf.',
+    eyebrow: 'Skilled trades & technical',
+    titleLead: 'Skilled manpower for ',
+    titleAccent: 'the Gulf & Türkiye',
+    titleRest: '.',
     subtitle:
-      'We connect skilled Pakistani professionals with leading employers across Saudi Arabia, the UAE and beyond — visa, attestation and mobilisation included.',
-    photo: '/hero-slide-gulf.webp',
+      'Trade-tested construction, oil & gas and technical workers for leading employers across Saudi Arabia, the UAE, Qatar and Türkiye — visa, attestation and mobilisation included.',
+    photo: '/hero-cutout-worker.webp',
   },
   {
     eyebrow: 'For employers',
@@ -66,17 +65,8 @@ const HERO_SLIDES = [
     titleAccent: 'sourced & mobilised',
     titleRest: ' end-to-end.',
     subtitle:
-      'From bulk hiring to executive search — we handle sourcing, screening, visas, attestation and payroll so you can focus on operations.',
-    photo: '/hero-slide-employers.webp',
-  },
-  {
-    eyebrow: 'Our speciality market',
-    titleLead: 'Skilled talent for ',
-    titleAccent: 'Türkiye’s',
-    titleRest: ' top employers.',
-    subtitle:
-      'One of our strongest corridors — we supply skilled and technical Pakistani workers to leading Turkish construction, EPC, energy and manufacturing companies.',
-    photo: '/hero-slide-turkiye.webp',
+      'From professionals to project-scale teams — we handle sourcing, screening, visas, attestation and payroll so you can focus on operations.',
+    photo: '/hero-cutout-woman.webp',
   },
 ]
 

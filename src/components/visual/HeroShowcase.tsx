@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Globe, Award, ShieldCheck } from 'lucide-react'
 import { Tilt3D } from './Tilt3D'
-import { HeroFlightFx } from './HeroFlightFx'
 
 export type HeroSlide = {
   eyebrow: string
@@ -13,8 +12,8 @@ export type HeroSlide = {
   titleAccent: string
   titleRest?: string
   subtitle: string
+  /** Transparent cut-out portrait (PNG/WebP with alpha) that floats on the light hero. */
   photo: string
-  globe?: boolean
 }
 
 export type HeroShowcaseProps = {
@@ -53,6 +52,29 @@ function FloatCard({
   )
 }
 
+/** Small white "glass" stat chip — reads cleanly over the light hero background. */
+function StatChip({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>
+  label: string
+  value: string
+}) {
+  return (
+    <div className="flex items-center gap-2.5 rounded-2xl border border-border bg-card/80 px-3.5 py-2.5 shadow-xl shadow-black/5 backdrop-blur-md ring-1 ring-white/40 dark:ring-white/5">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--primary)]/10 text-[var(--primary)]">
+        <Icon className="h-5 w-5" />
+      </span>
+      <div className="leading-tight">
+        <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
+        <p className="text-lg font-bold text-foreground">{value}</p>
+      </div>
+    </div>
+  )
+}
+
 export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroShowcaseProps) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
@@ -83,10 +105,10 @@ export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroSh
       <div
         aria-hidden
         className="pointer-events-none absolute -right-32 -top-24 h-[520px] w-[520px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 22%, transparent), transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, color-mix(in oklch, var(--primary) 20%, transparent), transparent 70%)' }}
       />
 
-      <div className="container relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+      <div className="container relative grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-12">
         {/* Left */}
         <div>
           <AnimatePresence mode="wait">
@@ -123,74 +145,69 @@ export function HeroShowcase({ slides, marketCount, primary, secondary }: HeroSh
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-
         </div>
 
-        {/* Right: 3D photo composition + floating cards */}
-        <Tilt3D max={7} className="relative mx-auto w-full max-w-sm lg:mr-0 lg:max-w-md">
-          <div className="relative pt-4" style={{ transformStyle: 'preserve-3d' }}>
-            {/* Per-slide image (crossfades with the slide); globe slide gets animated flights */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-black/5">
-              <AnimatePresence>
+        {/* Right: floating cut-out person on the light hero + glass stat chips */}
+        <Tilt3D max={6} className="relative mx-auto flex w-full max-w-md items-end justify-center">
+          <div className="relative w-full" style={{ transformStyle: 'preserve-3d' }}>
+            {/* soft brand backdrop disc behind the subject */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle at 50% 42%, color-mix(in oklch, var(--primary) 18%, transparent), color-mix(in oklch, var(--gold) 10%, transparent) 55%, transparent 72%)',
+              }}
+            />
+            {/* thin brand ring for depth */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-[46%] -z-10 aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--primary)]/15"
+            />
+
+            {/* ground shadow ellipse */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute bottom-[4%] left-1/2 h-5 w-[58%] -translate-x-1/2 rounded-[50%] bg-black/25 blur-xl"
+            />
+
+            {/* the cut-out portrait */}
+            <div className="relative mx-auto h-[26rem] w-full md:h-[32rem]" style={{ transform: 'translateZ(30px)' }}>
+              <AnimatePresence mode="popLayout">
                 <motion.img
                   key={i}
                   src={s.photo}
                   alt=""
-                  initial={reduce ? false : { opacity: 0, scale: 1.08, x: '0%', y: '0%' }}
-                  animate={reduce ? { opacity: 1 } : { opacity: 1, scale: 1.18, x: '-2.5%', y: '-1.5%' }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    opacity: { duration: 1.2, ease: 'easeInOut' },
-                    scale: { duration: 8, ease: 'easeOut' },
-                    x: { duration: 8, ease: 'easeOut' },
-                    y: { duration: 8, ease: 'easeOut' },
-                  }}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  initial={reduce ? false : { opacity: 0, y: 18, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduce ? { opacity: 0 } : { opacity: 0, y: -14, scale: 0.98 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="absolute inset-0 mx-auto h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_26px_42px_rgba(2,6,23,0.22)]"
                   loading="eager"
                 />
               </AnimatePresence>
-              {/* legibility scrim for the corner labels */}
-              <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-black/0 to-black/40" />
-              {s.globe && <HeroFlightFx className="pointer-events-none absolute inset-0 h-full w-full" />}
             </div>
 
-          {/* Stat labels — card-less, white, floating over the image corners */}
-          <div className="absolute left-4 top-4 md:left-5 md:top-5" style={{ transform: 'translateZ(40px)' }}>
-          <FloatCard reduce={reduce} delay={0.1} className="w-44 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
-                <Globe className="h-5 w-5" />
-              </span>
-              <span className="rounded-full border border-white/25 bg-white/15 px-2 py-0.5 text-[10px] font-semibold text-white">Gulf · EU · Asia</span>
+            {/* Markets served */}
+            <div className="absolute left-0 top-6 md:-left-2" style={{ transform: 'translateZ(60px)' }}>
+              <FloatCard reduce={reduce} delay={0.1}>
+                <StatChip icon={Globe} label="Markets served" value={`${marketCount}+`} />
+              </FloatCard>
             </div>
-            <p className="mt-2 text-xs font-medium text-white/75">Markets served</p>
-            <p className="text-2xl font-bold">{marketCount}+</p>
-          </FloatCard>
-          </div>
 
-          {/* Experience */}
-          <div className="absolute right-4 top-4 text-right md:right-5 md:top-5" style={{ transform: 'translateZ(40px)' }}>
-          <FloatCard reduce={reduce} delay={0.35} className="w-36 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            <span className="ml-auto grid h-9 w-9 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
-              <Award className="h-5 w-5" />
-            </span>
-            <p className="mt-2 text-xs font-medium text-white/75">Experience</p>
-            <p className="text-2xl font-bold">15+ Years</p>
-          </FloatCard>
-          </div>
-
-          {/* Government licence */}
-          <div className="absolute bottom-4 left-4 md:bottom-5 md:left-5" style={{ transform: 'translateZ(60px)' }}>
-          <FloatCard reduce={reduce} delay={0.6} className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-sm">
-              <ShieldCheck className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-[11px] font-medium text-white/75">Govt. Licensed</p>
-              <p className="text-sm font-bold leading-tight">BEOE · OEP 4035</p>
+            {/* Experience */}
+            <div className="absolute right-0 top-24 md:-right-2" style={{ transform: 'translateZ(60px)' }}>
+              <FloatCard reduce={reduce} delay={0.35}>
+                <StatChip icon={Award} label="Experience" value="15+ Years" />
+              </FloatCard>
             </div>
-          </FloatCard>
-          </div>
+
+            {/* Government licence */}
+            <div className="absolute bottom-10 left-0 md:-left-2" style={{ transform: 'translateZ(80px)' }}>
+              <FloatCard reduce={reduce} delay={0.6}>
+                <StatChip icon={ShieldCheck} label="Govt. Licensed" value="BEOE · OEP 4035" />
+              </FloatCard>
+            </div>
           </div>
         </Tilt3D>
       </div>
