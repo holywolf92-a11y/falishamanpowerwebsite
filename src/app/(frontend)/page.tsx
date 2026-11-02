@@ -200,12 +200,13 @@ const HOME_SERVICES = HOME_SERVICE_SLUGS.map((slug) => SERVICES.find((s) => s.sl
   (s): s is (typeof SERVICES)[number] => Boolean(s),
 )
 
-// "Why choose Falisha" benefit checklist — real, licensed-OEP claims.
+// "Why choose Falisha" — concrete, verifiable, Falisha-specific proof points
+// (deliberately not the generic market/process/experience/network sequence).
 const WHY_CHOOSE = [
-  'Deep knowledge of Gulf & Türkiye job markets',
-  'Streamlined, BEOE-compliant recruitment (OEP 4035)',
-  'Premium, accountable client experience',
-  'Vast vetted candidate network, sourced nationwide',
+  'Government-licensed Overseas Employment Promoter — BEOE OEP 4035',
+  'Candidates trade-tested and document-verified before you interview',
+  'Nationwide sourcing — offices in Rawalpindi, Lahore, Karachi, Peshawar & AJK',
+  'Protector of Emigrants clearance on every deployment — no unlawful candidate fees',
   '15+ years placing workers across the Gulf, Europe & Asia',
   'End-to-end: sourcing → visa → attestation → mobilisation',
 ]
